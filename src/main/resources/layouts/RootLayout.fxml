@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?language javascript?>
+
+<?import javafx.scene.control.CustomMenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.web.HTMLEditor?>
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="" stylesheets="" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.RootController">
+    <fx:script source="/js/example.js"/>
+    <fx:define>
+        <Image fx:id="image" url="@/images/chart_1.png" />
+        <ImageView fx:id="imageView" image="$image" />
+        <ContextMenu fx:id="textAreaMenu">
+            <items>
+                <MenuItem mnemonicParsing="false" text="Unspecified Action" />
+                <Menu mnemonicParsing="true" text="_File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleNew" text="New">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="F" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open...">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Save as..." />
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit...">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="true" text="_statistics">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleShowStatistic" text="show statistics" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="true" text="_Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                    </items>
+                </Menu>
+            </items>
+        </ContextMenu>
+    </fx:define>
+    <top>
+      <MenuBar BorderPane.alignment="CENTER">
+         <menus>
+            <Menu mnemonicParsing="true" text="_File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleNew" text="New">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Save">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Save as..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit...">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="true" text="_statistics">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleShowStatistic" text="show statistics" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="true" text="_Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" onMouseClicked="handleContextMenu(event, controller);" onMouseEntered="#handleOnMouseEntered">
+        <contextMenu>
+
+        </contextMenu>
+      </TextArea>
+   </center>
+    <left>
+        <ComboBox fx:id="comboBox" prefWidth="150.0" BorderPane.alignment="TOP_LEFT"/>
+    </left>
+    <bottom>
+        <HTMLEditor fx:id="htmlEditor"  prefHeight="200.0" prefWidth="506.0" BorderPane.alignment="CENTER" />
+    </bottom>
+</BorderPane>

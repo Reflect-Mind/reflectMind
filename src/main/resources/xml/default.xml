@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package>
+    <class>
+        <controller
+                class = "cn.edu.lingnan.controller.BirthdayStatisticController">
+            <filter>cn.edu.lingnan.sdk.CGLibProxy.ConcreteFilter</filter>
+        </controller>
+    </class>
+</package>
