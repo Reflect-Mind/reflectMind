@@ -39,7 +39,6 @@ public class HibernateSessionFactory {
     public static void closeSession(){
         Session session = sessionThreadLocal.get();
         sessionThreadLocal.set(null);
-        System.out.println("closeSession:" + session);
         if (session != null)
             session.close();
     }

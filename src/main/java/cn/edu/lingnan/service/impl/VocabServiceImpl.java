@@ -20,11 +20,4 @@ public class VocabServiceImpl implements VocabService {
         List<Vocab> vocabList = this.vocabDao.getListByHQL(hqlString);
         return vocabList;
     }
-
-    public static void main(String[] args){
-        VocabService vocabService = new VocabServiceImpl();
-        for (Vocab vocab: vocabService.findAllPsyChoVocab()){
-            System.out.println(vocab.getContent() + ":" );
-        }
-    }
 }
