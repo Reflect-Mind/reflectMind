@@ -1,9 +1,13 @@
 package cn.edu.lingnan.sdk.CGLibProxy;
 
+import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
+import cn.edu.lingnan.sdk.algorithms.ahoCorasick.MatchListener;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
+
+import static cn.edu.lingnan.sdk.CGLibProxy.ProxyFactory.getProxyInstance;
 
 /**
  * Created by Administrator on 2018/1/26.
@@ -27,7 +31,17 @@ import java.lang.reflect.Method;
  *
  *  }
  * @param <T>
- */
+ *
+ *
+ *
+ *  拦截器使用案例
+    public static void main(String[] args){
+       AhoCorasick ahoCorasick = new AhoCorasick();
+        Filter<AhoCorasick> filter = new ConcreteFilter<>(ahoCorasick, null);
+        FilterAdapter<AhoCorasick> filterAdapter = new FilterAdapter<>(ahoCorasick, filter);
+        ahoCorasick = getProxyInstance(ahoCorasick, filterAdapter);
+    }
+* */
 public class FilterAdapter<T> implements MethodInterceptor, Filter<T> {
     //被拦截的对象
     private T target = null;

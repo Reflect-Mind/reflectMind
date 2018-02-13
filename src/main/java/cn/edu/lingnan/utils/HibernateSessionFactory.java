@@ -1,11 +1,16 @@
 package cn.edu.lingnan.utils;
 
+import cn.edu.lingnan.pojo.Vocab;
+import cn.edu.lingnan.service.VocabService;
+import cn.edu.lingnan.service.impl.VocabServiceImpl;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/1/21.
@@ -18,7 +23,7 @@ public class HibernateSessionFactory {
     static {
         try {
             Configuration configuration = new Configuration();
-            configuration.configure();
+            configuration.configure("xml/hibernate.cfg.xml");
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             ourSessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) {
@@ -45,4 +50,8 @@ public class HibernateSessionFactory {
     public static SessionFactory getSessionFactory(){
         return ourSessionFactory;
     }
+
+//    public static void main(String[] args){
+//        R.getObjectFromFactory(List.class);
+//    }
 }

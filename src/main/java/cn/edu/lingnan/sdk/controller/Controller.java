@@ -2,6 +2,7 @@ package cn.edu.lingnan.sdk.controller;
 
 import cn.edu.lingnan.sdk.advice.*;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
  */
 public abstract class Controller implements Initializable, Observer, Serializable {
 
+    private Stage stage = null;
     /**
      * 每个控制器自带中介者类
      * 而且接受来自其他类的通知
@@ -20,6 +22,14 @@ public abstract class Controller implements Initializable, Observer, Serializabl
         this.mediator.addObserver(this);
     }
 
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
+    public Stage getStage(){
+        if (this.stage == null)
+            throw new NullPointerException("stage 为 null,请先进行stage值的注入!!");
+        return this.stage;
+    }
     /**
      * 普通事件的监听
      * @param observable

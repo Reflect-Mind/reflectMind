@@ -9,6 +9,8 @@ package cn.edu.lingnan.sdk.CGLibProxy;
  *  TRUNCATE:终止所代理的方法的运行
  *  FORWARD:允许所代理的方法的运行
  * 对各通知方法的解释：
+ * <p>
+ *     <pre>
  *  try{
  *      before(..);
  *      if(aroundBefore(..))
@@ -21,6 +23,8 @@ package cn.edu.lingnan.sdk.CGLibProxy;
  *  finally{
  *
  *  }
+ *      </pre>
+ * </p>
  * @param <T>
  */
 public abstract class AbstractAOP<T> extends AbstractFilter<T>{

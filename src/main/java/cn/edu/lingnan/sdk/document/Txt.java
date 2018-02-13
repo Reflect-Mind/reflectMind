@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  * Created by Administrator on 2018/2/3.
  */
-public class TXT extends FileType {
+public class Txt extends FileType {
     @Override
     public String readContent(InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package>
+    <List class = "cn.edu.lingnan.pojo.Project">
+        <project projectName = ""/>
+
+    </List>
     <class>
         <controller
-                class = "cn.edu.lingnan.controller.BirthdayStatisticController">
+                class = "cn.edu.lingnan.controller.RootController">
             <filter>cn.edu.lingnan.sdk.CGLibProxy.ConcreteFilter</filter>
         </controller>
     </class>

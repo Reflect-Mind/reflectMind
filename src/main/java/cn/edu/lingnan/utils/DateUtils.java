@@ -15,6 +15,11 @@ public class DateUtils {
 
     private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * 将date实例转换为相应的字符串
+     * @param date
+     * @return
+     */
     public static String format(Date date){
         try {
             return format.format(date);
@@ -24,6 +29,11 @@ public class DateUtils {
         }
     }
 
+    /**
+     * 验证目标的格式字符串是否能够转换为date实例
+     * @param date 将被验证的字符串
+     * @return
+     */
     public static boolean validate(String date){
         try {
             format.parse(date);
@@ -33,6 +43,11 @@ public class DateUtils {
         }
     }
 
+    /**
+     * 将目标字符串转换为Date实例
+     * @param date
+     * @return
+     */
     public static Date parse(String date){
         try {
             return format.parse(date);

@@ -30,7 +30,7 @@ public class AhoCorasick {
      * 初始化ac自动机
      * 输入的需要：经过
      * 字典序排序的文本
-     * @param list
+     * @param list Vocab实例的集合
      */
     public void append(List<Vocab> list){
         for(Vocab vocab: list){
@@ -44,7 +44,7 @@ public class AhoCorasick {
      * 初始化ac自动机
      * 输入的需要：经过
      * 字典序排序的文本
-     * @param words
+     * @param words 单词数组
      */
     public void append(String[] words){
         for (String word: words)
@@ -81,7 +81,7 @@ public class AhoCorasick {
      * 把单个单词对象添加至
      * 字典树当中，并局部构建
      * 失配指针
-     * @param vocab
+     * @param vocab Vocab对象
      */
     public void append(Vocab vocab){
         String word = vocab.getContent();

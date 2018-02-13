@@ -92,7 +92,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 *            HQL语句
 	 * @param values
 	 *            不定参数的Object数组
-	 * @return 查询实体
+	 * @return T 查询实体
 	 * @see )
 	 */
 	@Override  //  "from Auction a a.name=? and a.xxx=?"  

@@ -28,6 +28,7 @@ public class XMLObjectFactory implements Serializable{
     private HashMap<Class, Object> hashMap = new HashMap<>();
     private Object targetObject;
     private Object elementObject;
+    private Node node;
     public XMLObjectFactory(){}
     public XMLObjectFactory(String path){
         File file = new File(this.getClass().getResource(path).getPath());
@@ -39,7 +40,7 @@ public class XMLObjectFactory implements Serializable{
             document.getDocumentElement().normalize();
             XPath xPath = XPathFactory.newInstance().newXPath();
             String expression = "/package";
-            Node node = (Node) xPath.compile(expression).evaluate(document, XPathConstants.NODE);
+            this.node = (Node) xPath.compile(expression).evaluate(document, XPathConstants.NODE);
             this.ergodicChildElements(node);
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,9 +110,8 @@ public class XMLObjectFactory implements Serializable{
         }
     }
 
-    public <T> T getObject(Class<T> clazz){
+    public <T> T getObject(Class<?> clazz){
         T instance = (T) this.hashMap.get(clazz);
-
         return instance;
     }
 

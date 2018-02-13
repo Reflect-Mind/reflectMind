@@ -1,7 +1,6 @@
 package cn.edu.lingnan.sdk.document;
 
 import cn.edu.lingnan.utils.R;
-import javafx.fxml.FXML;
 import org.junit.Test;
 
 import java.io.*;
@@ -34,7 +33,7 @@ public class DocumentTest {
     }
     @Test
     public void readTxtDocumentTest() throws FileNotFoundException {
-        TXT txt = new DocumentFactory().createFileBuilder(TXT.class);
+        Txt txt = new DocumentFactory().createFileBuilder(Txt.class);
         String string = txt.readContent(new FileInputStream("D://outcome.txt"));
         List<String> list = new ArrayList<>();
         System.out.println(string);

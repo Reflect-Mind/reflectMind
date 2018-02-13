@@ -8,4 +8,5 @@ import javafx.stage.Stage;
  */
 public abstract class AbstractView {
     protected Stage stage = R.getApplication().getStage();
+
 }

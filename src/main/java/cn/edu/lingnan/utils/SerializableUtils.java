@@ -1,5 +1,6 @@
 package cn.edu.lingnan.utils;
 
+import javax.swing.*;
 import java.io.*;
 
 /**
@@ -13,9 +14,17 @@ import java.io.*;
  */
 public class SerializableUtils {
     private SerializableUtils(){}
+
+    /**
+     * 获取该上次保存的该类的实例
+     * 当没有找到对应的类的实例时,则新建该类的实例
+     * @param clz 获取上次状态的目标类对应的实例
+     * @param <T>
+     * @return 目标类的实例
+     */
     public static <T> T getLastState(Class<T> clz){
         String name = clz.getName();
-        InputStream inputStream = clz.getClassLoader().getResourceAsStream("tmp/" + name);
+        InputStream inputStream = SerializableUtils.class.getClassLoader().getResourceAsStream("tmp/" + name);
         T instance = null;
         if (inputStream != null) {
             try (ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(inputStream))) {
@@ -37,10 +46,16 @@ public class SerializableUtils {
         }
         return instance;
     }
+
+    /**
+     * 保存目标类的对象的到磁盘中
+     * @param target 目标类
+     * @param <T>
+     */
     public static <T>  void saveCurrentState(T target){
         String className = target.getClass().getName();
         try  {
-            String basePath = target.getClass().getClassLoader().getResource("").getPath();
+            String basePath = SerializableUtils.class.getClassLoader().getResource("").getPath();
             File directory = new File(basePath, "tmp");
             if (!directory.exists())
                 directory.mkdir();
@@ -57,7 +72,15 @@ public class SerializableUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }  finally {
-
         }
     }
+
+//    public static void main(String[] args){
+//        Long a = System.currentTimeMillis();
+//        JFrame frame = new JFrame();
+//        System.out.println(System.currentTimeMillis() - a);
+//        a = System.currentTimeMillis();
+//        frame = SerializableUtils.getLastState(JFrame.class);
+//        System.out.println(System.currentTimeMillis() - a);
+//    }
 }
