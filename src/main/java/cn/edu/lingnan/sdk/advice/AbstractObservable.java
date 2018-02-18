@@ -42,7 +42,8 @@ public abstract class AbstractObservable {
      * @param args 通知的相关参数
      */
     public <V> Task<V> update(Observer observer,
-                                        Class<? extends Observer>[] targets, Object... args){
+                                        Class<? extends Observer>[] targets,
+                                        ApplicationEvent event, Object... args){
 
         Task<V> task = new Task<V>() {
             @Override
@@ -51,7 +52,7 @@ public abstract class AbstractObservable {
                 for (Class clz: targets){
                     for (Observer candidate: observerVector){
                         if (candidate.getClass() == clz)
-                            candidate.update(AbstractObservable.this, observer, args);
+                            candidate.update(AbstractObservable.this, observer,event, args);
                     }
                 }
 

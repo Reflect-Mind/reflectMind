@@ -1,13 +1,9 @@
 package cn.edu.lingnan.sdk.CGLibProxy;
 
-import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
-import cn.edu.lingnan.sdk.algorithms.ahoCorasick.MatchListener;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
-
-import static cn.edu.lingnan.sdk.CGLibProxy.ProxyFactory.getProxyInstance;
 
 /**
  * Created by Administrator on 2018/1/26.
@@ -36,9 +32,9 @@ import static cn.edu.lingnan.sdk.CGLibProxy.ProxyFactory.getProxyInstance;
  *
  *  拦截器使用案例
     public static void main(String[] args){
-       AhoCorasick ahoCorasick = new AhoCorasick();
-        Filter<AhoCorasick> filter = new ConcreteFilter<>(ahoCorasick, null);
-        FilterAdapter<AhoCorasick> filterAdapter = new FilterAdapter<>(ahoCorasick, filter);
+       AhoCorasickImpl ahoCorasick = new AhoCorasickImpl();
+        Filter<AhoCorasickImpl> filter = new ConcreteFilter<>(ahoCorasick, null);
+        FilterAdapter<AhoCorasickImpl> filterAdapter = new FilterAdapter<>(ahoCorasick, filter);
         ahoCorasick = getProxyInstance(ahoCorasick, filterAdapter);
     }
 * */

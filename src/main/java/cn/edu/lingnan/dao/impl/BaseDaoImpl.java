@@ -154,7 +154,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			}
 		}
 		List<T> list = query.list();
-		HibernateSessionFactory.closeSession();
+		//HibernateSessionFactory.closeSession();
 		return list;
 	}
 

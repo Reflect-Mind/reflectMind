@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import org.controlsfx.control.HiddenSidesPane?>
+
+<!--
+    文本工作区间布局
+-->
+
+<?import org.fxmisc.richtext.StyleClassedTextArea?>
+<?import org.fxmisc.flowless.VirtualizedScrollPane?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.TextWorkspaceController">
+   <children>
+      <TabPane prefHeight="400.0" prefWidth="600.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Untitled Tab 1">
+               <content>
+                   <SplitPane dividerPositions="0.2">
+                       <fx:include source="nav.fxml" />
+                     <StackPane>
+                        <children>
+                            <HiddenSidesPane fx:id="hiddenSidesPane">
+                                <content>
+                                    <VirtualizedScrollPane fx:id="virtualizedScrollPane">
+                                        <content>
+                                            <StyleClassedTextArea fx:id="textArea"/>
+                                        </content>
+                                    </VirtualizedScrollPane>
+                                </content>
+                                <right>
+                                    <fx:include fx:id="textWorkspaceRight" source="TextWorkspaceLayout$Right.fxml" />
+                                </right>
+                            </HiddenSidesPane>
+                        </children>
+                     </StackPane>
+                   </SplitPane>
+               </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

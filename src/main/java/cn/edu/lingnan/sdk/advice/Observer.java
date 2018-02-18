@@ -8,6 +8,6 @@ package cn.edu.lingnan.sdk.advice;
  */
 public interface Observer {
 
-    public abstract <T> void update(AbstractObservable observable, T observer, Object... args);
+    public abstract <T> void update(AbstractObservable observable, T observer, ApplicationEvent event, Object... args);
     public abstract <T> void update(AbstractObservable observable, T observer, ApplicationEvent event);
 }

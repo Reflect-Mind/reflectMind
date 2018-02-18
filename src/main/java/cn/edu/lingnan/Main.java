@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
 public class Main extends Application{
 
     private Stage stage = null;
-    private BorderPane pane;
+    private VBox pane;
 
     public void start(Stage primaryStage) throws Exception {
         //为代理资源者设置资源者

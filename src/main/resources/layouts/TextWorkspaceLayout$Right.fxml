@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox fx:controller="cn.edu.lingnan.controller.TextWorkspaceRightController"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ToolBar>
+         <items>
+            <Label text="操作" />
+         </items>
+      </ToolBar>
+      <Accordion VBox.vgrow="ALWAYS">
+         <panes>
+            <TitledPane animated="false" text="词汇统计">
+               <content>
+                  <JFXTreeTableView>
+                     <columns>
+                        <TreeTableColumn minWidth="30.0" text="主题" />
+                        <TreeTableColumn minWidth="30.0" text="分类" />
+                        <TreeTableColumn minWidth="30.0" text="频数" />
+                        <TreeTableColumn minWidth="30.0" text="频率" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </JFXTreeTableView>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="新词预测">
+               <content>
+                  <AnchorPane />
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="未登录词">
+               <content>
+                  <AnchorPane />
+               </content>
+            </TitledPane>
+         </panes>
+      </Accordion>
+   </children>
+</VBox>

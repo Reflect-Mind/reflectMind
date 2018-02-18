@@ -16,7 +16,7 @@ public class VocabServiceImpl implements VocabService {
 
     @Override
     public List<Vocab> findAllPsyChoVocab() {
-        String hqlString  = "from Vocab order where categoryId is  null order by content";
+        String hqlString  = "from Vocab order order by content";
         List<Vocab> vocabList = this.vocabDao.getListByHQL(hqlString);
         return vocabList;
     }

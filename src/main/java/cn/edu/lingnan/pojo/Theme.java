@@ -10,6 +10,7 @@ import java.util.Collection;
 public class Theme {
     private Integer id;
     private String content;
+    private String belongTo;
     private Collection<Category> categoriesById;
 
     @Id
@@ -33,6 +34,16 @@ public class Theme {
         this.content = content;
     }
 
+    @Basic
+    @Column(name = "belongto")
+    public String getBelongTo() {
+        return belongTo;
+    }
+
+    public void setBelongTo(String belongTo) {
+        this.belongTo = belongTo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,7 +53,7 @@ public class Theme {
 
         if (id != null ? !id.equals(theme.id) : theme.id != null) return false;
         if (content != null ? !content.equals(theme.content) : theme.content != null) return false;
-
+        if (belongTo != null? !belongTo.equals(theme.belongTo): theme.belongTo != null) return false;
         return true;
     }
 
