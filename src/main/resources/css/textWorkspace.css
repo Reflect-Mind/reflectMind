@@ -1,0 +1,28 @@
+.styled-text-area{
+    -fx-font-family: Consolas;
+    -fx-font-size: 18px;
+}
+.line-box{
+    -fx-background-color: #f0f0f0;
+    -fx-font-family: monospace;
+    -fx-font-size: 14px;
+}
+.current-paragraph{
+    -fx-background-color:#fffae3;
+}
+
+.answer-title{
+    -fx-fill: #000080;
+    -fx-stroke: #000080;
+    -fx-stroke-width: 1px;
+    -fx-stroke-type:centered;
+}
+.parentheses{
+    -fx-fill: #808080;
+    -fx-font-style: italic;
+    -fx-font-size: 14px;
+}
+.keyword{
+    -fx-fill: #0000ff;
+
+}

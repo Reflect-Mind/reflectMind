@@ -7,4 +7,7 @@ import javafx.concurrent.Task;
  */
 public abstract class AbstractCommand<V> extends Task<V>{
 
+    protected V call() throws Exception {
+        return null;
+    }
 }

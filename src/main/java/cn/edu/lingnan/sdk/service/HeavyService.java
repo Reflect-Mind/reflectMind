@@ -32,7 +32,6 @@ public  class HeavyService<V> extends ScheduledService<V>{
     @Override
     protected synchronized final Task<V> createTask() {
         Task<V> command = null;
-        System.out.println(this.commandList.size());
         command = this.commandList.poll();
         return command;
     }

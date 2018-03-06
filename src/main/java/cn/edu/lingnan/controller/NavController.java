@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Administrator on 2018/2/18.
  */
-public class navController extends Controller {
+public class NavController extends Controller {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -4,8 +4,13 @@ import cn.edu.lingnan.Main;
 import cn.edu.lingnan.sdk.XMLParser.XMLObjectFactory;
 import cn.edu.lingnan.sdk.advice.*;
 import cn.edu.lingnan.sdk.overlay.CustomXMLLoader;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
+import javafx.util.Pair;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -103,6 +108,15 @@ public class R {
         return owner.getConfig();
     }
 
+    /**
+     * 获取模拟事件机器人
+     * 常用于文本区域的便捷输入
+     * @return Robot实例
+     */
+    public static Robot getRobot(){
+        return owner.getRobot();
+    }
+
    //资源拥有者
    public static class Owner{
        private Owner(){}
@@ -114,13 +128,31 @@ public class R {
         */
        private XMLObjectFactory objectFactory = null;
        /**
-        *
+        * 初始化当前任务属性,用于属性变更的通知
         */
-       private HashMap<String, Object> objectHashMap = new HashMap<>();
+       private HashMap<String, Object> objectHashMap = new HashMap<String, Object>()
+       {
+           {
+               this.put("currentTask", new SimpleObjectProperty<Task>());
+               this.put("run", new SimpleBooleanProperty(false));
+           }
+       };
        private Main application = null;
        public void setApplication(Main _application){
            application = _application;
        }
+
+       private Robot robot = null;
+       public Robot getRobot(){
+           if (this.robot == null)
+               try {
+                   this.robot = new Robot();
+               } catch (AWTException e) {
+                   e.printStackTrace();
+               }
+               return this.robot;
+       }
+
        public  InputStream getResourceAsStream(String fileName){
 
            return classLoader.getResourceAsStream(fileName);

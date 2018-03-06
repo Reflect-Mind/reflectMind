@@ -36,6 +36,7 @@ public class AhoCorasickImpl implements AhoCorasick{
     public void append(List<Vocab> list){
         for(Vocab vocab: list){
             String word = vocab.getContent();
+            System.out.println(word);
             this.init(word);
         }
         this.buildFailPoint(this.root);
@@ -86,10 +87,7 @@ public class AhoCorasickImpl implements AhoCorasick{
      */
     public void append(Vocab vocab){
         String word = vocab.getContent();
-        Node flashNode = this.init(word);
-        if (flashNode == null)
-            return;
-        this.buildFailPoint(flashNode);
+        this.append(word);
     }
 
     /**
@@ -102,6 +100,8 @@ public class AhoCorasickImpl implements AhoCorasick{
         Node flashNode = this.init(word);
         if (flashNode == null)
             return;
+        if (flashNode.depth == 1)
+            flashNode.fail = this.root;
         this.buildFailPoint(flashNode);
     }
 
@@ -175,8 +175,9 @@ public class AhoCorasickImpl implements AhoCorasick{
                     Node grandNode = parent.fail;
                     while (grandNode != null){
                         int index = this.indexOf(grandNode, child.code);
-                        if (index != -1) {//找到uncle
-                            Node uncle = grandNode.children.get(index);
+                        Node uncle = null;
+                        if (index != -1 && (uncle = grandNode.children.get(index)) != parent) {//找到uncle
+                            //Node uncle = grandNode.children.get(index);
                             child.fail = uncle;//失配指针
                             uncle.pre = child;//前驱指针
                             break;
@@ -229,9 +230,14 @@ public class AhoCorasickImpl implements AhoCorasick{
                 while(parent != null){
                     index = this.indexOf(parent, letter);
                     if (index != -1){
-                        if (start != -1 && parent == this.root ) {
+                        if (start != -1 && parent == this.root && start < end) {
                             //System.out.println("失配：" + text.substring(start, end) + ":" + parent.code);
-                            matchListener.match(text.substring(start, end), start, end);
+                            try {
+                                matchListener.match(text.substring(start, end), start, end);
+                            } catch (IndexOutOfBoundsException e){
+                                //System.out.println(text.charAt(start) + ": " + text.charAt(end - 1));
+                                e.printStackTrace();
+                            }
                         }
                         start = count;
                         if (parent != this.root)
@@ -243,11 +249,19 @@ public class AhoCorasickImpl implements AhoCorasick{
                         //System.out.println("失配：else" + text.substring(start, end));
                         parent = parent.fail;
                 }
-                //找到关键词,输出
+                //找到关键词,输出，注意失常匹配，在有上次匹配结果后
+                //今次无匹配, 但 end 与 start 为 非 -1, start 会出现
+                //超界现象:无限受字，但没有点。
                 if (parent == null){
-                    if (start != -1) {
+                    //if (start != -1 && end != -1) {
+                      if (start < end && start != -1) {
                         //System.out.println("失配：" + text.substring(start, end));
-                        matchListener.match(text.substring(start, end), start, end);
+                        try {
+                            matchListener.match(text.substring(start, end), start, end);
+                        } catch (IndexOutOfBoundsException e){
+                            //System.out.println(start + ":" + end);
+                            e.printStackTrace();
+                        }
                     }
                     parent = this.root;
                     start = -1;

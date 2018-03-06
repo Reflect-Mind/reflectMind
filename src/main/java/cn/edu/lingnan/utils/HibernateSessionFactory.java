@@ -19,8 +19,8 @@ public class HibernateSessionFactory {
 
     private static ThreadLocal<Session> sessionThreadLocal = null;
     private HibernateSessionFactory(){}
-    private static final SessionFactory ourSessionFactory;
-    static {
+    private static  SessionFactory ourSessionFactory;
+    public static void init () {
         try {
             Configuration configuration = new Configuration();
             configuration.configure("xml/hibernate.cfg.xml");
@@ -52,6 +52,8 @@ public class HibernateSessionFactory {
     }
 
 //    public static void main(String[] args){
-//        R.getObjectFromFactory(List.class);
+//        HibernateSessionFactory.init();
+//        VocabService vocabService = new VocabServiceImpl();
+//        vocabService.findAllPsyChoVocab();
 //    }
 }

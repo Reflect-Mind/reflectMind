@@ -14,6 +14,10 @@ import java.util.prefs.Preferences;
 
 /**
  * 全局参数设置工具包
+ * 设置的参数情况:
+ *  basePath:   基础路径
+ *  LocalProject: 当前对象名称
+ *
  */
 public class PreferencesUtils {
 

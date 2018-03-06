@@ -5,38 +5,37 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import org.controlsfx.control.HiddenSidesPane?>
 
 <!--
     文本工作区间布局
 -->
 
-<?import org.fxmisc.richtext.StyleClassedTextArea?>
+<?import org.controlsfx.control.HiddenSidesPane?>
 <?import org.fxmisc.flowless.VirtualizedScrollPane?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.TextWorkspaceController">
+<?import org.fxmisc.richtext.StyleClassedTextArea?>
+<?import org.fxmisc.richtext.CodeArea?>
+<?import org.controlsfx.control.spreadsheet.SpreadsheetView?>
+<AnchorPane stylesheets="@/css/textWorkspace.css" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.TextWorkspaceController">
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Untitled Tab 1">
                <content>
-                   <SplitPane dividerPositions="0.2">
-                       <fx:include source="nav.fxml" />
-                     <StackPane>
-                        <children>
-                            <HiddenSidesPane fx:id="hiddenSidesPane">
-                                <content>
-                                    <VirtualizedScrollPane fx:id="virtualizedScrollPane">
-                                        <content>
-                                            <StyleClassedTextArea fx:id="textArea"/>
-                                        </content>
-                                    </VirtualizedScrollPane>
-                                </content>
-                                <right>
-                                    <fx:include fx:id="textWorkspaceRight" source="TextWorkspaceLayout$Right.fxml" />
-                                </right>
-                            </HiddenSidesPane>
-                        </children>
-                     </StackPane>
+                   <SplitPane dividerPositions="0.2,0.8">
+                       <fx:include source="TextWorkspaceLayout$nav.fxml" />
+                         <HiddenSidesPane fx:id="hiddenSidesPane">
+                             <top>
+                                 <fx:include source="TextWorkspaceLayout$player.fxml"/>
+                             </top>
+                             <content>
+                                 <VirtualizedScrollPane fx:id="virtualizedScrollPane">
+                                     <content>
+                                         <CodeArea fx:id="textArea"/>
+                                     </content>
+                                 </VirtualizedScrollPane>
+                             </content>
+                         </HiddenSidesPane>
+                     <fx:include fx:id="textWorkspaceManipulate" source="TextWorkspaceLayout$Manipulate.fxml" />
                    </SplitPane>
                </content>
           </Tab>

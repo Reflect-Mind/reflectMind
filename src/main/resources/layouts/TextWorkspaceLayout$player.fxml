@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXSlider?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:controller="cn.edu.lingnan.controller.AudioPlayerController" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" stylesheets="@/css/playerBar.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Button fx:id="rewind" onAction="#fastPrevious">
+            <graphic>
+                <MaterialDesignIconView glyphName="SKIP_PREVIOUS" glyphSize="13" size="17" />
+            </graphic>
+        </Button>
+      <Button fx:id="play" >
+         <graphic>
+            <MaterialDesignIconView onMouseClicked="#setOnMouseClickedWithIcon" fx:id="icon" glyphName="PLAY_CIRCLE_OUTLINE" glyphSize="13" size="22" />
+         </graphic>
+      </Button>
+      <Button fx:id="forward" onAction="#fastForward">
+         <graphic>
+            <MaterialDesignIconView glyphName="SKIP_NEXT" glyphSize="13" size="17" />
+         </graphic>
+      </Button>
+      <JFXSlider fx:id="slider" indicatorPosition="RIGHT" HBox.hgrow="ALWAYS" />
+      <Label fx:id="current" text="00:00" />
+      <Label text="/" />
+      <Label fx:id="total" text="00:00" />
+    </children>
+   <padding>
+      <Insets bottom="2.0" left="30" right="10" top="10.0" />
+   </padding>
+</HBox>
