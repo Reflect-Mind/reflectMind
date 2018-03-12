@@ -7,6 +7,8 @@ import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasickImpl;
 import cn.edu.lingnan.sdk.overlay.AudioPlayer;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -76,6 +78,15 @@ public class Config implements Serializable{
     PhaseContainer<Integer> phaseContainer = new PhaseContainerImpl();
     public PhaseContainer<Integer> getPhaseContainer() {
         return phaseContainer;
+    }
+
+    //文本字符串
+    private StringProperty textProperty = new SimpleStringProperty();
+    public String getTextProperty() {
+        return textProperty.get();
+    }
+    public StringProperty textPropertyProperty() {
+        return textProperty;
     }
 
     /**

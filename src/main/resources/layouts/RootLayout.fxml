@@ -15,36 +15,40 @@
     <children>
       <MenuBar>
         <menus>
-
-          <Menu mnemonicParsing="false" text="文件">
+          <Menu mnemonicParsing="true" text="文件">
             <items>
               <MenuItem mnemonicParsing="false" text="关闭" />
             </items>
           </Menu>
-
           <Menu mnemonicParsing="false" text="编辑">
             <items>
                 <MenuItem mnemonicParsing="false" text="删除" />
             </items>
           </Menu>
-
-            <Menu mnemonicParsing="false" text="查询">
-                <items>
-                    <MenuItem mnemonicParsing="false" text="词频查询" />
-                </items>
+            <Menu mnemonicParsing="false" text="格式">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
             </Menu>
-
+            <Menu mnemonicParsing="false" text="运行">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="分析">
-                <items>
-                    <MenuItem mnemonicParsing="false" text="基调分析" />
-                    <MenuItem mnemonicParsing="false" text="自我认同分析" />
-                    <MenuItem mnemonicParsing="false" text="人格分析" />
-                </items>
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
             </Menu>
-
+            <Menu mnemonicParsing="false" text="音频">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="帮助">
             <items>
-              <MenuItem mnemonicParsing="false" text="关于" />
+              <MenuItem mnemonicParsing="false" text="帮助" />
+                  <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
 

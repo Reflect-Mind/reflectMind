@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
 
 <!--
     文本工作区间布局
@@ -12,40 +11,42 @@
 
 <?import org.controlsfx.control.HiddenSidesPane?>
 <?import org.fxmisc.flowless.VirtualizedScrollPane?>
-<?import org.fxmisc.richtext.StyleClassedTextArea?>
 <?import org.fxmisc.richtext.CodeArea?>
-<?import org.controlsfx.control.spreadsheet.SpreadsheetView?>
-<AnchorPane stylesheets="@/css/textWorkspace.css" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.TextWorkspaceController">
+<AnchorPane stylesheets="@/css/textWorkspace.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.TextWorkspaceController">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
-          <Tab text="Untitled Tab 1">
-               <content>
-                   <SplitPane dividerPositions="0.2,0.8">
-                       <fx:include source="TextWorkspaceLayout$nav.fxml" />
-                         <HiddenSidesPane fx:id="hiddenSidesPane">
-                             <top>
-                                 <fx:include source="TextWorkspaceLayout$player.fxml"/>
-                             </top>
-                             <content>
-                                 <VirtualizedScrollPane fx:id="virtualizedScrollPane">
-                                     <content>
-                                         <CodeArea fx:id="textArea"/>
-                                     </content>
-                                 </VirtualizedScrollPane>
-                             </content>
-                         </HiddenSidesPane>
-                     <fx:include fx:id="textWorkspaceManipulate" source="TextWorkspaceLayout$Manipulate.fxml" />
-                   </SplitPane>
-               </content>
-          </Tab>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-              </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+       <TabPane side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+           <tabs>
+               <Tab text="文本域">
+                   <HiddenSidesPane fx:id="hiddenSidesPane">
+                       <top>
+                           <fx:include source="TextWorkspaceLayout$player.fxml"/>
+                       </top>
+                       <content>
+                           <VirtualizedScrollPane fx:id="virtualizedScrollPane">
+                               <content>
+                                   <CodeArea fx:id="textArea"/>
+                               </content>
+                           </VirtualizedScrollPane>
+                       </content>
+                   </HiddenSidesPane>
+                   <!--<TextArea />-->
+               </Tab>
+               <Tab text="概览">
+
+               </Tab>
+               <Tab text="基调分析">
+                   <fx:include source="ViewWorkspaceLayout.fxml">
+
+                   </fx:include>
+               </Tab>
+               <Tab text="自我认同分析">
+
+               </Tab>
+               <Tab text="人格分析">
+
+               </Tab>
+           </tabs>
+       </TabPane>
+
    </children>
 </AnchorPane>
