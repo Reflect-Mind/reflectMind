@@ -15,23 +15,42 @@
     <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+
+          <Menu mnemonicParsing="false" text="文件">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="关闭" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+
+          <Menu mnemonicParsing="false" text="编辑">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+                <MenuItem mnemonicParsing="false" text="删除" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+
+            <Menu mnemonicParsing="false" text="查询">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="词频查询" />
+                </items>
+            </Menu>
+
+            <Menu mnemonicParsing="false" text="分析">
+                <items>
+                    <MenuItem mnemonicParsing="false" text="基调分析" />
+                    <MenuItem mnemonicParsing="false" text="自我认同分析" />
+                    <MenuItem mnemonicParsing="false" text="人格分析" />
+                </items>
+            </Menu>
+
+          <Menu mnemonicParsing="false" text="帮助">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="关于" />
             </items>
           </Menu>
+
         </menus>
       </MenuBar>
+
       <ToolBar prefHeight="20.0">
          <items>
             <BreadCrumbBar fx:id="breadCrumb" />
