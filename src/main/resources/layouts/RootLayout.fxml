@@ -15,19 +15,40 @@
     <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="true" text="文件">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="编辑">
             <items>
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="格式">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="运行">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="分析">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="音频">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="帮助">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="帮助" />
+                  <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>

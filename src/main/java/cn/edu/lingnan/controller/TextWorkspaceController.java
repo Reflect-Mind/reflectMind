@@ -100,6 +100,8 @@ public class TextWorkspaceController extends Controller {
             });
 
         }));
+        //绑定config中的文本字符串
+        R.getConfig().textPropertyProperty().bind(this.textArea.textProperty());
     }
 
     private void initPlayer(){
