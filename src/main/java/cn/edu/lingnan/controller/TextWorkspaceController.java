@@ -7,7 +7,9 @@ import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -88,7 +90,6 @@ public class TextWorkspaceController extends Controller {
         run.addListener(((observable, oldValue, newValue) -> {
             if (newValue) {
                 this.highlightCommand.updateAhoMatchingData();
-
             }
         }));
         //当前段落样式
@@ -100,8 +101,25 @@ public class TextWorkspaceController extends Controller {
             });
 
         }));
-        //绑定config中的文本字符串
-        R.getConfig().textPropertyProperty().bind(this.textArea.textProperty());
+
+        //textProperty被修改时textArea将接受到通知并及时更新文本域中的字符串
+        StringProperty textProperty = R.getConfig().textPropertyProperty();
+        this.textArea.textProperty().addListener(((observable, oldValue, newValue) -> {
+            textProperty.setValue(newValue);
+        }));
+        textProperty.addListener(((observable, oldValue, newValue) -> {
+            this.textArea.replaceText(newValue);
+        }));
+
+        //自动更新文本域跳转值
+        IntegerProperty showParagraph = R.getConfig().showParagraphProperty();
+        showParagraph.addListener(((observable, oldValue, newValue) -> {
+            this.textArea.showParagraphAtTop(newValue.intValue());
+            this.textArea.moveTo(newValue.intValue(), 0);
+        }));
+        //
+
+
     }
 
     private void initPlayer(){

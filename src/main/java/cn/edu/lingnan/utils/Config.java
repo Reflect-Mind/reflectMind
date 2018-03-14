@@ -6,9 +6,8 @@ import cn.edu.lingnan.sdk.Container.PhaseContainerImpl;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasickImpl;
 import cn.edu.lingnan.sdk.overlay.AudioPlayer;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -87,6 +86,12 @@ public class Config implements Serializable{
     }
     public StringProperty textPropertyProperty() {
         return textProperty;
+    }
+
+    //展示某段落，用于导航区域的点击指向相应的段落。
+    private IntegerProperty showParagraph = new SimpleIntegerProperty();
+    public IntegerProperty showParagraphProperty() {
+        return showParagraph;
     }
 
     /**

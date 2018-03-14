@@ -1,4 +1,4 @@
-package cn.edu.lingnan.sdk.algorithms.Classifier;
+package cn.edu.lingnan.sdk.algorithms.classifier;
 
 /**
  * Created by Administrator on 2018/3/11.
@@ -13,8 +13,12 @@ public class ClassifierImpl implements Classifier{
         this.model = model;
     }
 
-    @Override
+    /**
+     * 预测该段文件的所属
+     * @param text
+     * @return
+     */
     public String predict(String text) {
-        return null;
+        return this.model.predict(text);
     }
 }
