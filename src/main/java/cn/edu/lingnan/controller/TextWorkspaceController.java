@@ -78,6 +78,7 @@ public class TextWorkspaceController extends Controller {
         this.initHiddenSidesPane();
         this.richChanged();
         this.othersActionListener();
+        this.highlightCommand.updateAhoMatchingData();
         //this.initPlayer();
     }
 
@@ -86,12 +87,12 @@ public class TextWorkspaceController extends Controller {
      */
     private void othersActionListener(){
         //运行通知
-        BooleanProperty run = (BooleanProperty) R.getParameters("run");
-        run.addListener(((observable, oldValue, newValue) -> {
-            if (newValue) {
-                this.highlightCommand.updateAhoMatchingData();
-            }
-        }));
+//        BooleanProperty run = (BooleanProperty) R.getParameters("run");
+//        run.addListener(((observable, oldValue, newValue) -> {
+//            if (newValue) {
+//                this.highlightCommand.updateAhoMatchingData();
+//            }
+//        }));
         //当前段落样式
         this.textArea.currentParagraphProperty().addListener(((observable, oldValue, newValue) -> {
             Platform.runLater(() ->{
@@ -108,6 +109,8 @@ public class TextWorkspaceController extends Controller {
             textProperty.setValue(newValue);
         }));
         textProperty.addListener(((observable, oldValue, newValue) -> {
+            if (newValue.equals(this.textArea.getText()))
+                return;
             this.textArea.replaceText(newValue);
         }));
 
@@ -117,9 +120,13 @@ public class TextWorkspaceController extends Controller {
             this.textArea.showParagraphAtTop(newValue.intValue());
             this.textArea.moveTo(newValue.intValue(), 0);
         }));
-        //
 
-
+        IntegerProperty currentColumn = R.getConfig().currentColumnProperty();
+        IntegerProperty currentParagraph = R.getConfig().currentParagraphProperty();
+        //绑定当前行号
+        currentParagraph.bind(this.textArea.currentParagraphProperty());
+        //绑定当前列号
+        currentColumn.bind(this.textArea.caretColumnProperty());
     }
 
     private void initPlayer(){
@@ -249,8 +256,8 @@ public class TextWorkspaceController extends Controller {
                 textReformedTask.setOnSucceeded(e ->{
                     this.textArea.replaceText(textReformedTask.getValue());
                     this.textArea.setDisable(false);
-                    BooleanProperty run = (BooleanProperty) R.getParameters("run");
-                    run.set(true);
+//                    BooleanProperty run = (BooleanProperty) R.getParameters("run");
+//                    run.set(true);
                 });
                 textReformedTask.setOnFailed(e -> {
                     System.out.println(textReformedTask.getException());

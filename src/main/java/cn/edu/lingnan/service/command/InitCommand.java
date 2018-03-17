@@ -63,26 +63,22 @@ public class InitCommand extends AbstractCommand<Integer>{
     }
     protected Integer call() throws Exception {
 
-        Platform.runLater(() -> {
-            String basePath =  PreferencesUtils.getParametersAsString("basePath");
-            DialogView dialogView = new DialogView();
-            if (basePath == null || basePath.equals("")) {
-                TextInputDialog dialog = dialogView.showTextInputDialog();
-                Optional<String> stringOptional = dialog.showAndWait();
-                if (stringOptional.isPresent()) {
-                    basePath = stringOptional.get();
-                    //PreferencesUtils.setParametersAsString("basePath", null);
-                }
+        String basePath =  PreferencesUtils.getParametersAsString("basePath");
+        DialogView dialogView = new DialogView();
+        if (basePath == null || basePath.equals("")) {
+            TextInputDialog dialog = dialogView.showTextInputDialog();
+            Optional<String> stringOptional = dialog.showAndWait();
+            if (stringOptional.isPresent()) {
+                basePath = stringOptional.get();
+                //PreferencesUtils.setParametersAsString("basePath", null);
             }
-            //依然为空,则将跳出程序
-            if(basePath == null)
-                return;
-            Task task = this.loadingTask();
-            ProgressDialog progressDialog = new ProgressDialog(task);
-            progressDialog.showAndWait();
-            R.getApplication().getStage().show();
-        });
-
+        }
+        //依然为空,则将跳出程序
+        if(basePath == null)
+            System.exit(1);
+        Task task = this.loadingTask();
+        ProgressDialog progressDialog = new ProgressDialog(task);
+        progressDialog.showAndWait();
         return null;
     }
 }

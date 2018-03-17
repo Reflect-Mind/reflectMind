@@ -53,18 +53,8 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ToolBar prefHeight="20.0">
-         <items>
-            <BreadCrumbBar fx:id="breadCrumb" />
-         </items>
-      </ToolBar>
+      <fx:include source="ToolBarLayout.fxml" prefHeight="20.0"/>
       <fx:include fx:id="workspace" prefHeight="200.0" prefWidth="200.0" source="WorkspaceLayout.fxml" VBox.vgrow="ALWAYS" />
-      <HBox VBox.vgrow="NEVER">
-         <children>
-            <Label text="left status" />
-            <Pane HBox.hgrow="ALWAYS" />
-            <Label text="right status" />
-         </children>
-      </HBox>
+      <fx:include source="EventLayout.fxml" VBox.vgrow="NEVER"/>
    </children>
 </VBox>

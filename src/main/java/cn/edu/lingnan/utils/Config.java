@@ -88,10 +88,28 @@ public class Config implements Serializable{
         return textProperty;
     }
 
-    //展示某段落，用于导航区域的点击指向相应的段落。
+    //展示某段落，用于导航区域的点击指向相应的段落。(同时用于行号)
     private IntegerProperty showParagraph = new SimpleIntegerProperty();
     public IntegerProperty showParagraphProperty() {
         return showParagraph;
+    }
+
+    //当前列号属性
+    private IntegerProperty currentColumn = new SimpleIntegerProperty();
+    public IntegerProperty currentColumnProperty() {
+        return currentColumn;
+    }
+
+    //当前段落属性
+    private IntegerProperty currentParagraph = new SimpleIntegerProperty();
+    public IntegerProperty currentParagraphProperty() {
+        return currentParagraph;
+    }
+
+    //是否标记信息词汇属性
+    private BooleanProperty markVocabs = new SimpleBooleanProperty(true);
+    public BooleanProperty markVocabsProperty() {
+        return markVocabs;
     }
 
     /**

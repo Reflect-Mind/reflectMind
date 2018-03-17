@@ -6,8 +6,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<HBox fx:controller="cn.edu.lingnan.controller.EventController" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+    <children>
+        <Label text="left status" />
+        <Pane HBox.hgrow="ALWAYS" />
+        <Label text="right status" />
+    </children>
+</HBox>
