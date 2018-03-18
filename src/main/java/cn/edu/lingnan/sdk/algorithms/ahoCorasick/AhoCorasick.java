@@ -14,5 +14,6 @@ public interface AhoCorasick {
     void append(Vocab vocab);
     void append(String word);
     void remove(String word);
+    void removeAll();
     void find(String text, MatchListener matchListener);
 }

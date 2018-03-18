@@ -32,18 +32,17 @@
                    <!--<TextArea />-->
                </Tab>
                <Tab text="概览">
-
+                   <fx:include source="ViewWorkspaceLayout$One.fxml"/>
                </Tab>
                <Tab text="基调分析">
-                   <fx:include source="ViewWorkspaceLayout.fxml">
-
+                   <fx:include source="ViewWorkspaceLayout$Two.fxml">
                    </fx:include>
                </Tab>
                <Tab text="自我认同分析">
-
+                   <fx:include source="ViewWorkspaceLayout$Three.fxml"/>
                </Tab>
                <Tab text="人格分析">
-
+                   <fx:include source="ViewWorkspaceLayout$Four.fxml"/>
                </Tab>
            </tabs>
        </TabPane>

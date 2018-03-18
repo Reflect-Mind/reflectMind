@@ -1,5 +1,6 @@
 package cn.edu.lingnan.service.command;
 
+import cn.edu.lingnan.pojo.Vocab;
 import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.sdk.Container.PhaseContainerImpl;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
@@ -64,24 +65,42 @@ public class TextWorkspaceCommand extends AbstractCommand {
     private BooleanProperty markVocabs = R.getConfig().markVocabsProperty();
 
     /**
+     * 判别当前选择到的词汇
+     *
+     * @param selectionText
+     * @return  返回true表示当中过滤词汇满足条件， 否则就不满足条件
+     */
+    public boolean validateSelectionText(String selectionText){
+        if (selectionText.length() == 0)
+            return false;
+
+        return true;
+    }
+
+    /**
      * 更新目标匹配字段:
      * 将数据库中的心理词汇加载到ac自动机中，以进行心理
      * 词汇的匹配分析
      */
     public void updateAhoMatchingData(){
         executors.execute(() -> {
+            //清空心理词汇信息
+            ObservableList<Vocab> vocabList = R.getConfig().getVocabList();
+            vocabList.clear();
             AhoCorasick ahoCorasick = R.getConfig().getAhoCorasick();
-            this.vocabService
-                    .findAllPsyChoVocab()
-                    .forEach((vocab -> ahoCorasick.append(vocab)));
-            ahoCorasick.append("自信");
-            ahoCorasick.append("大学");
-            ahoCorasick.append("大学老师");
-            ahoCorasick.append("大学毕业");
-            ahoCorasick.append("赏识");
-            ahoCorasick.append("阿谀奉承");
-            ahoCorasick.append("孝顺");
-            ahoCorasick.append("开始");
+
+            //重新填充vocab信息词汇
+            vocabList.addAll(this.vocabService.findAllPsyChoVocab());
+            //同时填充之ac自动机当中
+            ahoCorasick.append(vocabList);
+//            ahoCorasick.append("自信");
+//            ahoCorasick.append("大学");
+//            ahoCorasick.append("大学老师");
+//            ahoCorasick.append("大学毕业");
+//            ahoCorasick.append("赏识");
+//            ahoCorasick.append("阿谀奉承");
+//            ahoCorasick.append("孝顺");
+//            ahoCorasick.append("开始");
         });
     }
 

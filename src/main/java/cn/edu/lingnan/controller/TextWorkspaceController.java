@@ -6,20 +6,21 @@ import cn.edu.lingnan.service.command.TextWorkspaceCommand;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
+import javafx.scene.control.IndexRange;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import main.java.goxr3plus.javastreamplayer.stream.StreamPlayer;
 import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerEvent;
 import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerException;
@@ -33,8 +34,6 @@ import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.*;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.reactfx.EventStreams;
-
-import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.time.Duration;
@@ -84,9 +83,25 @@ public class TextWorkspaceController extends Controller {
         this.richChanged();
         this.othersActionListener();
         this.highlightCommand.updateAhoMatchingData();
+        //划词添加到ac自动机和当前维护的词汇列表当中
+        this.listeningToSelectionText();
         //this.initPlayer();
     }
 
+    /**
+     * 监听划词策略--调出弹窗，让用户自行选择对应词汇所添加到
+     * 所属的分类当中
+     */
+    private void listeningToSelectionText(){
+        //鼠标释放时触发该事件.
+        this.textArea.setOnMouseReleased(event -> {
+            String selectionText = this.textArea.getSelectedText();
+            //过滤掉一些非法的操作
+            if (!this.highlightCommand.validateSelectionText(selectionText))
+                return;
+
+        });
+    }
     /**
      * 其他的运行监听器
      */
@@ -119,19 +134,24 @@ public class TextWorkspaceController extends Controller {
             this.textArea.replaceText(newValue);
         }));
 
-        //自动更新文本域跳转值
-        IntegerProperty showParagraph = R.getConfig().showParagraphProperty();
-        showParagraph.addListener(((observable, oldValue, newValue) -> {
+        //自动更新文本域跳转值:有方法重复调用的嫌疑
+        IntegerProperty currentParagraph = R.getConfig().currentParagraphProperty();
+        currentParagraph.addListener(((observable, oldValue, newValue) -> {
             this.textArea.showParagraphAtTop(newValue.intValue());
             this.textArea.moveTo(newValue.intValue(), 0);
         }));
-
         IntegerProperty currentColumn = R.getConfig().currentColumnProperty();
-        IntegerProperty currentParagraph = R.getConfig().currentParagraphProperty();
-        //绑定当前行号
-        currentParagraph.bind(this.textArea.currentParagraphProperty());
-        //绑定当前列号
-        currentColumn.bind(this.textArea.caretColumnProperty());
+        currentColumn.addListener(((observable, oldValue, newValue) -> {
+            this.textArea.moveTo(this.textArea.currentParagraphProperty().getValue()
+                    , newValue.intValue());
+        }));
+        this.textArea.currentParagraphProperty().addListener(((observable, oldValue, newValue) -> {
+            currentParagraph.set(newValue);
+        }));
+        this.textArea.caretColumnProperty().addListener(((observable, oldValue, newValue) -> {
+            currentColumn.set(newValue);
+        }));
+
         //窗格的定位
         IntegerProperty currentTabIndex = R.getConfig().currentTabIndexProperty();
         SingleSelectionModel<Tab> singleSelectionModel = this.tabPane.getSelectionModel();
@@ -143,6 +163,7 @@ public class TextWorkspaceController extends Controller {
         singleSelectionModel.selectedIndexProperty().addListener(((observable, oldValue, newValue) -> {
             currentTabIndex.set(newValue.intValue());
         }));
+
     }
 
     private void initPlayer(){
