@@ -14,4 +14,14 @@ public interface VocabService {
      * @return
      */
     public List<Vocab> findAllPsyChoVocab();
+
+
+    /**
+     * 输入一个Vocab.content列表，返回一个Vocab列表
+     * 在getByContent中完成词频统计、分类查询、主题查询
+     * @param content
+     * @return List<Vocab>
+     */
+    public List<Vocab> getByContent( List<String> content );
+
 }

@@ -19,21 +19,25 @@
       </ToolBar>
       <Accordion VBox.vgrow="ALWAYS">
          <panes>
+
+
             <TitledPane animated="false" text="词汇统计">
                <content>
-                  <JFXTreeTableView>
+                  <TreeTableView fx:id = "wordTable">
                      <columns>
-                        <TreeTableColumn minWidth="30.0" text="主题" />
-                        <TreeTableColumn minWidth="30.0" text="分类" />
-                        <TreeTableColumn minWidth="30.0" text="频数" />
-                        <TreeTableColumn minWidth="30.0" text="频率" />
+                        <TreeTableColumn fx:id="themeColumn" minWidth="30.0" text="主题" />
+                        <TreeTableColumn fx:id="categoryColumn" minWidth="30.0" text="分类" />
+                        <TreeTableColumn fx:id="appearColumn" minWidth="30.0" text="频数" />
+                        <TreeTableColumn fx:id="frqColumn" minWidth="30.0" text="频率" />
                      </columns>
                      <columnResizePolicy>
                         <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
-                  </JFXTreeTableView>
+                  </TreeTableView>
                </content>
             </TitledPane>
+
+
             <TitledPane animated="false" text="新词预测">
                <content>
                   <AnchorPane />

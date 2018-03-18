@@ -183,13 +183,11 @@ public class TextWorkspaceCommand extends AbstractCommand {
      * @return
      */
     private boolean shouldEnroll(String word, int start, int end, String text){
-        //清空历史匹配记录
-        this.words.clear();
         for (Pair<Integer, IndexRange> pair: this.answers){
             IndexRange range = pair.getValue();
             if (range.getStart() <= start && end < range.getEnd()){
                 //添加单词到匹配序列当中
-                this.words.add(text);
+                this.words.add(word);
                 return true;
             }
         }
@@ -206,8 +204,11 @@ public class TextWorkspaceCommand extends AbstractCommand {
         AhoCorasick corasick = R.getConfig().getAhoCorasick();
         StyleSpansBuilder<Collection<String>> builder = new StyleSpansBuilder<>();
         IntegerProperty init = new SimpleIntegerProperty(0);
+        //清空历史匹配记录
+        this.words.clear();
         corasick.find(text, ((word, start, end) -> {
             StyleSpan<Collection<String>> styleSpan = null;
+
             if (!this.shouldEnroll(word, start, end, text))
                 return;
             builder.add(Collections.EMPTY_LIST, start - init.get());
