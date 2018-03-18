@@ -26,6 +26,8 @@ import java.util.ResourceBundle;
 public class TextWorkspaceRightController extends Controller {
 
     @FXML
+    private TreeTableView frqTable;
+    @FXML
     private TreeTableView wordTable;
     @FXML
     private TreeTableColumn<Vocab, String> themeColumn;
@@ -35,6 +37,10 @@ public class TextWorkspaceRightController extends Controller {
     private TreeTableColumn<Vocab, String> appearColumn;
     @FXML
     private TreeTableColumn<Vocab, String> frqColumn;
+
+    //TreeItem: root
+    TreeItem<Vocab> root =
+            new TreeItem<>( new Vocab());
 
     //调用service层的TextWorkspaceRightCommand
     private TextWorkspaceRightCommand textWorkspaceRightCommand =
@@ -48,7 +54,13 @@ public class TextWorkspaceRightController extends Controller {
         Task<List<Vocab>> task =
                 this.textWorkspaceRightCommand.getVacabTask();
 
-        //鼠标进入时执行查询或分析
+        //key: 扩展root结点
+        root.setExpanded(true);
+
+        //鼠标进入frqTable或wordTable时执行查询或分析
+        this.frqTable.setOnMouseEntered(event -> {
+            new Thread(task).start();
+        });
         this.wordTable.setOnMouseEntered(event -> {
             new Thread(task).start();
         });
@@ -65,9 +77,17 @@ public class TextWorkspaceRightController extends Controller {
             List<Vocab> voc =
                     textWorkspaceRightCommand.getWordTable();
 
-            for( int i=0; i < voc.size(); i++ ) {
-                String str = voc.get(i).getContent();
-                System.out.println("--------" + str );
+            //key: 将voc列表添加到root结点
+            voc.stream().forEach((employee) -> {
+                root.getChildren().add(new TreeItem<>(employee));
+            });
+
+
+            //控制台输出
+            System.out.println("已识别单词的数目：" + voc.size() );
+            for( int i=0; i<voc.size(); i++ ) {
+            System.out.println( voc.get(i).getContent() + "\t" +
+                                voc.get(i).getAppearnum());
             }
 
         }
@@ -75,7 +95,9 @@ public class TextWorkspaceRightController extends Controller {
     }
 }
 
-
+//--2018/3/18: 词汇表vocabs
+//            themeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures< Vocab, String> p ) ->
+//        new ReadOnlyStringWrapper( p.getValue().getValue().getContent()));
 
 //--2018/3/14: 词汇表vocabs
 //    private ObservableList<Vocab> vocabs = null;

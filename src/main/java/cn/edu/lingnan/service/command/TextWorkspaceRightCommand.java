@@ -35,7 +35,11 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
         return task;
     }
 
-    //返回一个可以显示在界面上的WordTable
+
+    /**
+     * 返回一个可以显示在界面上的WordTable
+     * @return List<Vocab>
+     */
     public  List<Vocab> getWordTable() {
 
         List<Vocab> wordTable = null;
@@ -43,7 +47,12 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
         List<String> content = R.getConfig().getWords();
         wordTable = vocabService.getByContent( content );
 
-        System.out.println("已识别词汇的总频数：" + content.size() );
+        System.out.println("原始单词：");
+        for ( int i=0; i<content.size(); i++ ) {
+            System.out.println( content.get(i) );
+        }
+
+        System.out.println("\n");
 
         return wordTable;
 

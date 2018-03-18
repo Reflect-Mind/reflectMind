@@ -21,6 +21,23 @@
          <panes>
 
 
+            <TitledPane animated="false" text="词频查询">
+               <content>
+                  <TreeTableView fx:id = "frqTable">
+                     <columns>
+                        <TreeTableColumn fx:id="contentColumn" minWidth="30.0" text="内容" />
+                        <TreeTableColumn fx:id="wordFrqColumn" minWidth="30.0" text="频数" />
+                        <TreeTableColumn fx:id="wordCategoryColumn" minWidth="30.0" text="分类" />
+                        <TreeTableColumn fx:id="wordThemeColumn" minWidth="30.0" text="主题" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TreeTableView>
+               </content>
+            </TitledPane>
+
+
             <TitledPane animated="false" text="词汇统计">
                <content>
                   <TreeTableView fx:id = "wordTable">

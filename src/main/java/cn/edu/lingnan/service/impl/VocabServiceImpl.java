@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2018/1/31.
+ *  Edited by Mechan on 2018/3/18.
  */
 public class VocabServiceImpl implements VocabService {
 
@@ -29,55 +30,35 @@ public class VocabServiceImpl implements VocabService {
         List<Vocab> wordTable = new ArrayList<Vocab>();
         String word;
         boolean repeat;
+        int i, j, temp;
+
 
         //词频统计
-        //将文本text中的不同字符存储到clist列表并统计频数
-//        for ( int i=0; i<content.size(); i++ ) {
-//
-//            tc = text.charAt(i);
-//            ts = String.valueOf(tc);
-//
-//            //检查clist中是否存在字符tc
-//            flag=0;
-//            for( j=0; j<clist.size(); j++ )
-//                if( clist.get(j).getContent().equals( ts ) ) {
-//
-//                    //如果字符tc存在于clist中，更新clist中对应字符的频数
-//                    temp = clist.get(j).getAppearnum();
-//                    clist.get(j).setAppearnum( temp + 1 );
-//
-//                    //flag=1表示字符tc存在于clist中
-//                    flag = 1;
-//                }
-//            if( flag != 1 ) {
-//                //如果字符tc不存在于clist中，在clist中增加tc
-//                Vocab vc = new Vocab();
-//                vc.setContent( ts );
-//                vc.setAppearnum( 1 );
-//                clist.add( vc );
-//            }
-//        }
+        for ( i=0; i<content.size(); i++ ) {
 
-//        for ( int i=0; i<content.size(); i++ ) {
-//
-//            //检查content表中的单词是否已经存在于wordTable中
-//            repeat = false;
-//            for ( int j=0; j<wordTable.size(); j++ ) {
-//
-//                word = wordTable.get(j).getContent();
-//                if ( word.equals( content.get(i) ) ) {
-//                    repeat = true;
-//                    j = wordTable.size();
-//                }
-//            }
-//
-//            //当content表中的单词不在wordTable中
-//            if ( repeat == false ) {
-//                Vocab voc = new Vocab();
-//                voc.setContent( content.get(i) );
-//
-//            }
-//        }
+            //word是content表中的某一个单词
+            word = content.get(i);
+
+            //检查wordTable中是否存在word
+            repeat = false;
+            for( j=0; j<wordTable.size(); j++ )
+
+                if( wordTable.get(j).getContent().equals( word ) ) {
+                    //如果word存在于wordTable中，更新wordTable中对应字符的频数(只在内存中，不存入磁盘）
+                    temp = wordTable.get(j).getAppearnum();
+                    wordTable.get(j).setAppearnum( temp + 1 );
+
+                    //flag=1表示字符tc存在于clist中
+                    repeat = true;
+                }
+            if( repeat == false ) {
+                //如果word不存在于wordTable中，在wordTable中增加word
+                Vocab vc = new Vocab();
+                vc.setContent( word );
+                vc.setAppearnum( 1 );
+                wordTable.add( vc );
+            }
+        }
 
         //分类查询
 
@@ -85,4 +66,5 @@ public class VocabServiceImpl implements VocabService {
 
         return wordTable;
     }
+
 }
