@@ -36,7 +36,6 @@ public class AhoCorasickImpl implements AhoCorasick{
     public void append(List<Vocab> list){
         for(Vocab vocab: list){
             String word = vocab.getContent();
-            System.out.println(word);
             this.init(word);
         }
         this.buildFailPoint(this.root);
@@ -121,6 +120,14 @@ public class AhoCorasickImpl implements AhoCorasick{
 //        }
 //        if (parent.depth == word.length())
 //            parent.end = false;
+    }
+
+    /**
+     * 删除所有存在于ac单词查找树中匹配的词汇
+     */
+    @Override
+    public void removeAll() {
+        this.root.children.clear();
     }
 
     /**

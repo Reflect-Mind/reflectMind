@@ -14,7 +14,7 @@
 <?import org.fxmisc.richtext.CodeArea?>
 <AnchorPane stylesheets="@/css/textWorkspace.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.TextWorkspaceController">
    <children>
-       <TabPane side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+       <TabPane fx:id="tabPane" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
            <tabs>
                <Tab text="文本域">
                    <HiddenSidesPane fx:id="hiddenSidesPane">
@@ -32,18 +32,17 @@
                    <!--<TextArea />-->
                </Tab>
                <Tab text="概览">
-
+                   <fx:include source="ViewWorkspaceLayout$One.fxml"/>
                </Tab>
                <Tab text="基调分析">
-                   <fx:include source="ViewWorkspaceLayout.fxml">
-
+                   <fx:include source="ViewWorkspaceLayout$Two.fxml">
                    </fx:include>
                </Tab>
                <Tab text="自我认同分析">
-
+                   <fx:include source="ViewWorkspaceLayout$Three.fxml"/>
                </Tab>
                <Tab text="人格分析">
-
+                   <fx:include source="ViewWorkspaceLayout$Four.fxml"/>
                </Tab>
            </tabs>
        </TabPane>

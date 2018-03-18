@@ -74,8 +74,8 @@ public class Config implements Serializable{
         return asks;
     }
     //用于基调分析的人生四大阶段: 小学、初中、大学、工作。
-    PhaseContainer<Integer> phaseContainer = new PhaseContainerImpl();
-    public PhaseContainer<Integer> getPhaseContainer() {
+    PhaseContainer<Integer ,Pair<Integer, IndexRange>> phaseContainer = new PhaseContainerImpl();
+    public PhaseContainer<Integer, Pair<Integer, IndexRange>> getPhaseContainer() {
         return phaseContainer;
     }
 
@@ -86,12 +86,6 @@ public class Config implements Serializable{
     }
     public StringProperty textPropertyProperty() {
         return textProperty;
-    }
-
-    //展示某段落，用于导航区域的点击指向相应的段落。(同时用于行号)
-    private IntegerProperty showParagraph = new SimpleIntegerProperty();
-    public IntegerProperty showParagraphProperty() {
-        return showParagraph;
     }
 
     //当前列号属性
@@ -110,6 +104,18 @@ public class Config implements Serializable{
     private BooleanProperty markVocabs = new SimpleBooleanProperty(true);
     public BooleanProperty markVocabsProperty() {
         return markVocabs;
+    }
+
+    //设置当前窗格属性
+    private IntegerProperty currentTabIndex = new SimpleIntegerProperty();
+    public IntegerProperty currentTabIndexProperty() {
+        return currentTabIndex;
+    }
+
+    //数据库当中查询到的心理词汇
+    private ObservableList<Vocab> vocabList = FXCollections.observableArrayList();
+    public ObservableList<Vocab> getVocabList() {
+        return vocabList;
     }
 
     /**

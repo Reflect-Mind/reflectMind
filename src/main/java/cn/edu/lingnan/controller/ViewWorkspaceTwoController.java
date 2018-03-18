@@ -8,9 +8,9 @@ import java.util.ResourceBundle;
 /**
  * Created by Administrator on 2018/2/17.
  */
-public class ViewWorkspaceController extends Controller {
+public class ViewWorkspaceTwoController extends Controller {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
     }
 }
