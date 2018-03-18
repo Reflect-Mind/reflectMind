@@ -1,5 +1,6 @@
 package cn.edu.lingnan.sdk.Container;
 
+import javafx.scene.control.IndexRange;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.function.Consumer;
  * 人生阶段容器
  *
  */
-public class PhaseContainerImpl implements PhaseContainer<Integer>{
+public class PhaseContainerImpl implements PhaseContainer<Integer, Pair<Integer, IndexRange>>{
     private List<Integer> primaryPhase = new ArrayList<>();
     private List<Integer> juniorPhase = new ArrayList<>();
     private List<Integer> seniorPhase = new ArrayList<>();
@@ -56,5 +57,15 @@ public class PhaseContainerImpl implements PhaseContainer<Integer>{
         this.workPhase.clear();
         this.seniorPhase.clear();
         this.workPhase.clear();
+    }
+
+    /**
+     * 是否包含所有的段落（受）
+     * @param list
+     * @return
+     */
+    @Override
+    public boolean containAll(List<Pair<Integer, IndexRange>> list) {
+        return false;
     }
 }

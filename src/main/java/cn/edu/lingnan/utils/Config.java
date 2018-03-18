@@ -112,6 +112,12 @@ public class Config implements Serializable{
         return markVocabs;
     }
 
+    //设置当前窗格属性
+    private IntegerProperty currentTabIndex = new SimpleIntegerProperty();
+    public IntegerProperty currentTabIndexProperty() {
+        return currentTabIndex;
+    }
+
     /**
      * 为桌面环境配置初始化
      * 获取当前项目名称

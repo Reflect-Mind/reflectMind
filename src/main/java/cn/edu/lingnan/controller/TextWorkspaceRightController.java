@@ -11,6 +11,6 @@ import java.util.ResourceBundle;
 public class TextWorkspaceRightController extends Controller {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        System.out.println(location);
     }
 }

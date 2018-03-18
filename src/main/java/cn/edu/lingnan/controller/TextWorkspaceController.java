@@ -15,6 +15,9 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
+import javafx.scene.control.SingleSelectionModel;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import main.java.goxr3plus.javastreamplayer.stream.StreamPlayer;
@@ -51,6 +54,8 @@ public class TextWorkspaceController extends Controller {
     private StyleClassedTextArea textArea;
     @FXML
     private TextWorkspaceRightController textWorkspaceManipulateController;
+    @FXML
+    private TabPane tabPane;
 
     private String currentReplaceText = "";
 
@@ -127,6 +132,17 @@ public class TextWorkspaceController extends Controller {
         currentParagraph.bind(this.textArea.currentParagraphProperty());
         //绑定当前列号
         currentColumn.bind(this.textArea.caretColumnProperty());
+        //窗格的定位
+        IntegerProperty currentTabIndex = R.getConfig().currentTabIndexProperty();
+        SingleSelectionModel<Tab> singleSelectionModel = this.tabPane.getSelectionModel();
+        currentTabIndex.addListener(((observable, oldValue, newValue) -> {
+            if (singleSelectionModel.getSelectedIndex() == newValue.intValue())
+                return;
+            singleSelectionModel.select(newValue.intValue());
+        }));
+        singleSelectionModel.selectedIndexProperty().addListener(((observable, oldValue, newValue) -> {
+            currentTabIndex.set(newValue.intValue());
+        }));
     }
 
     private void initPlayer(){

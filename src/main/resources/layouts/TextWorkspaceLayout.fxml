@@ -14,7 +14,7 @@
 <?import org.fxmisc.richtext.CodeArea?>
 <AnchorPane stylesheets="@/css/textWorkspace.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.TextWorkspaceController">
    <children>
-       <TabPane side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+       <TabPane fx:id="tabPane" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
            <tabs>
                <Tab text="文本域">
                    <HiddenSidesPane fx:id="hiddenSidesPane">
