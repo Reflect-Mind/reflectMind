@@ -210,6 +210,7 @@ public class TextWorkspaceCommand extends AbstractCommand {
         this.words.clear();
         corasick.find(text, ((word, start, end) -> {
             StyleSpan<Collection<String>> styleSpan = null;
+
             if (!this.shouldEnroll(word, start, end, text))
                 return;
             if (!this.markVocabs.get())
