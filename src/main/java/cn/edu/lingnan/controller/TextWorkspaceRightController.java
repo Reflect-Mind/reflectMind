@@ -50,63 +50,69 @@ public class TextWorkspaceRightController extends Controller {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        //鼠标进入frqTable或wordTable时执行查询或分析
+        this.wordTable.setOnMouseEntered(event -> {
 
-        Task<List<Vocab>> task =
+            Task<List<Vocab>> task =
                 this.textWorkspaceRightCommand.getVacabTask();
+
+            new Thread(task).start();
+
+            //执行失败时进行报告
+            task.setOnFailed(e -> {
+                System.out.println(task.getException());
+            });
+
+            //key: 执行成功时的事件
+            task.setOnSucceeded( e -> this.updateTreeItem());
+        });
+
+    }
+
+
+    private void updateTreeItem(){
+
+        //调用TextWorkspaceRightCommand获得wordTable
+        List<Vocab> voc =
+                textWorkspaceRightCommand.getWordTable();
+
+        System.out.println("词汇统计执行完毕");
 
         //key: 扩展root结点
         root.setExpanded(true);
 
-        //鼠标进入frqTable或wordTable时执行查询或分析
-        this.frqTable.setOnMouseEntered(event -> {
-            new Thread(task).start();
-        });
-        this.wordTable.setOnMouseEntered(event -> {
-            new Thread(task).start();
+        //key: 将voc列表添加到root结点
+        voc.stream().forEach((vo) -> {
+            root.getChildren().add(new TreeItem<>(vo));
         });
 
-        //执行失败时进行报告
-        task.setOnFailed(event -> {
-            System.out.println(task.getException());
-        });
-
-        //key: 执行成功时的事件
-        task.setOnSucceeded( event -> {
-
-            //调用TextWorkspaceRightCommand获得wordTable
-            List<Vocab> voc =
-                    textWorkspaceRightCommand.getWordTable();
-
-            //key: 将voc列表添加到root结点
-            voc.stream().forEach((employee) -> {
-                root.getChildren().add(new TreeItem<>(employee));
-            });
-
-
-            //控制台输出
-            System.out.println("已识别单词的数目：" + voc.size() );
-            for( int i=0; i<voc.size(); i++ ) {
-            System.out.println( voc.get(i).getContent() + "\t" +
-                                voc.get(i).getAppearnum());
-            }
-
-        }
+        //此列用content值填充
+        themeColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
+                        new ReadOnlyStringWrapper(param.getValue().getValue().getContent())
         );
 
+        categoryColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
+                        new ReadOnlyStringWrapper(param.getValue().getValue().getCategoryId().toString())
+        );
+
+        appearColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
+                        new ReadOnlyStringWrapper(param.getValue().getValue().getAppearnum().toString())
+        );
+
+        frqColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
+                        new ReadOnlyStringWrapper(param.getValue().getValue().getFrq().toString())
+        );
+
+
+        //key: 将root添加到TreeTableView
+        wordTable.setRoot(root);
+        //key: 将Column添加到treeTableView
+        wordTable.getColumns().setAll(themeColumn, categoryColumn, appearColumn, frqColumn);
     }
 }
-
-//--2018/3/18: 词汇表vocabs
-//            themeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures< Vocab, String> p ) ->
-//        new ReadOnlyStringWrapper( p.getValue().getValue().getContent()));
-
-//--2018/3/14: 词汇表vocabs
-//    private ObservableList<Vocab> vocabs = null;
-
-//--2018/3/14: 向列注入数据
-//          //第4列：frqColumn, getFrq
-//            this.frqColumn.setCellValueFactory( (
-//                TreeTableColumn.CellDataFeatures<Vocab, String> param) -> new ReadOnlyStringWrapper(
-//                    param.getValue().getValue().getFrq().toString()));
 
 
