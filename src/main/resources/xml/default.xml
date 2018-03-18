@@ -7,7 +7,7 @@
     <class>
         <controller
                 class = "cn.edu.lingnan.controller.RootController">
-            <filter>cn.edu.lingnan.sdk.CGLibProxy.ConcreteFilter</filter>
+            <filter>cn.edu.lingnan.inteceptor.OpenSessionInViewFilter</filter>
         </controller>
     </class>
 </package>

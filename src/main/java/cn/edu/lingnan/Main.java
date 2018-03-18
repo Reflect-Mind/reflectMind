@@ -52,8 +52,19 @@ public class Main extends Application{
 
         //出现加载窗口
         InitCommand command = new InitCommand();
-        heavyService.setCommand(command);
-        heavyService.executeImmediate();
+        Platform.runLater(command);
+        command.setOnSucceeded(event -> {
+            this.stage.getIcons().add(new Image(R.getResourceAsStream("images/house.png")));
+            FXMLLoader loader = new FXMLLoader(R.getResourcesAsURL("layouts/RootLayout.fxml"));
+            try {
+                this.pane = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new Scene(this.pane);
+            this.stage.setScene(scene);
+            this.stage.show();
+        });
         //完成加载后打开初始界面
         //heavyService.setOnSucceeded(event -> this.stage.show());
     }
@@ -63,15 +74,6 @@ public class Main extends Application{
         R.Owner owner = R.getOwner();
         owner.setApplication(this);
         this.stage = primaryStage;
-        primaryStage.getIcons().add(new Image(R.getResourceAsStream("images/house.png")));
-        FXMLLoader loader = new FXMLLoader(R.getResourcesAsURL("layouts/RootLayout.fxml"));
-        try {
-            this.pane = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(this.pane);
-        this.stage.setScene(scene);
         this.setWindowEvent();
     }
 

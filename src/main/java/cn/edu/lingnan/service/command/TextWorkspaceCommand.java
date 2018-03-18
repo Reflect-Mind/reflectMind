@@ -60,6 +60,8 @@ public class TextWorkspaceCommand extends AbstractCommand {
     //获取心理词汇的服务类
     private VocabService vocabService = new VocabServiceImpl();
 
+    //是否标记词汇属性
+    private BooleanProperty markVocabs = R.getConfig().markVocabsProperty();
 
     /**
      * 更新目标匹配字段:
@@ -210,6 +212,8 @@ public class TextWorkspaceCommand extends AbstractCommand {
             StyleSpan<Collection<String>> styleSpan = null;
 
             if (!this.shouldEnroll(word, start, end, text))
+                return;
+            if (!this.markVocabs.get())
                 return;
             builder.add(Collections.EMPTY_LIST, start - init.get());
             init.set(end);

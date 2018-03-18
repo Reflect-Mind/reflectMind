@@ -129,12 +129,13 @@ public class R {
        private XMLObjectFactory objectFactory = null;
        /**
         * 初始化当前任务属性,用于属性变更的通知
+        *
         */
        private HashMap<String, Object> objectHashMap = new HashMap<String, Object>()
        {
            {
                this.put("currentTask", new SimpleObjectProperty<Task>());
-               this.put("run", new SimpleBooleanProperty(false));
+//               this.put("run", new SimpleBooleanProperty(false));
            }
        };
        private Main application = null;

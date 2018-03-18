@@ -1,4 +1,4 @@
-package cn.edu.lingnan.sdk.algorithms.Classifier;
+package cn.edu.lingnan.sdk.algorithms.classifier;
 
 /**
  * Created by Administrator on 2018/3/11.
