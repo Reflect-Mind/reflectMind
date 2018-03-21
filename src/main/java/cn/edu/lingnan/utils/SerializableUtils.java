@@ -13,11 +13,14 @@ import java.io.*;
  * 该类拥有默认的构造方法
  */
 public class SerializableUtils {
+
+    private static String basePath = SerializableUtils.class.getClassLoader().getResource("").getPath();
+
     private SerializableUtils(){}
 
     private static <T> T getLastState(String path)  {
         InputStream inputStream =  null;
-        File file = new File(path);
+        File file = new File(basePath, path);
         if (file.exists())
             try {
                 inputStream = new FileInputStream(file);
@@ -66,7 +69,6 @@ public class SerializableUtils {
      */
     public static <T>  void saveCurrentState(T target) throws IOException {
         String className = target.getClass().getName();
-        String basePath = SerializableUtils.class.getClassLoader().getResource("").getPath();
         File directory = new File(basePath, "tmp");
         if (!directory.exists())
             directory.mkdir();
@@ -90,12 +92,14 @@ public class SerializableUtils {
     }
 
 
-//    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 //        Long a = System.currentTimeMillis();
 //        JFrame frame = new JFrame();
 //        System.out.println(System.currentTimeMillis() - a);
 //        a = System.currentTimeMillis();
-//        frame = SerializableUtils.getLastState(JFrame.class, "D:\\" + frame.getClass().getName());
-//        System.out.println(System.currentTimeMillis() - a);
-//    }
+////        frame = SerializableUtils.getLastState(JFrame.class);
+////        SerializableUtils.saveCurrentState(frame);
+//        frame = SerializableUtils.getLastState(JFrame.class);
+//        System.out.println(frame);
+    }
 }

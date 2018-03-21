@@ -1,6 +1,7 @@
 package cn.edu.lingnan.sdk.controller;
 
 import cn.edu.lingnan.sdk.advice.*;
+import cn.edu.lingnan.utils.R;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 
@@ -19,9 +20,9 @@ public abstract class Controller implements Initializable,/* Observer,*/ Seriali
 //     * 而且接受来自其他类的通知
 //     */
 //    protected AbstractMediator mediator = Mediator.MediatorHolder.MEDIATOR;
-//    public Controller(){
-//        this.mediator.addObserver(this);
-//    }
+    public Controller(){
+        this.stage = R.getApplication().getStage();
+    }
 
     public void setStage(Stage stage){
         this.stage = stage;

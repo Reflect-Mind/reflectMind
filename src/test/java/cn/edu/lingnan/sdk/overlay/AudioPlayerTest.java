@@ -4,6 +4,7 @@ import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerException;
 import org.junit.Test;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 /**
  * Created by Administrator on 2018/3/1.
@@ -11,7 +12,7 @@ import java.io.File;
 public class AudioPlayerTest {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new Thread(() -> {
             File audio = new File("D:\\CloudMusic\\ee.mp3");
             AudioPlayer audioPlayer = new AudioPlayer();
