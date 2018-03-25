@@ -17,8 +17,8 @@
       <CustomTextField />
       <HBox>
          <children>
-            <Button mnemonicParsing="false" text="button1" />
-            <Button mnemonicParsing="false" text="button2" />
+            <Button mnemonicParsing="false" text="按钮1" />
+            <Button mnemonicParsing="false" text="按钮2" />
          </children>
       </HBox>
       <ListView />

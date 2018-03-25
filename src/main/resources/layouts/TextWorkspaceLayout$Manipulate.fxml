@@ -26,7 +26,7 @@
                   <TreeTableView fx:id = "frqTable">
                      <columns>
                         <TreeTableColumn fx:id="contentColumn" minWidth="30.0" text="内容" />
-                        <TreeTableColumn fx:id="wordFrqColumn" minWidth="30.0" text="频数" />
+                        <TreeTableColumn fx:id="wordAppearColumn" minWidth="30.0" text="频数" />
                         <TreeTableColumn fx:id="wordCategoryColumn" minWidth="30.0" text="分类" />
                         <TreeTableColumn fx:id="wordThemeColumn" minWidth="30.0" text="主题" />
                      </columns>

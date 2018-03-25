@@ -7,6 +7,7 @@ import cn.edu.lingnan.utils.R;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,15 +29,13 @@ public class TextWorkspaceRightController extends Controller {
     @FXML
     private TreeTableView frqTable;
     @FXML
-    private TreeTableView wordTable;
+    private TreeTableColumn<Vocab, String> contentColumn;
     @FXML
-    private TreeTableColumn<Vocab, String> themeColumn;
+    private TreeTableColumn<Vocab, String> wordAppearColumn;
     @FXML
-    private TreeTableColumn<Vocab, String> categoryColumn;
+    private TreeTableColumn<Vocab, String> wordCategoryColumn;
     @FXML
-    private TreeTableColumn<Vocab, String> appearColumn;
-    @FXML
-    private TreeTableColumn<Vocab, String> frqColumn;
+    private TreeTableColumn<Vocab, String> wordThemeColumn;
 
     //TreeItem: root
     TreeItem<Vocab> root =
@@ -46,12 +45,12 @@ public class TextWorkspaceRightController extends Controller {
     private TextWorkspaceRightCommand textWorkspaceRightCommand =
             new TextWorkspaceRightCommand();
 
-    //实时化
+    //词频查询实时化
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        //鼠标进入frqTable或wordTable时执行查询或分析
-        this.wordTable.setOnMouseEntered(event -> {
+        //鼠标进入frqTable时执行查询或分析
+        this.frqTable.setOnMouseEntered(event -> {
 
             Task<List<Vocab>> task =
                 this.textWorkspaceRightCommand.getVacabTask();
@@ -72,7 +71,7 @@ public class TextWorkspaceRightController extends Controller {
 
     private void updateTreeItem(){
 
-        //调用TextWorkspaceRightCommand获得wordTable
+        //调用TextWorkspaceRightCommand获得frqTable
         List<Vocab> voc =
                 textWorkspaceRightCommand.getWordTable();
 
@@ -86,32 +85,38 @@ public class TextWorkspaceRightController extends Controller {
             root.getChildren().add(new TreeItem<>(vo));
         });
 
-        //此列用content值填充
-        themeColumn.setCellValueFactory(
+        //单词内容
+        contentColumn.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
                         new ReadOnlyStringWrapper(param.getValue().getValue().getContent())
         );
 
-        categoryColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().getCategoryId().toString())
-        );
-
-        appearColumn.setCellValueFactory(
+        //单词频数
+        wordAppearColumn.setCellValueFactory(
                 (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
                         new ReadOnlyStringWrapper(param.getValue().getValue().getAppearnum().toString())
         );
 
-        frqColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue().getFrq().toString())
-        );
+        //单词分类, bugged
+//        wordCategoryColumn.setCellValueFactory(
+//                (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
+//                        new ReadOnlyStringWrapper(param.getValue().getValue()
+//                                .getCategoryByCategoryId().getContent())
+//        );
+
+        //单词主题, bugged
+//        wordThemeColumn.setCellValueFactory(
+//                (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
+//                        new ReadOnlyStringWrapper(param.getValue().getValue()
+//                        .getCategoryByCategoryId().getThemeByThemeId().getContent())
+//        );
 
 
         //key: 将root添加到TreeTableView
-        wordTable.setRoot(root);
+        frqTable.setRoot(root);
         //key: 将Column添加到treeTableView
-        wordTable.getColumns().setAll(themeColumn, categoryColumn, appearColumn, frqColumn);
+        frqTable.getColumns().setAll(contentColumn, wordAppearColumn, wordCategoryColumn, wordThemeColumn);
+        frqTable.setShowRoot(false);
     }
 }
 
