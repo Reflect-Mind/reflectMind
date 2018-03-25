@@ -14,13 +14,11 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
-import javafx.scene.control.IndexRange;
-import javafx.scene.control.SingleSelectionModel;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Popup;
 import main.java.goxr3plus.javastreamplayer.stream.StreamPlayer;
 import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerEvent;
 import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerException;
@@ -99,6 +97,9 @@ public class TextWorkspaceController extends Controller {
             //过滤掉一些非法的操作
             if (!this.highlightCommand.validateSelectionText(selectionText))
                 return;
+//            ContextMenu contextMenu = new ContextMenu();
+//            contextMenu.show(R.getApplication().getStage());
+//            System.out.println(contextMenu);
 
         });
     }
@@ -136,12 +137,16 @@ public class TextWorkspaceController extends Controller {
 
         //自动更新文本域跳转值:有方法重复调用的嫌疑
         IntegerProperty currentParagraph = R.getConfig().currentParagraphProperty();
+        IntegerProperty currentColumn = R.getConfig().currentColumnProperty();
         currentParagraph.addListener(((observable, oldValue, newValue) -> {
+            if (currentParagraph.get() == newValue.intValue())
+                return;
             this.textArea.showParagraphAtTop(newValue.intValue());
             this.textArea.moveTo(newValue.intValue(), 0);
         }));
-        IntegerProperty currentColumn = R.getConfig().currentColumnProperty();
         currentColumn.addListener(((observable, oldValue, newValue) -> {
+            if (currentColumn.get() == newValue.intValue())
+                return;
             this.textArea.moveTo(this.textArea.currentParagraphProperty().getValue()
                     , newValue.intValue());
         }));

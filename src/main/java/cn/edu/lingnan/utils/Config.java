@@ -118,6 +118,12 @@ public class Config implements Serializable{
         return vocabList;
     }
 
+    //加入搜索行列的搜索关键词
+    private StringProperty searchText = new SimpleStringProperty();
+    public StringProperty searchTextProperty() {
+        return searchText;
+    }
+
     /**
      * 为桌面环境配置初始化
      * 获取当前项目名称
