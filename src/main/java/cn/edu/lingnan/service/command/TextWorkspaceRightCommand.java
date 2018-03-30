@@ -1,5 +1,6 @@
 package cn.edu.lingnan.service.command;
 
+import cn.edu.lingnan.pojo.FrqTree;
 import cn.edu.lingnan.pojo.Vocab;
 import cn.edu.lingnan.service.VocabService;
 import cn.edu.lingnan.service.impl.VocabServiceImpl;
@@ -40,28 +41,22 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
      * 返回一个可以显示在界面上的WordTable
      * @return List<Vocab>
      */
-    public  List<Vocab> getWordTable() {
+    public  List<FrqTree> getFrqTree() {
 
-        List<Vocab> voc = null;
+        List<FrqTree> voc = null;
 
+        //注意content列表可能为空
         List<String> content = R.getConfig().getWords();
-        voc = vocabService.getByContent( content );
-
-//        System.out.println("原始单词：");
-//        for ( int i=0; i<content.size(); i++ ) {
-//            System.out.println( content.get(i) );
-//        }
-//        System.out.println("\n");
-
+        voc = vocabService.getFrqTreeByContent( content );
 
         //控制台输出
-        System.out.println("已识别单词的数目：" + voc.size() );
-        for( int i=0; i<voc.size(); i++ ) {
-            System.out.println( voc.get(i).getContent() + "\t" +
-                    voc.get(i).getAppearnum());
-        }
+//        System.out.println("已识别单词的数目：" + voc.size() );
+//        for( int i=0; i<voc.size(); i++ ) {
+//            System.out.println( voc.get(i).getContent() + "\t" +
+//                    voc.get(i).getAppearnum());
+//        }
 
         return voc;
-
     }
+
 }

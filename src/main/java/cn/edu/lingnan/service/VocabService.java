@@ -1,11 +1,13 @@
 package cn.edu.lingnan.service;
 
+import cn.edu.lingnan.pojo.FrqTree;
 import cn.edu.lingnan.pojo.Vocab;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2018/1/31.
+ * Last Edited by Mechan on 2018/3/30.
  */
 public interface VocabService {
 
@@ -22,6 +24,9 @@ public interface VocabService {
      * @param content
      * @return List<Vocab>
      */
-    public List<Vocab> getByContent( List<String> content );
+    public List<FrqTree> getFrqTreeByContent(List<String> content );
+
+    //查询数据库Vocab表的所有记录
+    public List<Vocab> findAllRecord();
 
 }
