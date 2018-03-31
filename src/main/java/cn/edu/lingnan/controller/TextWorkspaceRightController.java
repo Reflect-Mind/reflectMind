@@ -65,6 +65,22 @@ public class TextWorkspaceRightController extends Controller {
     TreeItem<PsychoTree> root1 =
             new TreeItem<>( new PsychoTree());
 
+    //新词预测组件
+    @FXML
+    private TitledPane newWordTitle;
+    @FXML
+    private TreeTableView newWordTable;
+    @FXML
+    private TreeTableColumn<Vocab, String> newWordColumn;
+    @FXML
+    private TreeTableColumn<Vocab, Number> newAppearColumn;
+    @FXML
+    private TreeTableColumn<Vocab, Number> lengthColumn;
+    @FXML
+    private TreeTableColumn<Vocab, Number> newFrqColumn;
+    //Vocab's root
+    TreeItem<Vocab> root2 =
+            new TreeItem<>( new Vocab());
 
     //调用service层的TextWorkspaceRightCommand
     private TextWorkspaceRightCommand textWorkspaceRightCommand =
@@ -92,7 +108,6 @@ public class TextWorkspaceRightController extends Controller {
             task.setOnSucceeded( e -> this.updateFrqTable());
         });
 
-
         //词汇统计事件： 鼠标点击wordTitle时执行查询或分析
         this.wordTitle.setOnMouseClicked(event -> {
 
@@ -109,11 +124,29 @@ public class TextWorkspaceRightController extends Controller {
             //key: 执行成功时的事件
             task.setOnSucceeded( e -> this.updatePsychoTable());
         });
+
+        //新词事件： 鼠标点击newWordTitle时执行查询或分析
+        this.newWordTitle.setOnMouseClicked(event -> {
+
+            Task<List<Vocab>> task =
+                    this.textWorkspaceRightCommand.getVocabTask();
+
+            new Thread(task).start();
+
+            //执行失败时进行报告
+            task.setOnFailed(e -> {
+                System.out.println(task.getException());
+            });
+
+            //key: 执行成功时的事件
+            task.setOnSucceeded( e -> this.updateNewWordTable());
+        });
+
     }
 
 
     //更新词频查询树表
-    private void updateFrqTable(){
+    private void updateFrqTable() {
 
         //调用TextWorkspaceRightCommand获得frqTable
         List<FrqTree> voc =
@@ -167,9 +200,9 @@ public class TextWorkspaceRightController extends Controller {
 
 
     //更新词汇统计树表
-    private void updatePsychoTable(){
+    private void updatePsychoTable() {
 
-        //调用TextWorkspaceRightCommand获得frqTable
+        //调用TextWorkspaceRightCommand获得PsychoTree
         List<PsychoTree> voc =
                 textWorkspaceRightCommand.getPsychoTree();
 
@@ -218,7 +251,65 @@ public class TextWorkspaceRightController extends Controller {
         //key: 将Column添加到treeTableView,
         wordTable.getColumns().setAll(themeColumn, categoryColumn, appearColumn, frqColumn);
         wordTable.setShowRoot(false);
+
     }
+
+
+    //更新词汇统计树表
+    private void updateNewWordTable() {
+
+        //调用TextWorkspaceRightCommand获得NewWordTree
+        List<Vocab> voc =
+                textWorkspaceRightCommand.getNewWordTree();
+
+        //扩展root1结点
+        root1.setExpanded(true);
+
+        //清空root的Children
+        root1.getChildren().remove( 0, root1.getChildren().size() );
+
+        //key: 将voc列表添加到root1结点
+//        voc.stream().forEach((vo) -> {
+//            root1.getChildren().add(new TreeItem<Vocab>(vo));
+//        });
+
+
+        //主题
+        themeColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<PsychoTree, String> param) ->
+                        new ReadOnlyStringWrapper(param.getValue().getValue()
+                                .getTheme())
+        );
+
+        //分类
+        categoryColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<PsychoTree, String> param) ->
+                        new ReadOnlyStringWrapper(param.getValue().getValue()
+                                .getCategory())
+        );
+
+        //频数
+        appearColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<PsychoTree, Number> param) ->
+                        new ReadOnlyIntegerWrapper(param.getValue().getValue()
+                                .getAppearnum())
+        );
+
+        //频率
+        frqColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<PsychoTree, Number> param) ->
+                        new ReadOnlyDoubleWrapper(param.getValue().getValue()
+                                .getFrq())
+        );
+
+        //key: 将root1添加到TreeTableView
+        wordTable.setRoot(root1);
+        //key: 将Column添加到treeTableView,
+        wordTable.getColumns().setAll(themeColumn, categoryColumn, appearColumn, frqColumn);
+        wordTable.setShowRoot(false);
+
+    }
+
 
 }
 

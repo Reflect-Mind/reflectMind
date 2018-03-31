@@ -74,4 +74,24 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
         return voc;
     }
 
+
+    /**
+     * 返回用于新词预测的PsychoTree
+     * @return List<PsychoTree>
+     */
+    public  List<Vocab> getNewWordTree() {
+
+        List<Vocab> voc = null;
+
+        //注意str可能为空
+        String str = R.getConfig().getTextProperty();
+
+        System.out.println("输出受访者对白");
+        System.out.println( str );
+
+//        voc = vocabService.getPsychoTreeByContent( str );
+
+        return null;
+    }
+
 }

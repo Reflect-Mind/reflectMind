@@ -24,7 +24,7 @@ public class WordLearning {
 
 
     /**
-     *
+     * @description 不与数据库接触
      * @param text
      * @return 一批符合程序判断条件的新词
      */

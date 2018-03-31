@@ -1,7 +1,7 @@
 package cn.edu.lingnan.pojo;
 
 /**
- * 词频查询树表类
+ * 词频查询树表实体
  * Created by Mechan on 2018/3/28.
  */
 public class FrqTree {
@@ -13,7 +13,7 @@ public class FrqTree {
     private String theme;
 
     //constructors
-    //空的构造器该怎么写？
+    //空的构造器
     public FrqTree() { }
 
     public FrqTree(String content, Integer appearnum, String category, String theme) {

@@ -52,5 +52,35 @@
     <orderEntry type="library" name="Maven: com.github.Trilarion:java-vorbis-support:v1.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.soundlibs:tritonus-share:0.3.7.4" level="project" />
     <orderEntry type="library" name="Maven: de.jensd:fontawesomefx:8.9" level="project" />
+    <orderEntry type="library" name="Maven: com.kennycason:kumo-core:1.13" level="project" />
+    <orderEntry type="library" name="Maven: com.kennycason:kumo-api:1.13" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.25" level="project" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
+    <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.8.2" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
+    <orderEntry type="library" name="Maven: com.github.davidmoten:rtree:0.8.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.github.davidmoten:guava-mini:0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.reactivex:rxjava:1.2.10" level="project" />
+    <orderEntry type="library" name="Maven: com.github.davidmoten:rxjava-extras:0.8.0.7" level="project" />
+    <orderEntry type="library" name="Maven: com.kennycason:kumo-tokenizers:1.12" level="project" />
+    <orderEntry type="library" name="Maven: org.languagetool:language-en:2.5" level="project" />
+    <orderEntry type="library" name="Maven: org.languagetool:languagetool-core:2.5" level="project" />
+    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.6" level="project" />
+    <orderEntry type="library" name="Maven: net.java.dev.jna:jna:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.carrot2:morfologik-fsa:1.9.0" level="project" />
+    <orderEntry type="library" name="Maven: org.carrot2:morfologik-speller:1.9.0" level="project" />
+    <orderEntry type="library" name="Maven: org.carrot2:morfologik-stemming:1.9.0" level="project" />
+    <orderEntry type="library" name="Maven: net.sourceforge.segment:segment:1.4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tika:tika-core:1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.opennlp:opennlp-tools:1.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.opennlp:opennlp-maxent:3.0.3" level="project" />
+    <orderEntry type="library" name="Maven: edu.washington.cs.knowitall:opennlp-tokenize-models:1.5" level="project" />
+    <orderEntry type="library" name="Maven: edu.washington.cs.knowitall:opennlp-postag-models:1.5" level="project" />
+    <orderEntry type="library" name="Maven: edu.washington.cs.knowitall:opennlp-chunk-models:1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.languagetool:language-zh:2.5" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.ictclas4j:ictclas4j:1.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code:cjftransform:1.0.1" level="project" />
   </component>
 </module>
