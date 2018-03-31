@@ -1,6 +1,7 @@
 package cn.edu.lingnan.service.command;
 
 import cn.edu.lingnan.pojo.FrqTree;
+import cn.edu.lingnan.pojo.PsychoTree;
 import cn.edu.lingnan.pojo.Vocab;
 import cn.edu.lingnan.service.VocabService;
 import cn.edu.lingnan.service.impl.VocabServiceImpl;
@@ -10,6 +11,11 @@ import javafx.concurrent.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Last edited by Mechan on 2018/3/30.
+ * Modified method getVocabTask's name.
+ */
 public class TextWorkspaceRightCommand extends AbstractCommand {
 
     private VocabService vocabService = new VocabServiceImpl();
@@ -18,7 +24,7 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
      *
      * @return
      */
-    public Task<List<Vocab>> getVacabTask (){
+    public Task<List<Vocab>> getVocabTask (){
 
         Task<List<Vocab>> task = new Task<List<Vocab>>() {
 
@@ -38,8 +44,8 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
 
 
     /**
-     * 返回一个可以显示在界面上的WordTable
-     * @return List<Vocab>
+     * 返回用于词频查询的FrqTable
+     * @return List<FrqTree>
      */
     public  List<FrqTree> getFrqTree() {
 
@@ -49,12 +55,21 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
         List<String> content = R.getConfig().getWords();
         voc = vocabService.getFrqTreeByContent( content );
 
-        //控制台输出
-//        System.out.println("已识别单词的数目：" + voc.size() );
-//        for( int i=0; i<voc.size(); i++ ) {
-//            System.out.println( voc.get(i).getContent() + "\t" +
-//                    voc.get(i).getAppearnum());
-//        }
+        return voc;
+    }
+
+
+    /**
+     * 返回用于词汇统计的PsychoTree
+     * @return List<PsychoTree>
+     */
+    public  List<PsychoTree> getPsychoTree() {
+
+        List<PsychoTree> voc = null;
+
+        //注意content列表可能为空
+        List<String> content = R.getConfig().getWords();
+        voc = vocabService.getPsychoTreeByContent( content );
 
         return voc;
     }
