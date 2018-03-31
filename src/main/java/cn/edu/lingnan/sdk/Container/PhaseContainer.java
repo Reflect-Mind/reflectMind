@@ -9,8 +9,9 @@ import java.util.List;
  * Created by Administrator on 2018/3/6.
  */
 public interface PhaseContainer<T, V> {
-    void add(PhaseType type, T integer);
+    void add(PhaseType type, T element);
     List<T> getPhase(PhaseType type);
     void clear();
     boolean  containAll(List<V> list);
+    boolean contains(T element);
 }

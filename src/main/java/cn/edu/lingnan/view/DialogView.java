@@ -1,5 +1,6 @@
 package cn.edu.lingnan.view;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
@@ -22,4 +23,12 @@ public class DialogView extends AbstractView {
         dialog.getDialogPane().setExpanded(true);
         return  dialog;
     }
+
+    public Alert showInformationDialog(String contentText){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, contentText);
+        alert.initOwner(this.stage);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        return alert;
+    }
+
 }

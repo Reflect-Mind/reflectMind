@@ -43,7 +43,7 @@ public class AudioPlayerController extends Controller {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //this.audioPlayer.open(new File("D:\\CloudMusic\\ee.mp3"));
+        this.audioPlayer.open(new File("D:\\CloudMusic\\ee.mp3"));
         this.buttonMapping();
     }
 

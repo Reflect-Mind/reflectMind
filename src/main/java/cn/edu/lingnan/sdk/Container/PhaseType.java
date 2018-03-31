@@ -6,17 +6,17 @@ package cn.edu.lingnan.sdk.Container;
  */
 public enum PhaseType {
     /**
-     * 小学阶段
+     * 童年阶段
      */
-    PRIMARY,
+    CHILDHOOD,
     /**
-     * 初中阶段
+     * 中学阶段
      */
-    JUNIOR,
+    MIDDLE,
     /**
-     * 高中阶段
+     * 大学阶段
      */
-    SENIOR,
+    COLLEGE,
     /**
      * 工作阶段
      */
