@@ -21,7 +21,7 @@
          <panes>
 
 
-            <TitledPane animated="false" text="词频查询">
+            <TitledPane fx:id="frqTitle" animated="false" text="词频查询">
                <content>
                   <TreeTableView fx:id = "frqTable">
                      <columns>
@@ -38,7 +38,7 @@
             </TitledPane>
 
 
-            <TitledPane animated="false" text="词汇统计">
+            <TitledPane fx:id="wordTitle" animated="false" text="词汇统计">
                <content>
                   <TreeTableView fx:id = "wordTable">
                      <columns>

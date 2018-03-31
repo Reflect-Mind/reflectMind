@@ -1,11 +1,14 @@
 package cn.edu.lingnan.service;
 
+import cn.edu.lingnan.pojo.FrqTree;
+import cn.edu.lingnan.pojo.PsychoTree;
 import cn.edu.lingnan.pojo.Vocab;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2018/1/31.
+ * Last Edited by Mechan on 2018/3/30.
  */
 public interface VocabService {
 
@@ -16,12 +19,24 @@ public interface VocabService {
     public List<Vocab> findAllPsyChoVocab();
 
 
+    //查询数据库Vocab表的所有记录
+    public List<Vocab> findAllRecord();
+
+
     /**
-     * 输入一个Vocab.content列表，返回一个Vocab列表
-     * 在getByContent中完成词频统计、分类查询、主题查询
+     * 在getByContent中完成词频查询
      * @param content
-     * @return List<Vocab>
+     * @return List<FrqTree>
      */
-    public List<Vocab> getByContent( List<String> content );
+    public List<FrqTree> getFrqTreeByContent( List<String> content );
+
+
+    /**
+     * 在getByContent中完成词汇统计
+     * @param content
+     * @return List<PsychoTree>
+     */
+    public List<PsychoTree> getPsychoTreeByContent( List<String> content );
+
 
 }
