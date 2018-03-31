@@ -136,10 +136,11 @@ public class TextWorkspaceController extends Controller {
         }));
 
         //自动更新文本域跳转值:有方法重复调用的嫌疑
+        boolean blockNotify = false;
         IntegerProperty currentParagraph = R.getConfig().currentParagraphProperty();
         IntegerProperty currentColumn = R.getConfig().currentColumnProperty();
         currentParagraph.addListener(((observable, oldValue, newValue) -> {
-            if (currentParagraph.get() == oldValue.intValue())
+            if (currentParagraph.get() == this.textArea.currentParagraphProperty().getValue())
                 return;
             this.textArea.showParagraphAtTop(newValue.intValue());
             this.textArea.moveTo(newValue.intValue(), 0);
