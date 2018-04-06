@@ -27,6 +27,7 @@ public class HibernateSessionFactory {
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             ourSessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) {
+            System.out.println(ex);
             throw new ExceptionInInitializerError(ex);
         }
     }

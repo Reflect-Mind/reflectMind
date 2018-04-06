@@ -8,17 +8,26 @@ public enum PhaseType {
     /**
      * 童年阶段
      */
-    CHILDHOOD,
+    CHILDHOOD("童年阶段"),
     /**
      * 中学阶段
      */
-    MIDDLE,
+    MIDDLE("中学阶段"),
     /**
      * 大学阶段
      */
-    COLLEGE,
+    COLLEGE("大学阶段"),
     /**
      * 工作阶段
      */
-    WORK,
+    WORK("工作阶段");
+
+    PhaseType(String phaseString){
+        this.phaseString = phaseString;
+    }
+    private String phaseString;
+
+    public String toString() {
+        return this.phaseString;
+    }
 }

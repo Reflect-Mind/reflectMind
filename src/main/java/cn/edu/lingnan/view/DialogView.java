@@ -12,6 +12,7 @@ import javafx.stage.Modality;
  */
 public class DialogView extends AbstractView {
 
+
     public TextInputDialog showTextInputDialog(){
         TextInputDialog dialog = new TextInputDialog("");
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -24,10 +25,26 @@ public class DialogView extends AbstractView {
         return  dialog;
     }
 
+    /**
+     * 生成信息展示对话框
+     * @param contentText 将要被展示的信息
+     * @return
+     */
     public Alert showInformationDialog(String contentText){
         Alert alert = new Alert(Alert.AlertType.INFORMATION, contentText);
         alert.initOwner(this.stage);
         alert.initModality(Modality.APPLICATION_MODAL);
+        return alert;
+    }
+
+    /**
+     * 生成信息确认对话框
+     * @param contentText 将要被用户确认的信息
+     * @return
+     */
+    public Alert showConfirmationDialog(String contentText){
+        Alert alert = this.showInformationDialog(contentText);
+        alert.setAlertType(Alert.AlertType.CONFIRMATION);
         return alert;
     }
 

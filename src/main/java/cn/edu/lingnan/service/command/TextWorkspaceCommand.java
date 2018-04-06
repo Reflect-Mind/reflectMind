@@ -1,5 +1,6 @@
 package cn.edu.lingnan.service.command;
 
+import cn.edu.lingnan.pojo.CatchingWord;
 import cn.edu.lingnan.pojo.Vocab;
 import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.sdk.Container.PhaseContainerImpl;
@@ -55,7 +56,8 @@ public class TextWorkspaceCommand extends AbstractCommand {
     //访：所在的行序号范围 IndexRange: start (included) end (excluded)
     private ObservableList<Pair<Integer, IndexRange>> asks = R.getConfig().getAsks();
     //匹配到单词
-    private List<String> words = R.getConfig().getWords();
+    private List<CatchingWord> catchingWords = R.getConfig().getCatchingWords();
+
     //单独线程执行者
     private ExecutorService executors = Executors.newSingleThreadExecutor();
     //获取心理词汇的服务类
@@ -192,13 +194,7 @@ public class TextWorkspaceCommand extends AbstractCommand {
             length ++;
         }
     }
-    /**
-     * 进行单词区分的方法
-     * 用在ac自动机的方法调用后
-     */
-    public void distinctWords(){
 
-    }
     /**
      * 对单词进行相应的归纳并使得其能够高亮
      * @return
@@ -207,8 +203,8 @@ public class TextWorkspaceCommand extends AbstractCommand {
         for (Pair<Integer, IndexRange> pair: this.answers){
             IndexRange range = pair.getValue();
             if (range.getStart() <= start && end < range.getEnd()){
-                //添加单词到匹配序列当中
-                this.words.add(word);
+                //添加单词到匹配序列当中:将大致的索引范围放入实体类当中 => 省内存
+                this.catchingWords.add(new CatchingWord(word, range));
                 return true;
             }
         }
@@ -226,7 +222,8 @@ public class TextWorkspaceCommand extends AbstractCommand {
         StyleSpansBuilder<Collection<String>> builder = new StyleSpansBuilder<>();
         IntegerProperty init = new SimpleIntegerProperty(0);
         //清空历史匹配记录
-        this.words.clear();
+        this.catchingWords.clear();
+
         corasick.find(text, ((word, start, end) -> {
             StyleSpan<Collection<String>> styleSpan = null;
 

@@ -26,7 +26,6 @@ public abstract class Controller implements Initializable,/* Observer,*/ Seriali
 
     public void setStage(Stage stage){
         this.stage = stage;
-
     }
     public Stage getStage(){
         if (this.stage == null)
