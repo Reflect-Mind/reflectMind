@@ -3,10 +3,15 @@ package cn.edu.lingnan.service.command;
 import cn.edu.lingnan.pojo.FrqTree;
 import cn.edu.lingnan.pojo.PsychoTree;
 import cn.edu.lingnan.pojo.Vocab;
+import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.service.VocabService;
 import cn.edu.lingnan.service.impl.VocabServiceImpl;
 import cn.edu.lingnan.utils.R;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.scene.control.IndexRange;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +48,15 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
     }
 
 
+    public Task<List<FrqTree>> getFrqTreeTask(){
+        return new Task<List<FrqTree>>() {
+            @Override
+            protected List<FrqTree> call() throws Exception {
+                return getFrqTree();
+            }
+        };
+    }
+
     /**
      * 返回用于词频查询的FrqTable
      * @return List<FrqTree>
@@ -58,6 +72,15 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
         return voc;
     }
 
+
+    public Task<List<PsychoTree>> getPsychoTreeTask(){
+        return new Task<List<PsychoTree>>() {
+            @Override
+            protected List<PsychoTree> call() throws Exception {
+                return getPsychoTree();
+            }
+        };
+    }
 
     /**
      * 返回用于词汇统计的PsychoTree
@@ -75,23 +98,37 @@ public class TextWorkspaceRightCommand extends AbstractCommand {
     }
 
 
+    public Task<List<Vocab>> getNewWordTreeTask(){
+        return new Task<List<Vocab>>() {
+            @Override
+            protected List<Vocab> call() throws Exception {
+                return getNewWordTree();
+            }
+        };
+    }
+
     /**
      * 返回用于新词预测的PsychoTree
      * @return List<PsychoTree>
      */
-    public  List<Vocab> getNewWordTree() {
+    private List<Vocab> getNewWordTree() {
 
+        //新词列表
         List<Vocab> voc = null;
 
-        //注意str可能为空
-        String str = R.getConfig().getTextProperty();
+        //str为生命故事文本
+        String str = "";
+        if( R.getConfig().getTextProperty() != null )
+            str = R.getConfig().getTextProperty();
 
-        System.out.println("输出受访者对白");
-        System.out.println( str );
+        str = str.replace( "受：\t", "ee");
+        str = str.replace( "访：\t", "er");
+        str = str.replace( "嗯", "e");
+        str = str.replace( "哦", "o");
 
-//        voc = vocabService.getPsychoTreeByContent( str );
+        voc = vocabService.getNewWordByText( str );
 
-        return null;
+        return voc;
     }
 
 }

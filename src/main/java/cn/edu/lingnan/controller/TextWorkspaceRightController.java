@@ -3,6 +3,7 @@ package cn.edu.lingnan.controller;
 import cn.edu.lingnan.pojo.*;
 import cn.edu.lingnan.sdk.controller.Controller;
 import cn.edu.lingnan.service.command.TextWorkspaceRightCommand;
+import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -30,6 +31,7 @@ import java.util.ResourceBundle;
  * Created by Administrator on 2018/2/17.
  */
 public class TextWorkspaceRightController extends Controller {
+
 
     //词频查询组件
     @FXML
@@ -93,64 +95,64 @@ public class TextWorkspaceRightController extends Controller {
 
         //词频查询事件： 鼠标点击frqTitle时执行查询或分析
         this.frqTitle.setOnMouseClicked(event -> {
+            //耗时任务要加入task
+            Task<List<FrqTree>> task = this.textWorkspaceRightCommand.getFrqTreeTask();
 
-            Task<List<Vocab>> task =
-                this.textWorkspaceRightCommand.getVocabTask();
+            task.setOnSucceeded(e -> {
+
+                List<FrqTree> frqList = task.getValue();
+                updateFrqTable( frqList );
+            });
 
             new Thread(task).start();
 
-            //执行失败时进行报告
             task.setOnFailed(e -> {
                 System.out.println(task.getException());
             });
-
-            //key: 执行成功时的事件
-            task.setOnSucceeded( e -> this.updateFrqTable());
         });
 
         //词汇统计事件： 鼠标点击wordTitle时执行查询或分析
         this.wordTitle.setOnMouseClicked(event -> {
+            //耗时任务要加入task
+            Task<List<PsychoTree>> task = this.textWorkspaceRightCommand.getPsychoTreeTask();
 
-            Task<List<Vocab>> task =
-                    this.textWorkspaceRightCommand.getVocabTask();
+            task.setOnSucceeded(e -> {
+
+                List<PsychoTree> psychoList = task.getValue();
+                updatePsychoTable( psychoList );
+            });
 
             new Thread(task).start();
 
-            //执行失败时进行报告
             task.setOnFailed(e -> {
                 System.out.println(task.getException());
             });
-
-            //key: 执行成功时的事件
-            task.setOnSucceeded( e -> this.updatePsychoTable());
         });
+
 
         //新词事件： 鼠标点击newWordTitle时执行查询或分析
         this.newWordTitle.setOnMouseClicked(event -> {
+            //耗时任务要加入task
+            Task<List<Vocab>> task = this.textWorkspaceRightCommand.getNewWordTreeTask();
 
-            Task<List<Vocab>> task =
-                    this.textWorkspaceRightCommand.getVocabTask();
+            task.setOnSucceeded(e -> {
+
+                List<Vocab> newWordsList = task.getValue();
+                updateNewWordTable(newWordsList);
+            });
 
             new Thread(task).start();
 
-            //执行失败时进行报告
             task.setOnFailed(e -> {
                 System.out.println(task.getException());
             });
-
-            //key: 执行成功时的事件
-            task.setOnSucceeded( e -> this.updateNewWordTable());
         });
 
     }
 
 
     //更新词频查询树表
-    private void updateFrqTable() {
-
-        //调用TextWorkspaceRightCommand获得frqTable
-        List<FrqTree> voc =
-                textWorkspaceRightCommand.getFrqTree();
+    private void updateFrqTable( List<FrqTree> voc ) {
 
         //扩展root结点
         root.setExpanded(true);
@@ -200,11 +202,7 @@ public class TextWorkspaceRightController extends Controller {
 
 
     //更新词汇统计树表
-    private void updatePsychoTable() {
-
-        //调用TextWorkspaceRightCommand获得PsychoTree
-        List<PsychoTree> voc =
-                textWorkspaceRightCommand.getPsychoTree();
+    private void updatePsychoTable( List<PsychoTree> voc ) {
 
         //扩展root1结点
         root1.setExpanded(true);
@@ -255,59 +253,54 @@ public class TextWorkspaceRightController extends Controller {
     }
 
 
-    //更新词汇统计树表
-    private void updateNewWordTable() {
-
-        //调用TextWorkspaceRightCommand获得NewWordTree
-        List<Vocab> voc =
-                textWorkspaceRightCommand.getNewWordTree();
+    //更新新词预测树表
+    private void updateNewWordTable(List<Vocab> voc) {
 
         //扩展root1结点
-        root1.setExpanded(true);
+        root2.setExpanded(true);
 
         //清空root的Children
-        root1.getChildren().remove( 0, root1.getChildren().size() );
+        root2.getChildren().remove( 0, root2.getChildren().size() );
 
         //key: 将voc列表添加到root1结点
-//        voc.stream().forEach((vo) -> {
-//            root1.getChildren().add(new TreeItem<Vocab>(vo));
-//        });
+        voc.stream().forEach((vo) -> {
+            root2.getChildren().add(new TreeItem<Vocab>(vo));
+        });
 
 
-        //主题
-        themeColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<PsychoTree, String> param) ->
+        //单词内容
+        newWordColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Vocab, String> param) ->
                         new ReadOnlyStringWrapper(param.getValue().getValue()
-                                .getTheme())
+                                .getContent())
         );
 
-        //分类
-        categoryColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<PsychoTree, String> param) ->
-                        new ReadOnlyStringWrapper(param.getValue().getValue()
-                                .getCategory())
-        );
-
-        //频数
-        appearColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<PsychoTree, Number> param) ->
+        //单词频数
+        newAppearColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Vocab, Number> param) ->
                         new ReadOnlyIntegerWrapper(param.getValue().getValue()
                                 .getAppearnum())
         );
 
-        //频率
-        frqColumn.setCellValueFactory(
-                (TreeTableColumn.CellDataFeatures<PsychoTree, Number> param) ->
+        //单词长度
+        lengthColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Vocab, Number> param) ->
+                        new ReadOnlyIntegerWrapper(param.getValue().getValue()
+                                .getWordlen())
+        );
+
+        //单词频率
+        newFrqColumn.setCellValueFactory(
+                (TreeTableColumn.CellDataFeatures<Vocab, Number> param) ->
                         new ReadOnlyDoubleWrapper(param.getValue().getValue()
                                 .getFrq())
         );
 
-        //key: 将root1添加到TreeTableView
-        wordTable.setRoot(root1);
+        //key: 将root2添加到TreeTableView
+        newWordTable.setRoot(root2);
         //key: 将Column添加到treeTableView,
-        wordTable.getColumns().setAll(themeColumn, categoryColumn, appearColumn, frqColumn);
-        wordTable.setShowRoot(false);
-
+        newWordTable.getColumns().setAll(newWordColumn, newAppearColumn, lengthColumn, newFrqColumn);
+        newWordTable.setShowRoot(false);
     }
 
 

@@ -35,7 +35,7 @@
                    <fx:include source="ViewWorkspaceLayout$One.fxml"/>
                </Tab>
                <Tab text="基调分析">
-                   <fx:include source="ViewWorkspaceLayout$Two.fxml">
+                   <fx:include source="ViewWorkspaceLayout$Emotion.fxml">
                    </fx:include>
                </Tab>
                <Tab text="自我认同分析">

@@ -39,4 +39,10 @@ public interface VocabService {
     public List<PsychoTree> getPsychoTreeByContent( List<String> content );
 
 
+    /**
+     * 新词预测
+     * @param str
+     * @return List<Vocab>
+     */
+    public List<Vocab> getNewWordByText( String str );
 }

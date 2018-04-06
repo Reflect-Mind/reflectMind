@@ -74,8 +74,8 @@ public class Config implements Serializable{
         return asks;
     }
     //用于基调分析的人生四大阶段: 小学、初中、大学、工作。
-    PhaseContainer<Integer ,Pair<Integer, IndexRange>> phaseContainer = new PhaseContainerImpl();
-    public PhaseContainer<Integer, Pair<Integer, IndexRange>> getPhaseContainer() {
+    PhaseContainer<String ,Pair<Integer, IndexRange>> phaseContainer = new PhaseContainerImpl();
+    public PhaseContainer<String, Pair<Integer, IndexRange>> getPhaseContainer() {
         return phaseContainer;
     }
 

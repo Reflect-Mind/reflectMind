@@ -56,20 +56,20 @@
 
 
             <TitledPane fx:id="newWordTitle" animated="false" text="新词预测">
-               <content>
-                  <TreeTableView fx:id = "newWordTable">
-                     <columns>
-                        <TreeTableColumn fx:id="newWordColumn" minWidth="30.0" text="单词" />
-                        <TreeTableColumn fx:id="newAppearColumn" minWidth="30.0" text="频数" />
-                        <TreeTableColumn fx:id="lengthColumn" minWidth="30.0" text="长度" />
-                        <TreeTableColumn fx:id="newFrqColumn" minWidth="30.0" text="频率" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TreeTableView>
-               </content>
-            </TitledPane>
+            <content>
+               <TreeTableView fx:id = "newWordTable">
+                  <columns>
+                     <TreeTableColumn fx:id="newWordColumn" minWidth="30.0" text="单词" />
+                     <TreeTableColumn fx:id="newAppearColumn" minWidth="30.0" text="频数" />
+                     <TreeTableColumn fx:id="lengthColumn" minWidth="30.0" text="长度" />
+                     <TreeTableColumn fx:id="newFrqColumn" minWidth="30.0" text="频率" />
+                  </columns>
+                  <columnResizePolicy>
+                     <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                  </columnResizePolicy>
+               </TreeTableView>
+            </content>
+         </TitledPane>
 
 
             <TitledPane animated="false" text="未登录词">

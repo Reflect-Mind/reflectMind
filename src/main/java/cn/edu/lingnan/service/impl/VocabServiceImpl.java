@@ -3,6 +3,7 @@ package cn.edu.lingnan.service.impl;
 import cn.edu.lingnan.dao.VocabDao;
 import cn.edu.lingnan.dao.impl.VocabDaoImpl;
 import cn.edu.lingnan.pojo.*;
+import cn.edu.lingnan.sdk.algorithms.wordLearning.WordLearning;
 import cn.edu.lingnan.service.CategoryService;
 import cn.edu.lingnan.service.ThemeService;
 import cn.edu.lingnan.service.VocabService;
@@ -72,6 +73,28 @@ public class VocabServiceImpl implements VocabService {
         psychoTree = themeQuery( psychoTree );
 
         return psychoTree;
+    }
+
+    //key: 新词预测功能方法
+    @Override
+    public List<Vocab> getNewWordByText(String str) {
+
+        List<Vocab> coverVocab = null;
+        List<Vocab> oldVocab = null;
+        List<Vocab> newVocab = null;
+        WordLearning wordLearner = new WordLearning();
+
+        long start = System.currentTimeMillis();
+        coverVocab = wordLearner.learnWordFromText( str );
+        long end = System.currentTimeMillis();
+
+        System.out.println("扫描新词用时：" + ( end - start ) + "ms" );
+
+        oldVocab = findAllRecord();
+
+        newVocab = getNewVocab( coverVocab, oldVocab );
+
+        return newVocab;
     }
 
 
@@ -354,5 +377,52 @@ public class VocabServiceImpl implements VocabService {
         return psychoTree;
     }
 
+
+    //新词查询
+    private  List<Vocab> getNewVocab( List<Vocab> coverVocab, List<Vocab> oldVocab ) {
+
+        List<Vocab> newVocab = new ArrayList<>();
+        boolean repeat = false;
+        String word1, word2;
+        int sum;
+        double ind, frq;
+
+        //将两个词汇列表对比，得出新词列表
+        for ( int i=0; i<coverVocab.size(); i++ ) {
+            repeat = false;
+            word1 = coverVocab.get(i).getContent();
+
+            for ( int j=0; j<oldVocab.size(); j++ ) {
+                word2 = oldVocab.get(j).getContent();
+                if( word1.equals( word2 ) )
+                    repeat = true;
+            }
+
+            if ( repeat == false ) {
+                Vocab voc = new Vocab();
+                voc.setContent( coverVocab.get(i).getContent() );
+                voc.setAppearnum( coverVocab.get(i).getAppearnum() );
+                voc.setWordlen( coverVocab.get(i).getWordlen() );
+                voc.setSolid( coverVocab.get(i).getSolid() );
+                voc.setEntropy( coverVocab.get(i).getEntropy() );
+                newVocab.add( voc );
+            }
+        }
+
+        //计算总频数
+        sum = 0;
+        for ( Vocab v : newVocab ) {
+            sum = sum + v.getAppearnum();
+        }
+
+        //计算频率
+        for ( int i = 0; i < newVocab.size(); i++ ) {
+            ind = newVocab.get(i).getAppearnum();
+            frq = ind / sum;
+            newVocab.get(i).setFrq( frq );
+        }
+
+        return  newVocab;
+    }
 
 }

@@ -9,6 +9,8 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="400.0" prefWidth="600.0"
-            fx:controller="cn.edu.lingnan.controller.ViewWorkspaceTwoController">
+            fx:id="anchorPane"
+            onMouseEntered="#updateMotionCharts"
+            fx:controller="cn.edu.lingnan.controller.ViewWorkspaceEmotionController">
 
 </AnchorPane>

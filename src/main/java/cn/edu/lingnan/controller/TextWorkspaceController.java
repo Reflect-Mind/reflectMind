@@ -83,7 +83,7 @@ public class TextWorkspaceController extends Controller {
         this.highlightCommand.updateAhoMatchingData();
         //划词添加到ac自动机和当前维护的词汇列表当中
         this.listeningToSelectionText();
-        //this.initPlayer();
+        this.initPlayer();
     }
 
     /**
@@ -136,10 +136,11 @@ public class TextWorkspaceController extends Controller {
         }));
 
         //自动更新文本域跳转值:有方法重复调用的嫌疑
+        boolean blockNotify = false;
         IntegerProperty currentParagraph = R.getConfig().currentParagraphProperty();
         IntegerProperty currentColumn = R.getConfig().currentColumnProperty();
         currentParagraph.addListener(((observable, oldValue, newValue) -> {
-            if (currentParagraph.get() == newValue.intValue())
+            if (currentParagraph.get() == this.textArea.currentParagraphProperty().getValue())
                 return;
             this.textArea.showParagraphAtTop(newValue.intValue());
             this.textArea.moveTo(newValue.intValue(), 0);

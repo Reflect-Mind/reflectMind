@@ -17,7 +17,7 @@ public class WordLearning {
     public static int freqConst = -1;		//频数阈值，等于-1表示由系统自动确定
     public static double solidConst = 30;	//凝固程度阈值
     public static double entroConst = 0.687;//信息熵阈值
-    public static int wordLength = 7;		//单词的最大长度
+    public static int wordLength = 5;		//单词的最大长度
 
     //结果排序的依据，1表示按频数，2表示按凝固程度，3表示信息熵
     public static int sortByConst = 1;
