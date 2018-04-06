@@ -55,6 +55,7 @@ public class ViewWorkspaceOneCommand {
             FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
             frequencyAnalyzer.setWordFrequenciesToReturn(600);
             frequencyAnalyzer.setMinWordLength(2);
+
             List<WordFrequency> frequencyList = frequencyAnalyzer.load(R.getConfig().getWords());
             Dimension dimension = new Dimension(600, 600);
             WordCloud wordCloud = new WordCloud(dimension, CollisionMode.PIXEL_PERFECT);

@@ -1,20 +1,18 @@
 package cn.edu.lingnan.utils;
 
+import cn.edu.lingnan.pojo.CatchingWord;
 import cn.edu.lingnan.pojo.Vocab;
 import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.sdk.Container.PhaseContainerImpl;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasickImpl;
+import cn.edu.lingnan.sdk.enumeration.ChartType;
 import cn.edu.lingnan.sdk.overlay.AudioPlayer;
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.scene.control.IndexRange;
 import javafx.util.Pair;
-import main.java.goxr3plus.javastreamplayer.stream.StreamPlayer;
-import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerException;
 
 import java.io.File;
 import java.io.Serializable;
@@ -59,10 +57,18 @@ public class Config implements Serializable{
     }
 
     //每次匹配到的单词
-    private List<String> words = new ArrayList<>();
+    @Deprecated
     public List<String> getWords() {
+        List<String> words = new ArrayList<>();
+        this.catchingWords.forEach(catchingWord ->
+                words.add(catchingWord.getWord()));
         return words;
     }
+    private List<CatchingWord> catchingWords = new ArrayList<>();
+    public List<CatchingWord> getCatchingWords() {
+        return catchingWords;
+    }
+
     // 受：
     private ObservableList<Pair<Integer, IndexRange>> answers = FXCollections.observableArrayList();
     public ObservableList<Pair<Integer, IndexRange>> getAnswers() {
@@ -74,8 +80,8 @@ public class Config implements Serializable{
         return asks;
     }
     //用于基调分析的人生四大阶段: 小学、初中、大学、工作。
-    PhaseContainer<String ,Pair<Integer, IndexRange>> phaseContainer = new PhaseContainerImpl();
-    public PhaseContainer<String, Pair<Integer, IndexRange>> getPhaseContainer() {
+    PhaseContainer<Pair<Integer, IndexRange>> phaseContainer = new PhaseContainerImpl();
+    public PhaseContainer<Pair<Integer, IndexRange>> getPhaseContainer() {
         return phaseContainer;
     }
 
@@ -122,6 +128,12 @@ public class Config implements Serializable{
     private StringProperty searchText = new SimpleStringProperty();
     public StringProperty searchTextProperty() {
         return searchText;
+    }
+
+    //基调分析图表切换事件属性:初始化属性值为LINE_CHART
+    private ObjectProperty<ChartType> emotionChartProperty = new SimpleObjectProperty<>(ChartType.LINE_CHART);
+    public ObjectProperty<ChartType> emotionChartProperty() {
+        return emotionChartProperty;
     }
 
     /**

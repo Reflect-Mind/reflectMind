@@ -5,7 +5,6 @@ import cn.edu.lingnan.utils.R;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,7 +25,7 @@ public class WindowView extends AbstractView {
      */
     public Parent showFillPhaseContainerView(){
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(R.getResourcesAsURL("layouts/FillPhaseContainer.fxml"));
+        loader.setLocation(R.getResourcesAsURL("layouts/FillPhaseLayout.fxml"));
         this.parent = null;
         try {
             this.parent = loader.load();

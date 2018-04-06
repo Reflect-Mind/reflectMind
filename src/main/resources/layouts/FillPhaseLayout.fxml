@@ -14,7 +14,8 @@
 
 <!---->
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.FillPhaseController">
+<AnchorPane
+        prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.FillPhaseController">
    <children>
       <Label layoutX="83.0" layoutY="14.0" text="待分类段落" />
       <ListView fx:id="listView" layoutX="13.0" layoutY="39.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="39.0" />
@@ -24,7 +25,7 @@
         <buttons>
             <Button mnemonicParsing="false" text="完成" fx:id="saveAndExit" onAction="#saveAndExit"/>
             <Button mnemonicParsing="false" text="取消" fx:id="cancel" onAction="#cancel"/>
-            <Button mnemonicParsing="false" text="保存" fx:id="save" onAction="#save"/>
+            <Button mnemonicParsing="false" text="应用" fx:id="save" onAction="#save"/>
             <Button mnemonicParsing="false" text="帮助" fx:id="help" onAction="#help"/>
         </buttons>
       </ButtonBar>

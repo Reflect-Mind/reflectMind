@@ -12,14 +12,14 @@ import java.util.function.Consumer;
  * 人生阶段容器
  *
  */
-public class PhaseContainerImpl implements PhaseContainer<String, Pair<Integer, IndexRange>>{
-    private List<String> childhoodPhase = new ArrayList<>();
-    private List<String> middlePhase = new ArrayList<>();
-    private List<String> collegePhase = new ArrayList<>();
-    private List<String> workPhase = new ArrayList<>();
+public class PhaseContainerImpl implements PhaseContainer<Pair<Integer, IndexRange>>{
+    private List<Pair<Integer, IndexRange>> childhoodPhase = new ArrayList<>();
+    private List<Pair<Integer, IndexRange>> middlePhase = new ArrayList<>();
+    private List<Pair<Integer, IndexRange>> collegePhase = new ArrayList<>();
+    private List<Pair<Integer, IndexRange>> workPhase = new ArrayList<>();
 
-    private List<String> getListByPhase(PhaseType type){
-        List<String> list =
+    private List<Pair<Integer, IndexRange>> getListByPhase(PhaseType type){
+        List<Pair<Integer, IndexRange>> list =
                 type == null? null:
                         type == PhaseType.CHILDHOOD? this.childhoodPhase:
                                 type == PhaseType.MIDDLE? this.middlePhase:
@@ -32,7 +32,7 @@ public class PhaseContainerImpl implements PhaseContainer<String, Pair<Integer, 
      * 获取四大人生阶段容器的囊括段落范围
      * @return
      */
-    private int getTotalListSize(){
+    public int size(){
         return this.childhoodPhase.size() + this.middlePhase.size()
                 + this.collegePhase.size() + this.workPhase.size();
     }
@@ -41,10 +41,21 @@ public class PhaseContainerImpl implements PhaseContainer<String, Pair<Integer, 
      * @param type
      * @param element
      */
-    public void add(PhaseType type, String element) {
-        List<String> list = this.getListByPhase(type);
+    public void add(PhaseType type, Pair<Integer, IndexRange> element) {
+        List<Pair<Integer, IndexRange>> list = this.getListByPhase(type);
         if (list != null)
             list.add(element);
+    }
+
+    /**
+     * 将段落字符串列表加入到相应的人生阶段当中
+     * @param type
+     * @param source
+     */
+    @Override
+    public void addAll(PhaseType type, List<Pair<Integer, IndexRange>> source) {
+        List<Pair<Integer, IndexRange>> target = this.getListByPhase(type);
+        target.addAll(source);
     }
 
     /**
@@ -53,8 +64,8 @@ public class PhaseContainerImpl implements PhaseContainer<String, Pair<Integer, 
      * @return
      */
     @Override
-    public List<String> getPhase(PhaseType type) {
-        List<String> list = this.getListByPhase(type);
+    public List<Pair<Integer, IndexRange>> getPhase(PhaseType type) {
+        List<Pair<Integer, IndexRange>> list = this.getListByPhase(type);
         return list;
     }
 
@@ -78,17 +89,63 @@ public class PhaseContainerImpl implements PhaseContainer<String, Pair<Integer, 
     @Override
     public boolean containAll(List<Pair<Integer, IndexRange>> list) {
         int targetListSize = list.size();
-        if (this.getTotalListSize() == targetListSize)
+        if (this.size() == targetListSize)
             return true;
         return false;
     }
 
     @Override
-    public boolean contains(String element) {
-        boolean returnValue = this.childhoodPhase.contains(element)
+    public boolean contains(Pair<Integer, IndexRange> element) {
+        return this.childhoodPhase.contains(element)
                 || this.middlePhase.contains(element)
                 || this.collegePhase.contains(element)
                 || this.workPhase.contains(element);
-        return returnValue;
+    }
+
+    @Override
+    public <V> PhaseType valueOf(V element) {
+        if (element instanceof Pair)
+            return this.valueOf((Pair<Integer, IndexRange>)element);
+        else if (element instanceof IndexRange)
+            return this.valueOf((IndexRange)element);
+        return null;
+    }
+
+    /**
+     * 返回值所在的人生阶段
+     * @param element
+     * @return
+     */
+    public PhaseType valueOf(Pair<Integer, IndexRange> element) {
+
+        return this.childhoodPhase.contains(element)? PhaseType.CHILDHOOD:
+                this.middlePhase.contains(element)? PhaseType.MIDDLE:
+                        this.collegePhase.contains(element)? PhaseType.COLLEGE:
+                                this.workPhase.contains(element)? PhaseType.WORK: null;
+    }
+
+    /**
+     * 查询某列表是否含有该range
+     * @param list
+     * @param range
+     * @return
+     */
+    private boolean withIn(List<Pair<Integer, IndexRange>> list, IndexRange range){
+        for (Pair<Integer, IndexRange> pair: list){
+            if (pair.getValue().equals(range))
+                return true;
+        }
+        return false;
+    }
+    /**
+     * 返回值所在的人生阶段
+     * @param range
+     * @return
+     */
+    public PhaseType valueOf(IndexRange range){
+        return this.withIn(this.childhoodPhase, range)? PhaseType.CHILDHOOD:
+                this.withIn(this.middlePhase, range)? PhaseType.MIDDLE:
+                        this.withIn(this.collegePhase, range)? PhaseType.COLLEGE:
+                                this.withIn(this.workPhase, range)? PhaseType.WORK:  null;
     }
 }

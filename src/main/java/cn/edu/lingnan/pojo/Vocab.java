@@ -145,7 +145,7 @@ public class Vocab {
         return result;
     }
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "categoryId", referencedColumnName = "id")
     public Category getCategoryByCategoryId() {
         return categoryByCategoryId.get();
