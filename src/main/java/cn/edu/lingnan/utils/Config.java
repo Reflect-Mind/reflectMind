@@ -108,9 +108,7 @@ public class Config implements Serializable{
 
     //是否标记信息词汇属性
     private BooleanProperty markVocabs = new SimpleBooleanProperty(true);
-    public BooleanProperty markVocabsProperty() {
-        return markVocabs;
-    }
+    public BooleanProperty markVocabsProperty() { return markVocabs; }
 
     //设置当前窗格属性
     private IntegerProperty currentTabIndex = new SimpleIntegerProperty();
@@ -126,9 +124,7 @@ public class Config implements Serializable{
 
     //加入搜索行列的搜索关键词
     private StringProperty searchText = new SimpleStringProperty();
-    public StringProperty searchTextProperty() {
-        return searchText;
-    }
+    public StringProperty searchTextProperty() { return searchText; }
 
     //基调分析图表切换事件属性:初始化属性值为LINE_CHART
     private ObjectProperty<ChartType> emotionChartProperty = new SimpleObjectProperty<>(ChartType.LINE_CHART);
