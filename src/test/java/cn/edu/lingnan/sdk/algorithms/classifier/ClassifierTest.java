@@ -14,7 +14,7 @@ public class ClassifierTest {
     @Test
     public void classifierTrainingTest() throws IOException {
         File file = new File("D://ChnSentiCorp情感分析酒店评论");
-        BayesModel model = new BayesModelImpl();
+        cn.edu.lingnan.sdk.algorithms.classifier.BayesModel model = new cn.edu.lingnan.sdk.algorithms.classifier.BayesModelImpl();
         model.train(file);
         SerializableUtils.saveCurrentState(model, "D://model");
     }
@@ -22,8 +22,8 @@ public class ClassifierTest {
     @Test
     public void classifierPredictTest(){
 
-        BayesModel model = SerializableUtils.getLastState(BayesModel.class, "D://model");
-        Classifier classifier = new ClassifierImpl(model);
+        cn.edu.lingnan.sdk.algorithms.classifier.BayesModel model = SerializableUtils.getLastState(cn.edu.lingnan.sdk.algorithms.classifier.BayesModel.class, "D://model");
+        cn.edu.lingnan.sdk.algorithms.classifier.Classifier classifier = new cn.edu.lingnan.sdk.algorithms.classifier.ClassifierImpl(model);
         String predict = classifier.predict("房间不错，我给满分");
         System.out.println(predict);
         predict = classifier.predict("很差");
