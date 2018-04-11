@@ -17,6 +17,8 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.control.IndexRange;
 import javafx.util.Pair;
+import org.fxmisc.richtext.CodeArea;
+import org.fxmisc.richtext.StyleClassedTextArea;
 import org.fxmisc.richtext.model.StyleSpan;
 import org.fxmisc.richtext.model.StyleSpans;
 import org.fxmisc.richtext.model.StyleSpansBuilder;
@@ -79,8 +81,11 @@ public class TextWorkspaceCommand extends AbstractCommand {
     //本次被搜索的单词的总数
     private IntegerProperty searchingWordCountProperty = config.searchingWordCountProperty();
 
-    //当前段落属性
-    private IntegerProperty currentParagraphProperty = config.currentParagraphProperty();
+    //设置文本域:分层不理想，建议少用
+    private StyleClassedTextArea codeArea = null;
+    public void setCodeArea(StyleClassedTextArea codeArea) {
+        this.codeArea = codeArea;
+    }
 
     /**
      * 更新目标的搜索词汇
@@ -252,8 +257,9 @@ public class TextWorkspaceCommand extends AbstractCommand {
             builder.add(Collections.emptyList(), range.getStart() - init);
             if (this.searchingWordIndexProperty.get() == count) {
                 builder.add(Collections.singleton("currently-searching-word"), range.getLength());
-                //更新到当前段落
-                this.currentParagraphProperty.set(pair.getKey());
+                //更新到当前段落(触犯禁忌)
+                this.codeArea.showParagraphInViewport(pair.getKey());
+
             }
             else
                 builder.add(Collections.singleton("searching-word"), range.getLength());

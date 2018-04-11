@@ -14,6 +14,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -82,6 +83,7 @@ public class TextWorkspaceController extends Controller {
     public void initialize(URL location, ResourceBundle resources) {
         //设置段落号
         this.textArea.setParagraphGraphicFactory(new CustomLineNumberFactory(this.textArea));
+        this.highlightCommand.setCodeArea(this.textArea);
         this.setTextAreaKeyTypedEvent();
         this.initHiddenSidesPane();
         this.richChanged();
@@ -90,6 +92,7 @@ public class TextWorkspaceController extends Controller {
         //划词添加到ac自动机和当前维护的词汇列表当中
         this.listeningToSelectionText();
         this.initPlayer();
+
     }
 
     /**
@@ -148,8 +151,8 @@ public class TextWorkspaceController extends Controller {
         currentParagraph.addListener(((observable, oldValue, newValue) -> {
             if (currentParagraph.get() == this.textArea.currentParagraphProperty().getValue())
                 return;
-            this.textArea.showParagraphAtTop(newValue.intValue());
-            //this.textArea.showParagraphInViewport(newValue.intValue());
+            //this.textArea.showParagraphAtTop(newValue.intValue());
+            this.textArea.showParagraphInViewport(newValue.intValue());
             this.textArea.moveTo(newValue.intValue(), 0);
         }));
         currentColumn.addListener(((observable, oldValue, newValue) -> {
@@ -190,7 +193,6 @@ public class TextWorkspaceController extends Controller {
             task.setOnSucceeded(event -> this.textArea.setStyleSpans(0, task.getValue()));
 
         });
-        this.searchTextList.add("人生");
 
         //锁定当前聚焦关键词监听事件
         config.searchingWordIndexProperty().addListener((observable, oldValue, newValue) -> {
