@@ -10,6 +10,7 @@ import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -64,6 +65,11 @@ public class TextWorkspaceController extends Controller {
     //流媒体播放类
     private StreamPlayer streamPlayer = null;
 
+    //config实体类
+    private Config config = R.getConfig();
+
+    //搜索指定的关键词列表
+    private ObservableList<String> searchTextList = this.config.getSearchTextList();
 
     public TextWorkspaceController(){
         this.makeStylesheet();
@@ -143,6 +149,7 @@ public class TextWorkspaceController extends Controller {
             if (currentParagraph.get() == this.textArea.currentParagraphProperty().getValue())
                 return;
             this.textArea.showParagraphAtTop(newValue.intValue());
+            //this.textArea.showParagraphInViewport(newValue.intValue());
             this.textArea.moveTo(newValue.intValue(), 0);
         }));
         currentColumn.addListener(((observable, oldValue, newValue) -> {
@@ -169,7 +176,29 @@ public class TextWorkspaceController extends Controller {
         singleSelectionModel.selectedIndexProperty().addListener(((observable, oldValue, newValue) -> {
             currentTabIndex.set(newValue.intValue());
         }));
+        //指定的搜索词汇监听事件
+        this.searchTextList.addListener((ListChangeListener<? super String>) ch -> {
+            while (ch.next()){
+                if (ch.wasAdded())
+                    this.highlightCommand.updateSearchWord(true, ch.getAddedSubList());
+                else if (ch.wasRemoved())
+                    this.highlightCommand.updateSearchWord(false, ch.getRemoved());
+            }
+            //刷新样式
+            Task<StyleSpans<Collection<String>>> task = this.highlightCommand.getStyleSpansTask(
+                    this.textArea.textProperty().getValue(), false);
+            task.setOnSucceeded(event -> this.textArea.setStyleSpans(0, task.getValue()));
 
+        });
+        this.searchTextList.add("人生");
+
+        //锁定当前聚焦关键词监听事件
+        config.searchingWordIndexProperty().addListener((observable, oldValue, newValue) -> {
+
+            Task<StyleSpans<Collection<String>>> task = this.highlightCommand.getStyleSpansTask(
+                    this.textArea.textProperty().getValue(), false);
+            task.setOnSucceeded(event -> this.textArea.setStyleSpans(0, task.getValue()));
+        });
     }
 
     private void initPlayer(){
@@ -206,7 +235,7 @@ public class TextWorkspaceController extends Controller {
         this.textArea.plainTextChanges()
                 .filter(ch -> !ch.getInserted().equals(ch.getRemoved()))
                 .successionEnds(Duration.ofMillis(10))
-                .supplyTask(() -> this.highlightCommand.getStyleSpansTask(textArea.getText()))
+                .supplyTask(() -> this.highlightCommand.getStyleSpansTask(textArea.getText(), true))
                 .awaitLatest(this.textArea.plainTextChanges())
                 .filterMap(styleSpansTry -> {
                    if (styleSpansTry.isSuccess())

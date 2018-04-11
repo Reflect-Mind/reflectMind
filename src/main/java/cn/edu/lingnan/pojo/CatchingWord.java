@@ -31,4 +31,8 @@ public class CatchingWord {
         return range;
     }
 
+    public boolean equals(CatchingWord obj) {
+        return this.word.equals(obj.getWord())
+                && this.range.equals(obj.getRange());
+    }
 }

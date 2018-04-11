@@ -124,7 +124,26 @@ public class Config implements Serializable{
 
     //加入搜索行列的搜索关键词
     private StringProperty searchText = new SimpleStringProperty();
+    @Deprecated
     public StringProperty searchTextProperty() { return searchText; }
+
+    //加入搜索行列的搜索关键词列表
+    private ObservableList<String> searchTextList = FXCollections.observableArrayList();
+    public ObservableList<String> getSearchTextList() {
+        return searchTextList;
+    }
+
+    //需要被定位的被搜索的词汇索引
+    private IntegerProperty searchingWordIndexProperty = new SimpleIntegerProperty(0);
+    public IntegerProperty searchingWordIndexProperty() {
+        return searchingWordIndexProperty;
+    }
+
+    //搜索到的单词的个数属性
+    private IntegerProperty searchingWordCountProperty = new SimpleIntegerProperty();
+    public IntegerProperty searchingWordCountProperty() {
+        return searchingWordCountProperty;
+    }
 
     //基调分析图表切换事件属性:初始化属性值为LINE_CHART
     private ObjectProperty<ChartType> emotionChartProperty = new SimpleObjectProperty<>(ChartType.LINE_CHART);

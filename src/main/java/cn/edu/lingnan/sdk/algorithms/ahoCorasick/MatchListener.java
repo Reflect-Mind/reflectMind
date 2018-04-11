@@ -12,6 +12,7 @@ public interface MatchListener {
      * @param word 匹配的单词
      * @param start 该单词开始的位置
      * @param end 该单词结束的位置
+     * @param paragraph 当前单词处于原文中的段落序号
      */
-    public abstract void match(String word, Integer start, Integer end);
+    public abstract void match(String word, Integer start, Integer end, Integer paragraph);
 }

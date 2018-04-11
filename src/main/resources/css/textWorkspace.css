@@ -24,5 +24,16 @@
 }
 .keyword{
     -fx-fill: #0000ff;
+}
+/**
+    搜索关键词的css样式
+ */
+.searching-word{
+    -rtfx-background-color: #FFFF00;
+}
 
+.currently-searching-word{
+    -rtfx-background-color:#FFFF00;
+    -rtfx-border-stroke-color:#000;
+    -rtfx-border-stroke-width:1px;
 }

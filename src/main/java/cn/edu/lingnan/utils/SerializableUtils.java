@@ -20,7 +20,7 @@ public class SerializableUtils {
 
     private static <T> T getLastState(String path)  {
         InputStream inputStream =  null;
-        File file = new File(basePath, path);
+        File file = new File(path);
         if (file.exists())
             try {
                 inputStream = new FileInputStream(file);
@@ -28,7 +28,7 @@ public class SerializableUtils {
                 e.printStackTrace();
             }
         else
-            SerializableUtils.class.getClassLoader().getResourceAsStream(path);
+            SerializableUtils.class.getClassLoader().getResourceAsStream(basePath + "/" + path);
         T instance = null;
         if (inputStream != null) {
             try (ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(inputStream))) {

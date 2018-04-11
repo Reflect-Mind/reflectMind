@@ -36,9 +36,9 @@ public class AhoCorasickImpl implements AhoCorasick{
     public void append(List<Vocab> list){
         for(Vocab vocab: list){
             String word = vocab.getContent();
-            this.init(word);
+            this.append(word);
         }
-        this.buildFailPoint(this.root);
+        //this.buildFailPoint(this.root);
     }
 
     /**
@@ -49,8 +49,8 @@ public class AhoCorasickImpl implements AhoCorasick{
      */
     public void append(String[] words){
         for (String word: words)
-            this.init(word);
-        this.buildFailPoint(this.root);
+            this.append(word);
+        //this.buildFailPoint(this.root);
     }
     /**
      * 构建字典树
@@ -85,6 +85,8 @@ public class AhoCorasickImpl implements AhoCorasick{
      * @param vocab Vocab对象
      */
     public void append(Vocab vocab){
+        if (vocab == null)
+            return;
         String word = vocab.getContent();
         this.append(word);
     }
@@ -96,6 +98,8 @@ public class AhoCorasickImpl implements AhoCorasick{
      * @param word
      */
     public void append(String word){
+        if (word == null)
+            return;
         Node flashNode = this.init(word);
         if (flashNode == null)
             return;
@@ -109,6 +113,8 @@ public class AhoCorasickImpl implements AhoCorasick{
      * @param word 被删除的单词
      */
     public void remove(String word){
+        if (word == null)
+            return;
         Node parent = this.root;
         this.remove(0, word, parent);
 //        for (int count = 0; count < word.length(); count++){
@@ -120,6 +126,18 @@ public class AhoCorasickImpl implements AhoCorasick{
 //        }
 //        if (parent.depth == word.length())
 //            parent.end = false;
+    }
+
+    @Override
+    public void remove(List<? extends String> words) {
+       for (String word: words)
+           this.remove(word);
+    }
+
+    @Override
+    public void remove(String[] words) {
+        for (String word: words)
+            this.remove(word);
     }
 
     /**
@@ -221,11 +239,19 @@ public class AhoCorasickImpl implements AhoCorasick{
      * @param matchListener 识别到时进行回调
      */
     public void find(String text, MatchListener matchListener){
+        //*********************
+        int paragraph = 0;
+        //*********************
         Node parent = this.root;
         int start = -1, end = -1;
         text = text.concat(".");
         for (int count = 0; count < text.length(); count++){
             char letter = text.charAt(count);
+            //************************************
+            /*额外添加的当前行数的监听*/
+            if (letter == '\n')
+                paragraph++;
+            //************************************
             int index = this.indexOf(parent, letter);
             if (parent.end == true) {end = count;}
             if (index != -1) {
@@ -240,7 +266,7 @@ public class AhoCorasickImpl implements AhoCorasick{
                         if (start != -1 && parent == this.root && start < end) {
                             //System.out.println("失配：" + text.substring(start, end) + ":" + parent.code);
                             try {
-                                matchListener.match(text.substring(start, end), start, end);
+                                matchListener.match(text.substring(start, end), start, end, paragraph);
                             } catch (IndexOutOfBoundsException e){
                                 //System.out.println(text.charAt(start) + ": " + text.charAt(end - 1));
                                 e.printStackTrace();
@@ -264,7 +290,7 @@ public class AhoCorasickImpl implements AhoCorasick{
                       if (start < end && start != -1) {
                         //System.out.println("失配：" + text.substring(start, end));
                         try {
-                            matchListener.match(text.substring(start, end), start, end);
+                            matchListener.match(text.substring(start, end), start, end, paragraph);
                         } catch (IndexOutOfBoundsException e){
                             //System.out.println(start + ":" + end);
                             e.printStackTrace();

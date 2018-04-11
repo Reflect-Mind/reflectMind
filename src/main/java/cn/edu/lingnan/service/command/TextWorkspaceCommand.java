@@ -6,8 +6,10 @@ import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.sdk.Container.PhaseContainerImpl;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasickImpl;
+import cn.edu.lingnan.sdk.algorithms.ahoCorasick.MatchListener;
 import cn.edu.lingnan.service.VocabService;
 import cn.edu.lingnan.service.impl.VocabServiceImpl;
+import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -63,8 +65,34 @@ public class TextWorkspaceCommand extends AbstractCommand {
     //获取心理词汇的服务类
     private VocabService vocabService = new VocabServiceImpl();
 
+    private Config config = R.getConfig();
+
     //是否标记词汇属性
-    private BooleanProperty markVocabs = R.getConfig().markVocabsProperty();
+    private BooleanProperty markVocabs = config.markVocabsProperty();
+
+    //自定义ac自动机：用于关键词的搜索
+    private AhoCorasick customAhoCorasick = new AhoCorasickImpl();
+
+    //上一个给标记的词汇属性
+    private IntegerProperty searchingWordIndexProperty = config.searchingWordIndexProperty();
+
+    //本次被搜索的单词的总数
+    private IntegerProperty searchingWordCountProperty = config.searchingWordCountProperty();
+
+    //当前段落属性
+    private IntegerProperty currentParagraphProperty = config.currentParagraphProperty();
+
+    /**
+     * 更新目标的搜索词汇
+     * @param isAdd 将要在ac自动机中删除的字符串
+     * @param word 将要被添加和删除的词汇
+     */
+    public void updateSearchWord(boolean isAdd, List<? extends String> word){
+        if (isAdd)
+            word.forEach(this.customAhoCorasick::append);
+        else
+            this.customAhoCorasick.remove(word);
+    }
 
     /**
      * 判别当前选择到的词汇
@@ -75,7 +103,6 @@ public class TextWorkspaceCommand extends AbstractCommand {
     public boolean validateSelectionText(String selectionText){
         if (selectionText.length() == 0)
             return false;
-
         return true;
     }
 
@@ -95,14 +122,6 @@ public class TextWorkspaceCommand extends AbstractCommand {
             vocabList.addAll(this.vocabService.findAllPsyChoVocab());
             //同时填充之ac自动机当中
             ahoCorasick.append(vocabList);
-//            ahoCorasick.append("自信");
-//            ahoCorasick.append("大学");
-//            ahoCorasick.append("大学老师");
-//            ahoCorasick.append("大学毕业");
-//            ahoCorasick.append("赏识");
-//            ahoCorasick.append("阿谀奉承");
-//            ahoCorasick.append("孝顺");
-//            ahoCorasick.append("开始");
         });
     }
 
@@ -211,6 +230,40 @@ public class TextWorkspaceCommand extends AbstractCommand {
         return false;
     }
 
+
+    /**
+     * 扫描文本字符串获取目标搜索关键词的样式区间
+     * @param text 文本字符串
+     */
+    private StyleSpans<Collection<String>>  getStyleSpansByAhoCorasickOnSearchingWord(String text){
+        StyleSpansBuilder<Collection<String>> builder = new StyleSpansBuilder<>();
+        int init = 0;
+        //记录当前段落关键词的所在段落和在原文中出现的范围
+        List<Pair<Integer, IndexRange>> indexRanges = new ArrayList<>();
+        int length = text.length();
+        this.customAhoCorasick.find(text, ((word, start, end, para) ->
+          indexRanges.add(new Pair<>(para, new IndexRange(start, end)))));
+        //设置当前已经匹配到的字符串数目
+        this.searchingWordCountProperty.set(indexRanges.size());
+        //构建styleSpans样式
+        for (int count = 0; count < indexRanges.size(); count++){
+            Pair<Integer, IndexRange> pair = indexRanges.get(count);
+            IndexRange range = pair.getValue();
+            builder.add(Collections.emptyList(), range.getStart() - init);
+            if (this.searchingWordIndexProperty.get() == count) {
+                builder.add(Collections.singleton("currently-searching-word"), range.getLength());
+                //更新到当前段落
+                this.currentParagraphProperty.set(pair.getKey());
+            }
+            else
+                builder.add(Collections.singleton("searching-word"), range.getLength());
+            init = range.getEnd();
+        }
+        if (init != length)
+            builder.add(Collections.emptyList(), length  - init);
+        return builder.create();
+    }
+
     /**
      * ac自动机匹配目标字段
      * 根据相应的归类进行字段的高亮
@@ -224,7 +277,7 @@ public class TextWorkspaceCommand extends AbstractCommand {
         //清空历史匹配记录
         this.catchingWords.clear();
 
-        corasick.find(text, ((word, start, end) -> {
+        corasick.find(text, ((word, start, end, para) -> {
             StyleSpan<Collection<String>> styleSpan = null;
 
             if (!this.shouldEnroll(word, start, end, text))
@@ -273,14 +326,16 @@ public class TextWorkspaceCommand extends AbstractCommand {
 
     /**
      * 获取用于文本渲染的styleSpans<Collection<String>>的任务
-     * @param text
+     * @param text 将要被样式化文本字符串
+     * @param findMatchingSpan 是否更新访、受区间
      * @return
      */
-    public Task<StyleSpans<Collection<String>>> getStyleSpansTask(String text){
+    public Task<StyleSpans<Collection<String>>> getStyleSpansTask(String text, boolean findMatchingSpan){
         Task task = new Task() {
             @Override
             protected Object call() throws Exception {
-                findMatchingSpans(text);
+                if (findMatchingSpan)
+                    findMatchingSpans(text);
                 StyleSpans<Collection<String>> theNew = getStyleSpansWithoutRE(text);
                 StyleSpans<Collection<String>> theOld = getStyleSpansWithRE(text);
                 theNew = theNew.overlay(theOld, (first, next) -> {
@@ -289,6 +344,13 @@ public class TextWorkspaceCommand extends AbstractCommand {
                     collection.addAll(next);
                     return collection;
                 });
+                theNew = theNew.overlay(getStyleSpansByAhoCorasickOnSearchingWord(text), (first, next) -> {
+                    Collection<String> collection = new ArrayList<>();
+                    collection.addAll(first);
+                    collection.addAll(next);
+                    return collection;
+                });
+
                 return theNew;
             }
         };
@@ -351,7 +413,7 @@ public class TextWorkspaceCommand extends AbstractCommand {
 //                        stringBuilder.insert(matcher.end(), '\t');
 //                }
                 IntegerProperty offset = new SimpleIntegerProperty(0);
-                customMather.find(stringBuilder.toString(), ((word, start, end) -> {
+                customMather.find(stringBuilder.toString(), ((word, start, end, para) -> {
                     int set = offset.get();
                     start += set;
                     end += set;
