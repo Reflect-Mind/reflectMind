@@ -17,48 +17,6 @@ import java.util.regex.Pattern;
 public class BayesModelImpl extends BayesModel{
 
     /**
-     * 分类名字属性
-     *
-     */
-    private List<String> categories = new ArrayList<>();
-    /**
-     * 分类概率属性
-     */
-    private List<Double> categoryProbability = new ArrayList<>();
-
-    /**
-     * 词汇列表
-     * 复写contains方法
-     */
-    private Set<String> words = new TreeSet<>();
-    /**
-     * 从文件系统中读取而来的句子列表
-     */
-    private transient List<String> sentences = new ArrayList<>();
-    /**
-     * 与语句相对应的句子所属的分类
-     */
-    private transient List<Integer> categoryIdList = new ArrayList<>();
-    /**
-     * 词向量数组
-     */
-    private double[][] wordVectors = null;
-    /**
-     * 粗糙分词器
-     */
-    private  transient Tokenizer tokenizer = new UglyTokenizer();
-
-    private final static String ESCAPE = "[ 0-9A-z,，。.（）(){}\\[\\]“”‘’'、?？:：！!~|《》<>\"一二三四五六七八九十]";
-    private final static Pattern ESCAPE_PATTERN = Pattern.compile(ESCAPE);
-
-    /**
-     * 给该模型设置分词器
-     */
-    public void setTokenizer(Tokenizer tokenizer){
-        this.tokenizer = tokenizer;
-    }
-
-    /**
      * 记录分类的名称以及统计各分类的概率
      * @param categories
      */
@@ -197,9 +155,9 @@ public class BayesModelImpl extends BayesModel{
      */
      String predict(String target) {
          //设置当前的语句的词向量
-         double[] values = new double[this.categories.size()];
+         this.values = new double[this.categories.size()];
          for (int i = 0; i < values.length; i++) {
-             values[i] = Math.log(this.categoryProbability.get(i));
+             this.values[i] = Math.log(this.categoryProbability.get(i));
          }
          this.tokenizer = new UglyTokenizer();
          this.tokenizer.setTarget(target);
@@ -211,15 +169,15 @@ public class BayesModelImpl extends BayesModel{
              int index = this.indexOf(word);
              if (index == -1)
                  continue;
-             for (int i = 0; i < values.length; i++) {
-                 values[i] += this.wordVectors[i][index];
+             for (int i = 0; i < this.values.length; i++) {
+                 this.values[i] += this.wordVectors[i][index];
              }
          }
          //比较P(C|W)之间的值,值最大的极为本次预测出来的值
          int value = 0;
-         for (int i = 0; i < values.length; i++) {
+         for (int i = 0; i < this.values.length; i++) {
 //             System.out.println(values[i] + ": " + this.categories.get(i));
-             if (values[value] < values[i])
+             if (this.values[value] < this.values[i])
                  value = i;
          }
          return this.categories.get(value);

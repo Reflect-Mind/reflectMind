@@ -57,7 +57,7 @@ public class SerializableUtils {
 
     public static <T> T getLastState(Class<T> clz){
         T instance = null;
-        instance = SerializableUtils.getLastState("tmp/" + clz.getName());
+        instance = SerializableUtils.getLastState("tmp/" + clz.getSimpleName());
         return instance;
     }
 

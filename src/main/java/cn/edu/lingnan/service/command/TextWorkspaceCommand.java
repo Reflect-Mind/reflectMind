@@ -393,31 +393,15 @@ public class TextWorkspaceCommand extends AbstractCommand {
                 int firstIndex = text.indexOf("访：");
                 if (firstIndex == -1)
                     firstIndex = text.indexOf("访:");
-                firstIndex = firstIndex == -1? 0: firstIndex;
+                firstIndex = firstIndex == -1? text.length(): firstIndex;
                 stringBuilder.append(text.substring(0, firstIndex));
                 char[] chars = text.toCharArray();
+
                 for (int count = firstIndex; count < chars.length; count++){
                     if (chars[count] == ' ' || chars[count] == '\t' || chars[count] == '\n')
                         continue;
                     stringBuilder.append(chars[count]);
                 }
-                //stringBuilder.append("\n");
-                //遇到访：或者受：将自动进行换行
-//                Pattern pattern = Pattern.compile(BEGIN_PATTERN, Pattern.CASE_INSENSITIVE);
-//                Matcher matcher = pattern.matcher(stringBuilder);
-//                int start = 0;//记录段落序号开始和结束
-//                while (matcher.find()){
-//                    String matchStr = matcher.group();
-//                    if (matchStr == null)
-//                        continue;
-//                    start = matcher.start();
-//                    if (matcher.start() != 0 && stringBuilder.charAt(start - 1) != '\n') {
-//                        stringBuilder.insert(start, "\n");
-//                        stringBuilder.insert(matcher.end() + 1, '\t');
-//                    }
-//                    else
-//                        stringBuilder.insert(matcher.end(), '\t');
-//                }
                 IntegerProperty offset = new SimpleIntegerProperty(0);
                 customMather.find(stringBuilder.toString(), ((word, start, end, para) -> {
                     int set = offset.get();

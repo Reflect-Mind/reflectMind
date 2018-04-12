@@ -44,6 +44,9 @@
                <Tab text="人格分析">
                    <fx:include source="ViewWorkspaceLayout$Four.fxml"/>
                </Tab>
+               <Tab text="主题分析">
+                   <fx:include source="ViewWorkspaceLayout$Theme.fxml"/>
+               </Tab>
            </tabs>
        </TabPane>
 

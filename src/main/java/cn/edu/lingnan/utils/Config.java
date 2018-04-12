@@ -145,11 +145,14 @@ public class Config implements Serializable{
         return searchingWordCountProperty;
     }
 
-    //基调分析图表切换事件属性:初始化属性值为LINE_CHART
+    //基调分析图表切换图表属性:初始化属性值为LINE_CHART
     private ObjectProperty<ChartType> emotionChartProperty = new SimpleObjectProperty<>(ChartType.LINE_CHART);
     public ObjectProperty<ChartType> emotionChartProperty() {
         return emotionChartProperty;
     }
+
+    //人格分析图表切换图表属性：初始值为
+
 
     /**
      * 为桌面环境配置初始化

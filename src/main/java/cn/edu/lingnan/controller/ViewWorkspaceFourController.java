@@ -11,6 +11,6 @@ import java.util.ResourceBundle;
 public class ViewWorkspaceFourController extends Controller {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
     }
 }
