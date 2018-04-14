@@ -15,12 +15,8 @@ public class Txt extends FileType {
     public String readContent(InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
         StringBuilder stringBuilder = new StringBuilder();
-        while (scanner.hasNextLine()){
-            stringBuilder.append(scanner.nextLine());
-            stringBuilder.append("\n");
-        }
-        scanner.close();
-        return stringBuilder.toString();
+        String content = scanner.hasNext()? scanner.next(): null;
+        return content;
     }
 
 }

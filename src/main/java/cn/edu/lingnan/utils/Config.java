@@ -154,6 +154,12 @@ public class Config implements Serializable{
     //人格分析图表切换图表属性：初始值为
 
 
+    //未登录词
+    private List<String> unregisteredWord = new ArrayList<>();
+    public List<String> getUnregisteredWord() {
+        return unregisteredWord;
+    }
+
     /**
      * 为桌面环境配置初始化
      * 获取当前项目名称

@@ -1,5 +1,6 @@
 package cn.edu.lingnan.sdk.overlay;
 
+import main.java.goxr3plus.javastreamplayer.stream.StreamPlayer;
 import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerException;
 import org.junit.Test;
 
@@ -14,9 +15,9 @@ public class AudioPlayerTest {
 
     public static void main(String[] args) throws Exception {
         new Thread(() -> {
-            File audio = new File("D:\\CloudMusic\\ee.mp3");
+            File audio = new File("D:\\CloudMusic\\Adele - Rolling In the Deep.mp3");
             AudioPlayer audioPlayer = new AudioPlayer();
-            audioPlayer.open(audio);
+            audioPlayer.open(null);
             audioPlayer.play();
             audioPlayer.statusObjectProperty().addListener(((observable, oldValue, newValue) -> {
                 System.out.println(newValue);

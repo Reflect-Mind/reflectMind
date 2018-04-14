@@ -54,6 +54,8 @@ public class AudioPlayer extends StreamPlayer implements StreamPlayerListener{
         if (!audio.exists())
             return false;
         try {
+            if (this.isPausedOrPlaying())
+                this.stop();
             super.open(audio);
         } catch (StreamPlayerException e) {
             e.printStackTrace();

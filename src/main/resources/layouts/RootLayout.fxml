@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.VBox?>
-<?import org.controlsfx.control.BreadCrumbBar?>
 <?language javascript?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.RootController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.RootController">
     <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="true" text="文件">
+          <Menu mnemonicParsing="true" text="_文件">
             <items>
-              <MenuItem mnemonicParsing="false" text="关闭" />
+                  <Menu mnemonicParsing="true" text="_打开">
+                    <items>
+                        <MenuItem mnemonicParsing="true" onAction="#handleOpenScript" text="_逐字稿">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem onAction="#handleOpenAudio" text="音频">
+                          <accelerator>
+                            <KeyCodeCombination control="DOWN" code="u" alt="UP" meta="UP" shift="UP" shortcut="UP" />
+                          </accelerator>
+                        </MenuItem>
+                    </items>
+                  </Menu>
+              <MenuItem mnemonicParsing="false" text="关闭"/>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="编辑">
@@ -51,12 +61,11 @@
                   <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
-
         </menus>
       </MenuBar>
 
-      <fx:include source="ToolBarLayout.fxml" prefHeight="20.0"/>
+      <fx:include prefHeight="20.0" source="ToolBarLayout.fxml" />
       <fx:include fx:id="workspace" prefHeight="200.0" prefWidth="200.0" source="WorkspaceLayout.fxml" VBox.vgrow="ALWAYS" />
-      <fx:include source="EventLayout.fxml" VBox.vgrow="NEVER"/>
+      <fx:include source="EventLayout.fxml" VBox.vgrow="NEVER" />
    </children>
 </VBox>
