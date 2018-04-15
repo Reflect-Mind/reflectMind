@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.VBox?>
 <?language javascript?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.RootController">
+<?import javafx.scene.input.KeyCharacterCombination?>
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.RootController">
     <children>
       <MenuBar>
         <menus>
@@ -52,13 +53,27 @@
             </Menu>
             <Menu mnemonicParsing="false" text="音频">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                  <MenuItem mnemonicParsing="false" text="播放" fx:id="playMenuItem">
+                    <accelerator>
+                        <KeyCodeCombination control="DOWN" code="P" alt="UP" meta="UP" shift="UP" shortcut="UP" />
+                    </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" text="回退" fx:id="previousMenuItem">
+                      <accelerator>
+                          <KeyCodeCombination control="DOWN" code="LEFT" alt="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                      </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" text="快进" fx:id="forwardMenuItem">
+                      <accelerator>
+                          <KeyCodeCombination control="DOWN" code="RIGHT" alt="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                      </accelerator>
+                  </MenuItem>
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="帮助">
             <items>
               <MenuItem mnemonicParsing="false" text="帮助" />
-                  <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" text="关于" onAction="#handleOpenAboutDialog"/>
             </items>
           </Menu>
         </menus>

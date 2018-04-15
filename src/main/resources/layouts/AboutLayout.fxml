@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane stylesheets="@/css/about.css" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Text fill="WHITE" layoutX="284.0" layoutY="91.0" scaleX="5.998653903253373" scaleY="5.002563129387706" strokeType="OUTSIDE" strokeWidth="0.0" text="Reflect Mind">
+      <font>
+        <Font name="Consolas Bold" size="12.0" />
+      </font>
+    </Text>
+    <Text fill="WHITE" layoutX="505.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="版本号 v0.5">
+      <font>
+        <Font name="Trebuchet MS" size="12.0" />
+      </font>
+    </Text>
+    <Text fill="WHITE" layoutX="86.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="本产品作用于辅助心理学质性分析">
+      <font>
+        <Font size="18.0" />
+      </font>
+    </Text>
+    <Text fill="WHITE" layoutX="86.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="产品功能：转录音频形成逐字稿文本">
+      <font>
+        <Font name="隶书" size="20.0" fx:id="x1" />
+      </font>
+    </Text>
+    <Text fill="WHITE" font="$x1" layoutX="186.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="可视化词汇统计结果" />
+    <Text fill="WHITE" font="$x1" layoutX="186.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="词汇统计信息" />
+    <Text fill="WHITE" font="$x1" layoutX="186.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="自我认同分析" />
+    <Text fill="WHITE" font="$x1" layoutX="427.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="人格分析" />
+    <Text fill="WHITE" font="$x1" layoutX="427.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="基调分析" />
+    <Text fill="WHITE" font="$x1" layoutX="427.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="主题分析" />
+    <Text fill="WHITE" font="$x1" layoutX="427.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="词频查询" />
+    <Text fill="WHITE" layoutX="150.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="本产品仅限中国大陆地区发行，其所有权归心言质性研究团队所有！">
+      <font>
+        <Font size="10.0" fx:id="x2" />
+      </font>
+    </Text>
+    <Text fill="WHITE" font="$x2" layoutX="182.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="版权(C) 2017-2018, Reflect Mind版权所有." />
+  </children>
+  <stylesheets>
+    <URL value="@../css/about.css" />
+  </stylesheets>
+</AnchorPane>

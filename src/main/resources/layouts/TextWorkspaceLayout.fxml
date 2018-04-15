@@ -12,12 +12,54 @@
 <?import org.controlsfx.control.HiddenSidesPane?>
 <?import org.fxmisc.flowless.VirtualizedScrollPane?>
 <?import org.fxmisc.richtext.CodeArea?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Menu?>
 <AnchorPane stylesheets="@/css/textWorkspace.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.TextWorkspaceController">
-   <children>
+    <fx:define>
+        <ContextMenu fx:id="codeAreaSelectionMenu" styleClass="customMenu">
+            <items>
+                <MenuItem text="取消标记" onAction="#handleMakeUpUnregisteredWord"/>
+                <MenuItem text="搜索"/>
+                <Menu text="标记">
+                    <Menu text="情感">
+                        <Menu text="积极">
+                            <MenuItem text="快乐"/>
+                            <MenuItem text="喜爱"/>
+                            <MenuItem text="安详"/>
+                        </Menu>
+                        <Menu text="消极">
+                            <MenuItem text="愤怒"/>
+                            <MenuItem text="哀痛"/>
+                            <MenuItem text="忧思"/>
+                            <MenuItem text="恐惧"/>
+                            <MenuItem text="厌恶"/>
+                            <MenuItem text="焦急"/>
+                            <MenuItem text="羞愧"/>
+                        </Menu>
+                    </Menu>
+                    <Menu text="自我认同">
+                    </Menu>
+                    <Menu text="人格">
+                        <MenuItem text="自我指向特点"/>
+                        <MenuItem text="他人指向特点"/>
+                        <MenuItem text="事物指向特点"/>
+                    </Menu>
+                </Menu>
+            </items>
+        </ContextMenu>
+        <ContextMenu fx:id="codeAreaContextMenu">
+            <items>
+                <MenuItem text="复制"/>
+                <MenuItem text="粘贴"/>
+            </items>
+        </ContextMenu>
+    </fx:define>
+    <children>
        <TabPane fx:id="tabPane" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
            <tabs>
                <Tab text="文本域">
-                   <HiddenSidesPane fx:id="hiddenSidesPane">
+                   <HiddenSidesPane fx:id="hiddenSidesPane" contextMenu="$codeAreaContextMenu">
                        <top>
                            <fx:include source="TextWorkspaceLayout$player.fxml"/>
                        </top>

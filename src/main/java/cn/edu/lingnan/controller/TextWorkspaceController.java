@@ -1,5 +1,6 @@
 package cn.edu.lingnan.controller;
 
+import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
 import cn.edu.lingnan.sdk.controller.Controller;
 import cn.edu.lingnan.sdk.overlay.CustomLineNumberFactory;
 import cn.edu.lingnan.service.command.TextWorkspaceCommand;
@@ -56,6 +57,13 @@ public class TextWorkspaceController extends Controller {
     @FXML
     private TabPane tabPane;
 
+    /**
+     * 选择单词后的右键菜单
+     */
+    @FXML
+    private ContextMenu codeAreaSelectionMenu;
+
+
     private String currentReplaceText = "";
 
     //1：代表访, 2：代表受
@@ -68,6 +76,12 @@ public class TextWorkspaceController extends Controller {
 
     //config实体类
     private Config config = R.getConfig();
+
+    //未登陆词属性
+    private ObservableList<String> unregisteredWords = this.config.getUnregisteredWords();
+
+    //匹配心理词汇的自动机
+    private AhoCorasick ahoCorasick = this.config.getAhoCorasick();
 
     //搜索指定的关键词列表
     private ObservableList<String> searchTextList = this.config.getSearchTextList();
@@ -96,6 +110,24 @@ public class TextWorkspaceController extends Controller {
     }
 
     /**
+     * 处理添加到未登陆词属性
+     */
+    @FXML
+    private void handleMakeUpUnregisteredWord(){
+        String selectedText = this.textArea.getSelectedText();
+        this.unregisteredWords.add(selectedText);
+        this.ahoCorasick.remove(selectedText);
+        this.flashCodeAreaStyle();
+    }
+
+
+    //刷新样式
+    private void flashCodeAreaStyle(){
+        Task<StyleSpans<Collection<String>>> task = this.highlightCommand.getStyleSpansTask(
+                this.textArea.textProperty().getValue(), false);
+        task.setOnSucceeded(event -> this.textArea.setStyleSpans(0, task.getValue()));
+    }
+    /**
      * 监听划词策略--调出弹窗，让用户自行选择对应词汇所添加到
      * 所属的分类当中
      */
@@ -106,10 +138,14 @@ public class TextWorkspaceController extends Controller {
             //过滤掉一些非法的操作
             if (!this.highlightCommand.validateSelectionText(selectionText))
                 return;
-//            ContextMenu contextMenu = new ContextMenu();
-//            contextMenu.show(R.getApplication().getStage());
-//            System.out.println(contextMenu);
-
+            if (event.getClickCount() >= 2)
+                return;
+            this.codeAreaSelectionMenu.show(this.textArea
+                    , event.getScreenX(), event.getScreenY());
+        });
+        //取消划词菜单的出现
+        this.textArea.selectionProperty().addListener((observable, oldValue, newValue) -> {
+            this.codeAreaSelectionMenu.hide();
         });
     }
     /**
@@ -187,10 +223,7 @@ public class TextWorkspaceController extends Controller {
                 else if (ch.wasRemoved())
                     this.highlightCommand.updateSearchWord(false, ch.getRemoved());
             }
-            //刷新样式
-            Task<StyleSpans<Collection<String>>> task = this.highlightCommand.getStyleSpansTask(
-                    this.textArea.textProperty().getValue(), false);
-            task.setOnSucceeded(event -> this.textArea.setStyleSpans(0, task.getValue()));
+            this.flashCodeAreaStyle();
 
         });
 
@@ -204,7 +237,7 @@ public class TextWorkspaceController extends Controller {
     }
 
     private void initPlayer(){
-        File audio = new File("D:\\CloudMusic\\ee.mp3");
+//        File audio = new File("D:\\CloudMusic\\ee.mp3");
         //this.audioPlayCommand.setAudio(audio);
     }
 

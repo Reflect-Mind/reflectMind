@@ -3,11 +3,13 @@ package cn.edu.lingnan.view;
 import cn.edu.lingnan.sdk.controller.Controller;
 import cn.edu.lingnan.utils.R;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
 
@@ -43,5 +45,19 @@ public class WindowView extends AbstractView {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 显示关于窗格
+     */
+    public void showAboutView() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                R.getResourcesAsURL("layouts/AboutLayout.fxml"));
+        Node node = loader.load();
+        PopOver popOver = new PopOver();
+        popOver.setContentNode(node);
+        popOver.show(this.stage);
+        popOver.setDetachable(false);
+
     }
 }

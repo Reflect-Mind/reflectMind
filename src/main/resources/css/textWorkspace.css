@@ -37,3 +37,7 @@
     -rtfx-border-stroke-color:#000;
     -rtfx-border-stroke-width:1px;
 }
+
+.customMenu{
+    -fx-font-size: 12px;
+}

@@ -41,8 +41,15 @@ public class AudioPlayer extends StreamPlayer implements StreamPlayerListener{
         return statusObject;
     }
 
+    //打开文件属性
+    private BooleanProperty openProperty = new SimpleBooleanProperty(false);
+    public BooleanProperty openProperty() {
+        return openProperty;
+    }
+
     public AudioPlayer(){
         this.addStreamPlayerListener(this);
+        this.openProperty.set(false);
     }
 
     /**
@@ -57,6 +64,9 @@ public class AudioPlayer extends StreamPlayer implements StreamPlayerListener{
             if (this.isPausedOrPlaying())
                 this.stop();
             super.open(audio);
+            System.out.println(this.openProperty.get());
+            this.openProperty.set(true);
+            System.out.println(this.openProperty.get());
         } catch (StreamPlayerException e) {
             e.printStackTrace();
         }

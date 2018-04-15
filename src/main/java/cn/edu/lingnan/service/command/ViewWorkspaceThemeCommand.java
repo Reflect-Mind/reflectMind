@@ -82,6 +82,9 @@ public class ViewWorkspaceThemeCommand extends AbstractCommand<Void> {
             String target = paras[i].trim();
             if (target.equals(""))
                 continue;
+            if (!(target.startsWith("受:") || target.startsWith("受：")))
+                continue;
+
             this.classifier.predict(target);
             pairs.add(new Pair<>(i, this.model.getValues()));
         }
@@ -94,7 +97,7 @@ public class ViewWorkspaceThemeCommand extends AbstractCommand<Void> {
             for (int j = 0; j < pairs.size(); j++) {
                 Pair<Integer, double[]> pair = pairs.get(j);
                 XYChart.Data<String, Number> data = new XYChart.Data<>(
-                        String.format("行号%d", pair.getKey()), pair.getValue()[i]
+                        String.format("行号%d", pair.getKey()), -pair.getValue()[i]
                 );
                 dataList.add(data);
             }

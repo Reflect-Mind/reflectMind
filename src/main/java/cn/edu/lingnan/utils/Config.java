@@ -154,10 +154,10 @@ public class Config implements Serializable{
     //人格分析图表切换图表属性：初始值为
 
 
-    //未登录词
-    private List<String> unregisteredWord = new ArrayList<>();
-    public List<String> getUnregisteredWord() {
-        return unregisteredWord;
+    //未登录词属性
+    private ObservableList<String> unregisteredWords = FXCollections.observableArrayList();
+    public ObservableList<String> getUnregisteredWords() {
+        return unregisteredWords;
     }
 
     /**
