@@ -71,9 +71,7 @@ public class Config implements Serializable{
 
     // 受：
     private ObservableList<Pair<Integer, IndexRange>> answers = FXCollections.observableArrayList();
-    public ObservableList<Pair<Integer, IndexRange>> getAnswers() {
-        return answers;
-    }
+    public ObservableList<Pair<Integer, IndexRange>> getAnswers() { return answers; }
     // 访：
     private ObservableList<Pair<Integer, IndexRange>> asks = FXCollections.observableArrayList();
     public ObservableList<Pair<Integer, IndexRange>> getAsks() {
@@ -90,9 +88,7 @@ public class Config implements Serializable{
     public String getTextProperty() {
         return textProperty.get();
     }
-    public StringProperty textPropertyProperty() {
-        return textProperty;
-    }
+    public StringProperty textPropertyProperty() { return textProperty; }
 
     //当前列号属性
     private IntegerProperty currentColumn = new SimpleIntegerProperty();
@@ -102,9 +98,7 @@ public class Config implements Serializable{
 
     //当前段落属性
     private IntegerProperty currentParagraph = new SimpleIntegerProperty();
-    public IntegerProperty currentParagraphProperty() {
-        return currentParagraph;
-    }
+    public IntegerProperty currentParagraphProperty() { return currentParagraph; }
 
     //是否标记信息词汇属性
     private BooleanProperty markVocabs = new SimpleBooleanProperty(true);
@@ -135,9 +129,7 @@ public class Config implements Serializable{
 
     //需要被定位的被搜索的词汇索引
     private IntegerProperty searchingWordIndexProperty = new SimpleIntegerProperty(0);
-    public IntegerProperty searchingWordIndexProperty() {
-        return searchingWordIndexProperty;
-    }
+    public IntegerProperty searchingWordIndexProperty() { return searchingWordIndexProperty; }
 
     //搜索到的单词的个数属性
     private IntegerProperty searchingWordCountProperty = new SimpleIntegerProperty();
