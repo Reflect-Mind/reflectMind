@@ -31,12 +31,12 @@ public class XMLObjectFactory implements Serializable{
     private Node node;
     public XMLObjectFactory(){}
     public XMLObjectFactory(String path){
-        File file = new File(this.getClass().getResource(path).getPath());
+
         DocumentBuilderFactory factory =
                 DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(file);
+            Document document = builder.parse(this.getClass().getResource(path).toURI().toString());
             document.getDocumentElement().normalize();
             XPath xPath = XPathFactory.newInstance().newXPath();
             String expression = "/package";

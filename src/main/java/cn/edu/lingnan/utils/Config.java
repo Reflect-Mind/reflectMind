@@ -64,6 +64,7 @@ public class Config implements Serializable{
                 words.add(catchingWord.getWord()));
         return words;
     }
+    //捕获到单词对象集合
     private List<CatchingWord> catchingWords = new ArrayList<>();
     public List<CatchingWord> getCatchingWords() {
         return catchingWords;

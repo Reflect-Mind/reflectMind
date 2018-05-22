@@ -15,7 +15,10 @@ public enum  LineType {
     HATE("厌恶类情绪词"),
     LIKE("喜爱类情绪词"),
     ASHAMED("羞愧类情绪词"),
-    ANXIOUS("焦急类情绪词");
+    ANXIOUS("焦急类情绪词"),
+    SELF_FORWARD("自我指向特点形容词"),
+    THING_FORWARD("事物指向特点形容词"),
+    THIRD_FORWARD("他人指向特点形容词");
     private String element;
     LineType(String element){
         this.element = element;

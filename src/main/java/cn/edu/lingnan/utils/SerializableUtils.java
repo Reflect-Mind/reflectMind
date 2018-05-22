@@ -14,7 +14,7 @@ import java.io.*;
  */
 public class SerializableUtils {
 
-    private static String basePath = SerializableUtils.class.getClassLoader().getResource("").getPath();
+    private static String basePath = new File(".").toString();
 
     private SerializableUtils(){}
 
