@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:sqlite:psychoVocab.db</property>
+        <property name="connection.url">jdbc:sqlite:psychovocab.db</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
         <property name="hibernate.dialect">cn.edu.lingnan.utils.SQLiteDialect</property>
         <property name="current_session_context_class">thread</property>

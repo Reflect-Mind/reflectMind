@@ -7,6 +7,8 @@ import cn.edu.lingnan.sdk.Container.PhaseContainerImpl;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasickImpl;
 import cn.edu.lingnan.sdk.enumeration.ChartType;
+import cn.edu.lingnan.sdk.enumeration.LineType;
+import cn.edu.lingnan.sdk.enumeration.WordType;
 import cn.edu.lingnan.sdk.overlay.AudioPlayer;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -23,7 +25,7 @@ import java.util.List;
  * Created by Administrator on 2018/1/31.
  * 本地工程配置文件
  * 负责桌面环境的一些选择配置
- *
+ * JAXB
  */
 public class Config implements Serializable{
 
@@ -151,6 +153,12 @@ public class Config implements Serializable{
     private ObservableList<String> unregisteredWords = FXCollections.observableArrayList();
     public ObservableList<String> getUnregisteredWords() {
         return unregisteredWords;
+    }
+
+    //概览图显示词汇类型
+    private SimpleObjectProperty<WordType> wordTypeProperty = new SimpleObjectProperty<>(WordType.PLAIN_WORD);
+    public SimpleObjectProperty<WordType> wordTypeProperty() {
+        return wordTypeProperty;
     }
 
     /**

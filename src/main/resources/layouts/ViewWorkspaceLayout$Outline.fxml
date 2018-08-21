@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import cn.edu.lingnan.sdk.enumeration.WordType?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.ViewWorkspaceOutlineController">
+   <fx:define>
+       <WordType fx:id="plainWord" fx:constant="PLAIN_WORD"/>
+       <WordType fx:id="characterWord" fx:constant="CHARACTER_WORD"/>
+       <WordType fx:id="motionWord" fx:constant="MOTION_WORD"/>
+   </fx:define>
+    <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+         <content>
+            <BorderPane>
+               <center>
+                   <ImageView fx:id="imageView" nodeOrientation="INHERIT" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../tmp/ViewWorkspaceOneCommand.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                   </ImageView>
+               </center>
+            </BorderPane>
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <SplitMenuButton fx:id="splitMenuButton" layoutX="464.0" mnemonicParsing="false" text="$plainWord" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="5.0">
+              <items>
+                  <MenuItem fx:id="outlineMenuItem" mnemonicParsing="false" text="$plainWord" />
+                <MenuItem fx:id="motionMenuItem" mnemonicParsing="false" text="$motionWord" />
+                <MenuItem fx:id="characterMenuItem" mnemonicParsing="false" text="$characterWord" />
+              </items>
+            </SplitMenuButton>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>

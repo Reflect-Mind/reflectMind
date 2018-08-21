@@ -56,4 +56,13 @@ public class FrqTree {
         this.theme = theme;
     }
 
+    @Override
+    public String toString() {
+        return "FrqTree{" +
+                "content='" + content + '\'' +
+                ", appearnum=" + appearnum +
+                ", category='" + category + '\'' +
+                ", theme='" + theme + '\'' +
+                '}';
+    }
 }

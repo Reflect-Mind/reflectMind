@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane stylesheets="/css/charts.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.ViewWorkspaceThemeController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.edu.lingnan.controller.ViewWorkspaceThemeController">
    <top>
       <HBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>

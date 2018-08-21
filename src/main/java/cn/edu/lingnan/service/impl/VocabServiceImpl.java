@@ -97,7 +97,6 @@ public class VocabServiceImpl implements VocabService {
         return newVocab;
     }
 
-
     //词频统计
     private List<FrqTree> appearCount( List<String> content ) {
 
@@ -423,6 +422,33 @@ public class VocabServiceImpl implements VocabService {
         }
 
         return  newVocab;
+    }
+
+    @Override
+    public List<String> getCharacterWords(List<String> words) {
+
+        return this.getSpecalizedWords(words, "人格分析");
+    }
+
+    @Override
+    public List<String> getMotionWords(List<String> words) {
+        return this.getSpecalizedWords(words, "情绪词");
+    }
+
+    /**
+     * 获取符合条件的某一方面的词汇
+     * @param words
+     * @param type
+     * @return
+     */
+    private List<String> getSpecalizedWords(List<String> words, String type){
+        List<FrqTree> frqTrees = this.getFrqTreeByContent(words);
+        List<String> list = new ArrayList<>();
+        for (FrqTree frqTree: frqTrees){
+            if (frqTree.getTheme().contains(type))
+                list.add(frqTree.getContent());
+        }
+        return list;
     }
 
 }

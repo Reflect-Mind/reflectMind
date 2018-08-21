@@ -45,4 +45,18 @@ public interface VocabService {
      * @return List<Vocab>
      */
     public List<Vocab> getNewWordByText( String str );
+
+    /**
+     * 获取给定的匹配词汇中人格类型词汇详情
+     * @param words 匹配到词汇
+     * @return
+     */
+    public abstract List<String> getCharacterWords(List<String> words);
+
+    /**
+     * 给定的匹配词汇中情感类型词汇详情
+     * @param words 匹配到词汇
+     * @Return
+     */
+    List<String> getMotionWords(List<String> words);
 }

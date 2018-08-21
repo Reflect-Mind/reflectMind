@@ -74,7 +74,7 @@
                    <!--<TextArea />-->
                </Tab>
                <Tab text="概览">
-                   <fx:include source="ViewWorkspaceLayout$One.fxml"/>
+                   <fx:include source="ViewWorkspaceLayout$Outline.fxml"/>
                </Tab>
                <Tab text="基调分析">
                    <fx:include source="ViewWorkspaceLayout$Emotion.fxml">
