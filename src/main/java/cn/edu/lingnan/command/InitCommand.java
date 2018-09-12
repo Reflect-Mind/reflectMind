@@ -1,12 +1,9 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
-import cn.edu.lingnan.service.VocabService;
-import cn.edu.lingnan.service.impl.VocabServiceImpl;
 import cn.edu.lingnan.utils.HibernateSessionFactory;
 import cn.edu.lingnan.utils.PreferencesUtils;
 import cn.edu.lingnan.utils.R;
 import cn.edu.lingnan.view.DialogView;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.*;
 import org.controlsfx.dialog.ProgressDialog;
@@ -16,6 +13,8 @@ import java.util.concurrent.Executors;
 
 /**
  * Created by Administrator on 2018/1/29.
+ * @author 李田锋
+ *
  * 系统初始化
  * 负责相关参数的加载(字典...)
  * 恢复控制器上一次的工作状态由拦截器负责
@@ -73,7 +72,8 @@ public class InitCommand extends AbstractCommand<Integer>{
                 //PreferencesUtils.setParametersAsString("basePath", null);
             }
         }
-        //依然为空,则将跳出程序
+
+        // 依然为空,则将跳出程序
         if(basePath == null)
             System.exit(1);
         Task task = this.loadingTask();

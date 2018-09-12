@@ -1,4 +1,4 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
 import cn.edu.lingnan.sdk.enumeration.WordType;
 import cn.edu.lingnan.service.VocabService;
@@ -10,19 +10,15 @@ import com.kennycason.kumo.CollisionMode;
 import com.kennycason.kumo.WordCloud;
 import com.kennycason.kumo.WordFrequency;
 import com.kennycason.kumo.bg.CircleBackground;
-import com.kennycason.kumo.font.FontWeight;
 import com.kennycason.kumo.font.KumoFont;
 import com.kennycason.kumo.font.scale.SqrtFontScalar;
 import com.kennycason.kumo.nlp.FrequencyAnalyzer;
-import com.kennycason.kumo.nlp.tokenizers.ChineseWordTokenizer;
-import com.kennycason.kumo.palette.ColorPalette;
 import com.kennycason.kumo.palette.LinearGradientColorPalette;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

@@ -2,15 +2,12 @@ package cn.edu.lingnan.controller;
 
 import cn.edu.lingnan.sdk.controller.Controller;
 import cn.edu.lingnan.sdk.enumeration.WordType;
-import cn.edu.lingnan.service.command.ViewWorkspaceOutlineCommand;
+import cn.edu.lingnan.command.ViewWorkspaceOutlineCommand;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
-import com.kennycason.kumo.Word;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

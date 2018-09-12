@@ -1,4 +1,4 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
 /**
  * Created by Administrator on 2018/2/26.

@@ -1,29 +1,27 @@
 package cn.edu.lingnan;
 
 import cn.edu.lingnan.sdk.service.HeavyService;
-import cn.edu.lingnan.service.command.AbstractCommand;
-import cn.edu.lingnan.service.command.InitCommand;
-import cn.edu.lingnan.service.command.ShutdownCommand;
+import cn.edu.lingnan.command.InitCommand;
+import cn.edu.lingnan.command.ShutdownCommand;
 import cn.edu.lingnan.utils.R;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
+/**
+ * 程序入口
+ * @author 李田锋
+ *
+ */
 public class Main extends Application{
 
     private Stage stage = null;
@@ -34,12 +32,13 @@ public class Main extends Application{
      */
     private void setWindowEvent() {
         HeavyService<Integer> heavyService = HeavyService.getInstance();
-        //窗口关闭事件
+
+        // 窗口关闭事件
         this.stage.setOnCloseRequest((event)->{
             event.consume();
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "exit?");
             Optional<ButtonType> optional = alert.showAndWait();
-            //窗口关闭事件，提醒Controller进行装备的保存
+            // 窗口关闭事件，提醒Controller进行装备的保存
             if (optional.get().getText().equals("确定")) {
                 ShutdownCommand shutdownCommand = new ShutdownCommand();
                 heavyService.setCommand(shutdownCommand);
@@ -50,7 +49,7 @@ public class Main extends Application{
             }
         });
 
-        //出现加载窗口
+        // 出现加载窗口
         InitCommand command = new InitCommand();
         Platform.runLater(command);
         command.setOnSucceeded(event -> {
@@ -65,12 +64,11 @@ public class Main extends Application{
             this.stage.setScene(scene);
             this.stage.show();
         });
-        //完成加载后打开初始界面
-        //heavyService.setOnSucceeded(event -> this.stage.show());
     }
 
     public void start(Stage primaryStage) throws Exception {
-        //为代理资源者设置资源者
+
+        // 为代理资源者设置资源者
         R.Owner owner = R.getOwner();
         owner.setApplication(this);
         this.stage = primaryStage;

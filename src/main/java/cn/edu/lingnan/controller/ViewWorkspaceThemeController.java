@@ -1,24 +1,20 @@
 package cn.edu.lingnan.controller;
 
 import cn.edu.lingnan.sdk.controller.Controller;
-import cn.edu.lingnan.service.command.ViewWorkspaceThemeCommand;
+import cn.edu.lingnan.command.ViewWorkspaceThemeCommand;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Tooltip;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 /**
  * Created by Administrator on 2018/4/11.

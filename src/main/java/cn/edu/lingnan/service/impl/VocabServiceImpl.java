@@ -11,11 +11,14 @@ import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018/1/31.
  * Last Edited by Mechan on 2018/3/30.
+ * @author 陈嘉宁
  */
 public class VocabServiceImpl implements VocabService {
 
@@ -175,45 +178,88 @@ public class VocabServiceImpl implements VocabService {
     }
 
 
-    //通过单词内容获取分类
+    /**
+     * 临时解决方案××
+     * 将词汇匹配到相应的相应的词汇分类
+     * @param vocabs
+     * @param categories
+     * @return
+     */
+    private Map<String, String> contentMappingToCategory(List<Vocab> vocabs, List<Category> categories) {
+
+        Map<String, String> map = new HashMap<>(16);
+        for (Vocab vocab: vocabs) {
+            categories.forEach(category -> {
+                if (vocab.getCategoryId().equals(category.getId())) {
+                    map.put(vocab.getContent(), category.getContent());
+                }
+            });
+        }
+        return map;
+    }
+    /**
+     * 通过单词内容获取分类
+     * @param frqTree
+     * @return
+     */
     private List<FrqTree> getCategoryByWord( List<FrqTree> frqTree ) {
 
-        List<Integer> categoryIdList = new ArrayList<Integer>();
-        int categoryId, id1, id2;
-        String word1, word2, category;
-
-        //  1.获取数据库中的vocab表, getCategoryIdByContent
-        List<Vocab> vocab = R.getConfig().getVocabList();
-
-        for( int i=0; i<frqTree.size(); i++ ) {
-            word1 = frqTree.get(i).getContent();
-
-            for( int j=0; j<vocab.size(); j++ ) {
-                word2 = vocab.get(j).getContent();
-
-                if( word1.equals( word2 )) {
-                    categoryId = vocab.get(j).getCategoryId();
-                    categoryIdList.add( categoryId );
-                }
-            }
-        }
-
-        //  2.通过categoryId获取category, getCategoryById
         CategoryService categoryService = new CategoryServiceImpl();
+
+        // 词汇分类
         List<Category> categoryList = categoryService.findAllRecord();
 
-        for( int i=0; i<categoryIdList.size(); i++ ) {
-            id1 = categoryIdList.get(i);
+        // 数据库中所有的词汇
+        List<Vocab> vocab = R.getConfig().getVocabList();
 
-            for( int j=0; j<categoryList.size(); j++ ) {
-                id2 = categoryList.get(j).getId();
+        Map<String, String> map = this.contentMappingToCategory(vocab, categoryList);
 
-                if( id1 == id2 ) {
-                    category = categoryList.get(j).getContent();
-                    frqTree.get(i).setCategory( category );
-                }
-            }
+        for (FrqTree element: frqTree) {
+            String content = element.getContent();
+            String categoryContent = map.get(content);
+            element.setCategory(categoryContent);
+
         }
+
+//        List<Integer> categoryIdList = new ArrayList<Integer>();
+//        int categoryId, id1, id2;
+//        String word1, word2, category;
+//
+//        //  1.获取数据库中的vocab表, getCategoryIdByContent
+//        List<Vocab> vocab = R.getConfig().getVocabList();
+//
+//        for( int i=0; i<frqTree.size(); i++ ) {
+//            word1 = frqTree.get(i).getContent();
+//
+//            for( int j=0; j<vocab.size(); j++ ) {
+//                word2 = vocab.get(j).getContent();
+//
+//                if( word1.equals( word2 )) {
+//                    categoryId = vocab.get(j).getCategoryId();
+//                    categoryIdList.add( categoryId );
+//                }
+//            }
+//        }
+//
+//
+//
+//        //  2.通过categoryId获取category, getCategoryById
+//        CategoryService categoryService = new CategoryServiceImpl();
+//        List<Category> categoryList = categoryService.findAllRecord();
+//
+//        for( int i=0; i<categoryIdList.size(); i++ ) {
+//            id1 = categoryIdList.get(i);
+//
+//            for( int j=0; j<categoryList.size(); j++ ) {
+//                id2 = categoryList.get(j).getId();
+//
+//                if( id1 == id2 ) {
+//                    category = categoryList.get(j).getContent();
+//                    frqTree.get(i).setCategory( category );
+//                }
+//
+//            }
+//        }
 
         return frqTree;
     }
@@ -263,47 +309,82 @@ public class VocabServiceImpl implements VocabService {
         return cateList;
     }
 
+    /**
+     * 分类映射到主题
+     * @return
+     */
+    private Map<String, String> categoryMappingToTheme(List<Category> categories, List<Theme> themes) {
 
-    //通过单词分类获取单词主题
+        Map<String, String> map = new HashMap<>(16);
+        categories.forEach(category -> {
+            themes.forEach(theme -> {
+                if (category.getThemeId().equals(theme.getId())) {
+                    map.put(category.getContent(), theme.getContent());
+                }
+            });
+        });
+        return map;
+    }
+
+    /**
+     * 临时解决方案
+     * 通过单词分类获取单词主题
+     */
     private List<FrqTree> getThemeByCategory( List<FrqTree> frqTree ) {
-
-        List<Integer> themeIdList = new ArrayList<Integer>();
-        int themeId, id1, id2;
-        String cate1, cate2, theme;
 
         //  1.获取数据库中的category表, getThemeIdByContent
         CategoryService categoryService = new CategoryServiceImpl();
         List<Category> categoryList = categoryService.findAllRecord();
 
-        for( int i=0; i<frqTree.size(); i++ ) {
-            cate1 = frqTree.get(i).getCategory();
-
-            for( int j=0; j<categoryList.size(); j++ ) {
-                cate2 = categoryList.get(j).getContent();
-
-                if( cate1.equals( cate2 )) {
-                    themeId = categoryList.get(j).getThemeId();
-                    themeIdList.add( themeId );
-                }
-            }
-        }
-
         //  2.通过themeId获取theme, getThemeById
         ThemeService themeService = new ThemeServiceImpl();
         List<Theme> themeList = themeService.findAllRecord();
 
-        for( int i=0; i<themeIdList.size(); i++ ) {
-            id1 = themeIdList.get(i);
-
-            for( int j=0; j<themeList.size(); j++ ) {
-                id2 = themeList.get(j).getId();
-
-                if( id1 == id2 ) {
-                    theme = themeList.get(j).getContent();
-                    frqTree.get(i).setTheme( theme );
-                }
-            }
+        Map<String, String> map = this.categoryMappingToTheme(categoryList, themeList);
+        for (FrqTree element: frqTree) {
+            String categoryContent = element.getCategory();
+            String themeContent = map.get(categoryContent);
+            element.setTheme(themeContent);
         }
+
+
+//        List<Integer> themeIdList = new ArrayList<Integer>();
+//        int themeId, id1, id2;
+//        String cate1, cate2, theme;
+//
+//        //  1.获取数据库中的category表, getThemeIdByContent
+//        CategoryService categoryService = new CategoryServiceImpl();
+//        List<Category> categoryList = categoryService.findAllRecord();
+//
+//        for( int i=0; i<frqTree.size(); i++ ) {
+//            cate1 = frqTree.get(i).getCategory();
+//
+//            for( int j=0; j<categoryList.size(); j++ ) {
+//                cate2 = categoryList.get(j).getContent();
+//
+//                if( cate1.equals( cate2 )) {
+//                    themeId = categoryList.get(j).getThemeId();
+//                    themeIdList.add( themeId );
+//                }
+//            }
+//        }
+//
+//        //  2.通过themeId获取theme, getThemeById
+//        ThemeService themeService = new ThemeServiceImpl();
+//        List<Theme> themeList = themeService.findAllRecord();
+//
+//        for( int i=0; i<themeIdList.size(); i++ ) {
+//            id1 = themeIdList.get(i);
+//
+//            for( int j=0; j<themeList.size(); j++ ) {
+//                id2 = themeList.get(j).getId();
+//
+//                if( id1 == id2 ) {
+//                    theme = themeList.get(j).getContent();
+//                    frqTree.get(i).setTheme( theme );
+//                }
+//            }
+//        }
 
         return frqTree;
     }

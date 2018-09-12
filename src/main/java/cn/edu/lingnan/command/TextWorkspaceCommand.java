@@ -1,23 +1,18 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
 import cn.edu.lingnan.pojo.CatchingWord;
 import cn.edu.lingnan.pojo.Vocab;
-import cn.edu.lingnan.sdk.Container.PhaseContainer;
-import cn.edu.lingnan.sdk.Container.PhaseContainerImpl;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasickImpl;
-import cn.edu.lingnan.sdk.algorithms.ahoCorasick.MatchListener;
 import cn.edu.lingnan.service.VocabService;
 import cn.edu.lingnan.service.impl.VocabServiceImpl;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import javafx.beans.property.*;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.control.IndexRange;
 import javafx.util.Pair;
-import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.StyleClassedTextArea;
 import org.fxmisc.richtext.model.StyleSpan;
 import org.fxmisc.richtext.model.StyleSpans;

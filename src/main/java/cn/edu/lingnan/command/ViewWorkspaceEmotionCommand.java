@@ -1,4 +1,4 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
 import cn.edu.lingnan.pojo.CatchingWord;
 import cn.edu.lingnan.pojo.FrqTree;
@@ -6,24 +6,14 @@ import cn.edu.lingnan.pojo.Vocab;
 import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.sdk.Container.PhaseType;
 import cn.edu.lingnan.sdk.enumeration.LineType;
-import cn.edu.lingnan.service.CategoryService;
 import cn.edu.lingnan.service.VocabService;
-import cn.edu.lingnan.service.impl.CategoryServiceImpl;
 import cn.edu.lingnan.service.impl.VocabServiceImpl;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
-import com.kennycason.kumo.WordFrequency;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.IndexRange;
-import javafx.scene.control.Tooltip;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 import javafx.util.Pair;
 
 import java.util.ArrayList;

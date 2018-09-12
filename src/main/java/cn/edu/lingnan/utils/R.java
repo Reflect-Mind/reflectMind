@@ -16,7 +16,10 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 
-//资源的代理对象
+/**
+ * @author 李田锋
+ * 资源的代理对象
+ */
 public class R {
     private R(){}
 

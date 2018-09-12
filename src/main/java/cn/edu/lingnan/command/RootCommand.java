@@ -1,4 +1,4 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
 import javafx.concurrent.Task;
 import org.apache.tika.Tika;

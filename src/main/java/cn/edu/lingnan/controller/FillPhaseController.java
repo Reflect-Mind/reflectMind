@@ -3,8 +3,7 @@ package cn.edu.lingnan.controller;
 import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.sdk.Container.PhaseType;
 import cn.edu.lingnan.sdk.controller.Controller;
-import cn.edu.lingnan.sdk.overlay.CustomList;
-import cn.edu.lingnan.service.command.FillPhaseCommand;
+import cn.edu.lingnan.command.FillPhaseCommand;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import cn.edu.lingnan.view.DialogView;
@@ -17,12 +16,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.Pair;
 
 

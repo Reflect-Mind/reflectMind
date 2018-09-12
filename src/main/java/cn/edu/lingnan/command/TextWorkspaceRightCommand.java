@@ -1,25 +1,20 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
 import cn.edu.lingnan.pojo.FrqTree;
 import cn.edu.lingnan.pojo.PsychoTree;
 import cn.edu.lingnan.pojo.Vocab;
-import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.service.VocabService;
 import cn.edu.lingnan.service.impl.VocabServiceImpl;
 import cn.edu.lingnan.utils.R;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.scene.control.IndexRange;
-import javafx.util.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 /**
  * Last edited by Mechan on 2018/3/30.
  * Modified method getVocabTask's name.
+ * @author 陈嘉宁
  */
 public class TextWorkspaceRightCommand extends AbstractCommand {
 

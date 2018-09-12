@@ -10,7 +10,7 @@ import org.hibernate.Transaction;
 
 /**
  * Created by Administrator on 2018/3/17.
- * @author feng
+ * @author 李田锋
  * 打开会话过滤类
  */
 public class OpenSessionInViewFilter<T> extends AbstractFilter<T>{

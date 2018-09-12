@@ -2,26 +2,14 @@ package cn.edu.lingnan.controller;
 
 import cn.edu.lingnan.pojo.*;
 import cn.edu.lingnan.sdk.controller.Controller;
-import cn.edu.lingnan.service.command.TextWorkspaceRightCommand;
-import cn.edu.lingnan.utils.Config;
-import cn.edu.lingnan.utils.R;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.InvalidationListener;
+import cn.edu.lingnan.command.TextWorkspaceRightCommand;
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableView;
-import javafx.util.Callback;
-import org.reactfx.EventStreams;
 
 import java.net.URL;
 import java.util.List;
@@ -29,6 +17,7 @@ import java.util.ResourceBundle;
 
 /**
  * Created by Administrator on 2018/2/17.
+ * @author 陈嘉宁
  */
 public class TextWorkspaceRightController extends Controller {
 
@@ -108,6 +97,7 @@ public class TextWorkspaceRightController extends Controller {
 
             task.setOnFailed(e -> {
                 System.out.println(task.getException());
+                task.getException().printStackTrace();
             });
         });
 

@@ -6,6 +6,7 @@ import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.sdk.Container.PhaseContainerImpl;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasickImpl;
+import cn.edu.lingnan.sdk.algorithms.ahoCorasick.NoneMachingAhoCorasickImpl;
 import cn.edu.lingnan.sdk.enumeration.ChartType;
 import cn.edu.lingnan.sdk.enumeration.LineType;
 import cn.edu.lingnan.sdk.enumeration.WordType;
@@ -26,23 +27,29 @@ import java.util.List;
  * 本地工程配置文件
  * 负责桌面环境的一些选择配置
  * JAXB
+ * @author 李田锋
  */
 public class Config implements Serializable{
 
     private static Config config = null;
-    private AhoCorasick ahoCorasick = new AhoCorasickImpl();
+    private AhoCorasick ahoCorasick = new NoneMachingAhoCorasickImpl();
     //文本区域字数限制
     private int restrictLength = 30;
 
     //音频文件类
     private File audio = null;
-    //流媒体播放类
+
+    /**
+     * 流媒体播放类
+     */
     private AudioPlayer audioPlayer = new AudioPlayer();
     public AudioPlayer getAudioPlayer() {
         return audioPlayer;
     }
 
-    //获取ac自动机实例
+    /**
+     * 获取ac自动机实例
+     */
     public AhoCorasick getAhoCorasick() {
         return ahoCorasick;
     }
@@ -58,7 +65,10 @@ public class Config implements Serializable{
         this.audio = audio;
     }
 
-    //每次匹配到的单词
+    /**
+     * 返回每次匹配到的单词
+     * @return
+     */
     @Deprecated
     public List<String> getWords() {
         List<String> words = new ArrayList<>();
@@ -66,81 +76,114 @@ public class Config implements Serializable{
                 words.add(catchingWord.getWord()));
         return words;
     }
-    //捕获到单词对象集合
+
+    /**
+     * 捕获到单词对象集合
+     */
     private List<CatchingWord> catchingWords = new ArrayList<>();
     public List<CatchingWord> getCatchingWords() {
         return catchingWords;
     }
 
-    // 受：
+    /**
+     * 受
+     */
     private ObservableList<Pair<Integer, IndexRange>> answers = FXCollections.observableArrayList();
     public ObservableList<Pair<Integer, IndexRange>> getAnswers() { return answers; }
-    // 访：
+
+    /**
+     * 访：
+     */
     private ObservableList<Pair<Integer, IndexRange>> asks = FXCollections.observableArrayList();
     public ObservableList<Pair<Integer, IndexRange>> getAsks() {
         return asks;
     }
-    //用于基调分析的人生四大阶段: 小学、初中、大学、工作。
+
+    /**
+     * 用于基调分析的人生四大阶段: 小学、初中、大学、工作。
+     */
     PhaseContainer<Pair<Integer, IndexRange>> phaseContainer = new PhaseContainerImpl();
     public PhaseContainer<Pair<Integer, IndexRange>> getPhaseContainer() {
         return phaseContainer;
     }
 
-    //文本字符串
+    /**
+     * 文本字符串
+     */
     private StringProperty textProperty = new SimpleStringProperty();
     public String getTextProperty() {
         return textProperty.get();
     }
     public StringProperty textPropertyProperty() { return textProperty; }
 
-    //当前列号属性
+    /**
+     * 当前列号属性
+     */
     private IntegerProperty currentColumn = new SimpleIntegerProperty();
     public IntegerProperty currentColumnProperty() {
         return currentColumn;
     }
 
-    //当前段落属性
+    /**
+     * 当前段落属性
+     */
     private IntegerProperty currentParagraph = new SimpleIntegerProperty();
     public IntegerProperty currentParagraphProperty() { return currentParagraph; }
 
-    //是否标记信息词汇属性
+    /**
+     * 是否标记信息词汇属性
+     */
     private BooleanProperty markVocabs = new SimpleBooleanProperty(true);
     public BooleanProperty markVocabsProperty() { return markVocabs; }
 
-    //设置当前窗格属性
+    /**
+     * 设置当前窗格属性
+     */
     private IntegerProperty currentTabIndex = new SimpleIntegerProperty();
     public IntegerProperty currentTabIndexProperty() {
         return currentTabIndex;
     }
 
-    //数据库当中查询到的心理词汇
+    /**
+     * 数据库当中查询到的心理词汇
+     */
     private ObservableList<Vocab> vocabList = FXCollections.observableArrayList();
     public ObservableList<Vocab> getVocabList() {
         return vocabList;
     }
 
-    //加入搜索行列的搜索关键词
+    /**
+     * 加入搜索行列的搜索关键词
+     */
     private StringProperty searchText = new SimpleStringProperty();
     @Deprecated
     public StringProperty searchTextProperty() { return searchText; }
 
-    //加入搜索行列的搜索关键词列表
+    /**
+     * 加入搜索行列的搜索关键词列表
+     */
     private ObservableList<String> searchTextList = FXCollections.observableArrayList();
     public ObservableList<String> getSearchTextList() {
         return searchTextList;
     }
 
-    //需要被定位的被搜索的词汇索引
+    /**
+     * 需要被定位的被搜索的词汇索引
+     */
     private IntegerProperty searchingWordIndexProperty = new SimpleIntegerProperty(0);
     public IntegerProperty searchingWordIndexProperty() { return searchingWordIndexProperty; }
 
-    //搜索到的单词的个数属性
+    /**
+     * 搜索到的单词的个数属性
+     */
     private IntegerProperty searchingWordCountProperty = new SimpleIntegerProperty();
     public IntegerProperty searchingWordCountProperty() {
         return searchingWordCountProperty;
     }
 
-    //基调分析图表切换图表属性:初始化属性值为LINE_CHART
+    /**
+     * 基调分析图表切换图表属性:初始化属性值为LINE_CHART
+     */
     private ObjectProperty<ChartType> emotionChartProperty = new SimpleObjectProperty<>(ChartType.LINE_CHART);
     public ObjectProperty<ChartType> emotionChartProperty() {
         return emotionChartProperty;
@@ -149,13 +192,17 @@ public class Config implements Serializable{
     //人格分析图表切换图表属性：初始值为
 
 
-    //未登录词属性
+    /**
+     * 未登录词属性
+     */
     private ObservableList<String> unregisteredWords = FXCollections.observableArrayList();
     public ObservableList<String> getUnregisteredWords() {
         return unregisteredWords;
     }
 
-    //概览图显示词汇类型
+    /**
+     * 概览图显示词汇类型
+     */
     private SimpleObjectProperty<WordType> wordTypeProperty = new SimpleObjectProperty<>(WordType.PLAIN_WORD);
     public SimpleObjectProperty<WordType> wordTypeProperty() {
         return wordTypeProperty;
@@ -173,10 +220,13 @@ public class Config implements Serializable{
             String basePath = PreferencesUtils.getParametersAsString("basePath");
             String path = basePath + "/" + localProjectName;
             config = SerializableUtils.getLastState(Config.class, path);
+
             //当再次为空时表明此时尚未创建工程
             if (config == null)
                 config = new Config();
         }
         return config;
     }
+
+
 }

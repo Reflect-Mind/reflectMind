@@ -2,7 +2,7 @@ package cn.edu.lingnan.controller;
 
 import cn.edu.lingnan.sdk.controller.Controller;
 import cn.edu.lingnan.sdk.overlay.AudioPlayer;
-import cn.edu.lingnan.service.command.RootCommand;
+import cn.edu.lingnan.command.RootCommand;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import cn.edu.lingnan.view.DialogView;
@@ -12,18 +12,13 @@ import javafx.beans.property.StringProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.BreadCrumbBar;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 /**
  * Created By Feng on 2018/4/14

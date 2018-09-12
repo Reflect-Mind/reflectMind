@@ -1,9 +1,8 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
 import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.IndexRange;

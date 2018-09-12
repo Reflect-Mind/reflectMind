@@ -1,25 +1,21 @@
 package cn.edu.lingnan.controller;
 
 import cn.edu.lingnan.sdk.controller.Controller;
-import cn.edu.lingnan.service.command.ViewWorkspaceCharacterCommand;
+import cn.edu.lingnan.command.ViewWorkspaceCharacterCommand;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Tooltip;
 import javafx.scene.text.Font;
-import org.reactfx.Change;
 import org.reactfx.EventStreams;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 
 /**
  * Created by Administrator on 2018/2/17.

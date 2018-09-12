@@ -1,4 +1,4 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
 import cn.edu.lingnan.pojo.CatchingWord;
 import cn.edu.lingnan.pojo.FrqTree;

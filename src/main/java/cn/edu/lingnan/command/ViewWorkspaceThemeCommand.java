@@ -1,4 +1,4 @@
-package cn.edu.lingnan.service.command;
+package cn.edu.lingnan.command;
 
 import cn.edu.lingnan.sdk.algorithms.classifier.BayesModel;
 import cn.edu.lingnan.sdk.algorithms.classifier.BayesModelImpl;
@@ -14,7 +14,6 @@ import javafx.concurrent.Task;
 import javafx.scene.chart.XYChart;
 import javafx.util.Pair;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;

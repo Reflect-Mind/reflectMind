@@ -3,44 +3,32 @@ package cn.edu.lingnan.controller;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
 import cn.edu.lingnan.sdk.controller.Controller;
 import cn.edu.lingnan.sdk.overlay.CustomLineNumberFactory;
-import cn.edu.lingnan.service.command.TextWorkspaceCommand;
+import cn.edu.lingnan.command.TextWorkspaceCommand;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import javafx.application.Platform;
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Popup;
 import main.java.goxr3plus.javastreamplayer.stream.StreamPlayer;
-import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerEvent;
-import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerException;
-import main.java.goxr3plus.javastreamplayer.stream.StreamPlayerListener;
 import org.controlsfx.control.HiddenSidesPane;
 import org.controlsfx.control.spreadsheet.GridBase;
 import org.controlsfx.control.spreadsheet.SpreadsheetCell;
 import org.controlsfx.control.spreadsheet.SpreadsheetCellType;
 import org.controlsfx.control.spreadsheet.SpreadsheetView;
-import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.fxmisc.richtext.*;
 import org.fxmisc.richtext.model.StyleSpans;
-import org.reactfx.EventStreams;
-import java.io.File;
+
 import java.net.URL;
 import java.time.Duration;
 import java.util.*;
-import java.util.function.Supplier;
-import java.util.logging.Logger;
 
 
 /**
