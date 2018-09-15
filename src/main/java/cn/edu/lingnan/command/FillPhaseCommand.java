@@ -1,11 +1,11 @@
 package cn.edu.lingnan.command;
 
 import cn.edu.lingnan.sdk.Container.PhaseContainer;
+import cn.edu.lingnan.sdk.plain.IndexRange;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.IndexRange;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;

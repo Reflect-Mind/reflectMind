@@ -10,6 +10,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.util.Pair;
 
+import javax.xml.bind.JAXBException;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
@@ -104,11 +105,19 @@ public class R {
     }
 
     /**
-     * 获取应用程序全局配置对象
-     * @return
+     * 获取应用程序局部配置对象
+     * @return config
      */
     public static Config getConfig(){
         return owner.getConfig();
+    }
+
+    /**
+     * 获取应用程序全局配置对象
+     * @return global
+     */
+    public static Global getGlobal() {
+        return owner.getGlobal();
     }
 
     /**
@@ -120,12 +129,28 @@ public class R {
         return owner.getRobot();
     }
 
+    /**
+     * 程序启动，加载配置
+     */
+    public static void bootAndRead() throws JAXBException {
+        Boot.bootAndRead();
+    }
+
+    /**
+     * 程序关闭，保存配置
+     */
+    public static void shutdownAndWrite() throws JAXBException, IOException {
+        Boot.shutdownAndWrite();
+    }
+
    //资源拥有者
    public static class Owner{
        private Owner(){}
        private static Owner owner = new Owner();
        public static Owner getOwner(){return owner;}
        private  ClassLoader classLoader = R.class.getClassLoader();
+       private  Global global;
+       private Config config;
        /**
         *
         */
@@ -148,12 +173,13 @@ public class R {
 
        private Robot robot = null;
        public Robot getRobot(){
-           if (this.robot == null)
+           if (this.robot == null) {
                try {
                    this.robot = new Robot();
                } catch (AWTException e) {
                    e.printStackTrace();
                }
+           }
                return this.robot;
        }
 
@@ -196,8 +222,30 @@ public class R {
         * @return
         */
        public Config getConfig(){
-           Config config = Config.getInstance();
-           return config;
+           return this.config;
+       }
+
+       /**
+        * 设置应用程序基本配置
+        */
+       void setConfig(Config config) {
+           this.config = config;
+       }
+
+       /**
+        * 获取全局配置文件
+        * @return
+        */
+       public Global getGlobal() {
+           return this.global;
+       }
+
+       /**
+        * 设置全局配置文件
+        * @return
+        */
+       void setGlobal(Global global) {
+           this.global = global;
        }
    }
 }

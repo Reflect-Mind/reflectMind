@@ -2,12 +2,13 @@ package cn.edu.lingnan.sdk.algorithms.ahoCorasick;
 
 import cn.edu.lingnan.pojo.Vocab;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2018/2/14.
  */
-public interface AhoCorasick {
+public interface AhoCorasick extends Serializable {
 
     void append(List<Vocab> list);
     void append(String[] words);

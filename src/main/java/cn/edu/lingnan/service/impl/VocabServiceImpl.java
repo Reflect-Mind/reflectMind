@@ -526,7 +526,9 @@ public class VocabServiceImpl implements VocabService {
         List<FrqTree> frqTrees = this.getFrqTreeByContent(words);
         List<String> list = new ArrayList<>();
         for (FrqTree frqTree: frqTrees){
-            if (frqTree.getTheme().contains(type))
+
+            String themeContent = frqTree.getTheme();
+            if (themeContent != null && frqTree.getTheme().contains(type))
                 list.add(frqTree.getContent());
         }
         return list;

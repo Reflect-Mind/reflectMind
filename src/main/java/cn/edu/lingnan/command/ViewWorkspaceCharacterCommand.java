@@ -49,13 +49,13 @@ public class ViewWorkspaceCharacterCommand extends AbstractCommand<Void>{
         for (FrqTree element: treeList){
             String category = element.getCategory();
             //个人指向
-            if (category.equals(LineType.SELF_FORWARD.toString()))
+            if (LineType.SELF_FORWARD.toString().equals(element.getCategory()))
                 selfNum += 1;
             //事物指向
-            else if (category.equals(LineType.THING_FORWARD.toString()))
+            else if (LineType.THING_FORWARD.toString().equals(element.getCategory()))
                 thingNum += 1;
             //他人指向
-            else if (category.equals(LineType.THIRD_FORWARD.toString()))
+            else if (LineType.THIRD_FORWARD.toString().equals(element.getCategory()))
                 thirdNum += 1;
         }
         data.add(new PieChart.Data(selfString, selfNum));

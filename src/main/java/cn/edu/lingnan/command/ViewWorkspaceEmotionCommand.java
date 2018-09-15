@@ -6,6 +6,7 @@ import cn.edu.lingnan.pojo.Vocab;
 import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.sdk.Container.PhaseType;
 import cn.edu.lingnan.sdk.enumeration.LineType;
+import cn.edu.lingnan.sdk.plain.IndexRange;
 import cn.edu.lingnan.service.VocabService;
 import cn.edu.lingnan.service.impl.VocabServiceImpl;
 import cn.edu.lingnan.utils.Config;
@@ -13,7 +14,6 @@ import cn.edu.lingnan.utils.R;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.IndexRange;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -123,10 +123,10 @@ public class ViewWorkspaceEmotionCommand extends AbstractCommand<Void> {
         int sum = 0;
         for (FrqTree frqTree: list){
             if (type == POSITIVE || type == NEGTIVE){
-                if (frqTree.getTheme().equals(type.toString()))
+                if (type.toString().equals(frqTree.getTheme()))
                     sum += frqTree.getAppearnum();
             }
-            else if (frqTree.getCategory().equals(type.toString()))
+            else if (type.toString().equals(frqTree.getTheme()))
                 sum += frqTree.getAppearnum();
         }
         return sum;

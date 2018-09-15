@@ -18,26 +18,20 @@ public class SerializableUtils {
 
     private SerializableUtils(){}
 
-    private static <T> T getLastState(String path)  {
+    private static <T> T getLastState(String path) throws Exception{
         InputStream inputStream =  null;
         File file = new File(path);
-        if (file.exists())
-            try {
-                inputStream = new FileInputStream(file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        else
-            SerializableUtils.class.getClassLoader().getResourceAsStream(basePath + "/" + path);
+        if (file.exists()) {
+            inputStream = new FileInputStream(file);
+        }
+        else {
+            inputStream = SerializableUtils.class.getClassLoader().getResourceAsStream(basePath + "/" + path);
+        }
         T instance = null;
-        if (inputStream != null) {
-            try (ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(inputStream))) {
-                instance = (T) objectInputStream.readObject();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(inputStream))) {
+            instance = (T) objectInputStream.readObject();
+        } catch (Exception e) {
+            throw new RuntimeException("----");
         }
         return instance;
     }
@@ -49,13 +43,13 @@ public class SerializableUtils {
      * @param <T>
      * @return 目标类的实例
      */
-    public static <T> T getLastState(Class<T> clz, String path){
+    public static <T> T getLastState(Class<T> clz, String path) throws Exception {
         T instance = null;
         instance = SerializableUtils.getLastState(path);
         return instance;
     }
 
-    public static <T> T getLastState(Class<T> clz){
+    public static <T> T getLastState(Class<T> clz) throws Exception {
         T instance = null;
         instance = SerializableUtils.getLastState("tmp/" + clz.getSimpleName());
         return instance;

@@ -1,6 +1,7 @@
 package cn.edu.lingnan.controller;
 
 import cn.edu.lingnan.sdk.controller.Controller;
+import cn.edu.lingnan.sdk.plain.IndexRange;
 import cn.edu.lingnan.utils.Config;
 import cn.edu.lingnan.utils.R;
 import javafx.beans.property.IntegerProperty;

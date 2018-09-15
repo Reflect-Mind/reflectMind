@@ -42,8 +42,8 @@ public class InitCommand extends AbstractCommand<Integer>{
             @Override
             protected Void call() throws Exception {
 
-                this.updateMessage("正在加载局部配置...");
-                R.getConfig();
+                this.updateMessage("正在加载程序配置...");
+                R.bootAndRead();
                 this.updateMessage("正在加载控制器工厂...");
                 R.getObjectFromFactory(null);
                 this.updateMessage("正在加载快捷编辑机器人");
@@ -60,22 +60,10 @@ public class InitCommand extends AbstractCommand<Integer>{
         Executors.newSingleThreadExecutor().execute(task);
         return task;
     }
+
+    @Override
     protected Integer call() throws Exception {
 
-        String basePath =  PreferencesUtils.getParametersAsString("basePath");
-        DialogView dialogView = new DialogView();
-        if (basePath == null || basePath.equals("")) {
-            TextInputDialog dialog = dialogView.showTextInputDialog();
-            Optional<String> stringOptional = dialog.showAndWait();
-            if (stringOptional.isPresent()) {
-                basePath = stringOptional.get();
-                //PreferencesUtils.setParametersAsString("basePath", null);
-            }
-        }
-
-        // 依然为空,则将跳出程序
-        if(basePath == null)
-            System.exit(1);
         Task task = this.loadingTask();
         ProgressDialog progressDialog = new ProgressDialog(task);
         progressDialog.showAndWait();

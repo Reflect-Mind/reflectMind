@@ -3,12 +3,16 @@ package cn.edu.lingnan.pojo;
 import javafx.beans.property.*;
 
 import javax.persistence.*;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 /**
  * Created by Administrator on 2018/1/31.
  */
 @Entity
-public class Vocab {
+public class Vocab implements Externalizable{
     private IntegerProperty id = new SimpleIntegerProperty();
     private StringProperty content = new SimpleStringProperty();
     private IntegerProperty status = new SimpleIntegerProperty();
@@ -187,5 +191,34 @@ public class Vocab {
     }
     public ObjectProperty<Category> categoryByCategoryIdProperty() {
         return categoryByCategoryId;
+    }
+
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(id.get());
+        out.writeObject(content.get());
+        out.writeObject(status.get());
+        out.writeObject(wordlen.get());
+        out.writeObject(appearnum.get());
+        out.writeObject(frq.get());
+        out.writeObject(solid.get());
+        out.writeObject(entropy.get());
+        out.writeObject(categoryId.get());
+        out.writeObject(categoryByCategoryId.get());
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        this.id = new SimpleIntegerProperty((Integer) in.readObject());
+        this.content = new SimpleStringProperty((String) in.readObject());
+        this.status = new SimpleIntegerProperty((Integer) in.readObject());
+        this.wordlen = new SimpleIntegerProperty((Integer) in.readObject());
+        this.appearnum = new SimpleIntegerProperty((Integer) in.readObject());
+        this.frq = new SimpleDoubleProperty((Double) in.readObject());
+        this.solid = new SimpleDoubleProperty((Double) in.readObject());
+        this.entropy = new SimpleDoubleProperty((Double) in.readObject());
+        this.categoryId = new SimpleIntegerProperty((Integer) in.readObject());
+        this.categoryByCategoryId = new SimpleObjectProperty<>((Category) in.readObject());
     }
 }

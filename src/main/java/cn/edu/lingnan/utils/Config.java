@@ -4,22 +4,20 @@ import cn.edu.lingnan.pojo.CatchingWord;
 import cn.edu.lingnan.pojo.Vocab;
 import cn.edu.lingnan.sdk.Container.PhaseContainer;
 import cn.edu.lingnan.sdk.Container.PhaseContainerImpl;
+import cn.edu.lingnan.sdk.plain.IndexRange;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasick;
-import cn.edu.lingnan.sdk.algorithms.ahoCorasick.AhoCorasickImpl;
 import cn.edu.lingnan.sdk.algorithms.ahoCorasick.NoneMachingAhoCorasickImpl;
 import cn.edu.lingnan.sdk.enumeration.ChartType;
-import cn.edu.lingnan.sdk.enumeration.LineType;
 import cn.edu.lingnan.sdk.enumeration.WordType;
 import cn.edu.lingnan.sdk.overlay.AudioPlayer;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.IndexRange;
 import javafx.util.Pair;
 
-import java.io.File;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,11 +27,11 @@ import java.util.List;
  * JAXB
  * @author 李田锋
  */
-public class Config implements Serializable{
+public class Config implements Externalizable {
 
-    private static Config config = null;
+    // AC自动机
     private AhoCorasick ahoCorasick = new NoneMachingAhoCorasickImpl();
-    //文本区域字数限制
+    // 文本区域字数限制
     private int restrictLength = 30;
 
     //音频文件类
@@ -42,8 +40,13 @@ public class Config implements Serializable{
     /**
      * 流媒体播放类
      */
-    private AudioPlayer audioPlayer = new AudioPlayer();
-    public AudioPlayer getAudioPlayer() {
+    private AudioPlayer audioPlayer = null;
+    public  AudioPlayer getAudioPlayer() {
+        synchronized (this) {
+            if (this.audioPlayer == null) {
+                this.audioPlayer = new AudioPlayer();
+            }
+        }
         return audioPlayer;
     }
 
@@ -208,25 +211,61 @@ public class Config implements Serializable{
         return wordTypeProperty;
     }
 
-    /**
-     * 为桌面环境配置初始化
-     * 获取当前项目名称
-     * 一个config对象
-     */
-    private Config(){}
-    static Config getInstance(){
-        if (config == null){
-            String localProjectName = (String) PreferencesUtils.getParametersAsString("localProject");
-            String basePath = PreferencesUtils.getParametersAsString("basePath");
-            String path = basePath + "/" + localProjectName;
-            config = SerializableUtils.getLastState(Config.class, path);
 
-            //当再次为空时表明此时尚未创建工程
-            if (config == null)
-                config = new Config();
-        }
-        return config;
+    /**
+     * 自定义实例化输出
+     * 当定义了一个在config定义了一个需要持久化的对象时
+     * 需要在该方法中编写语句
+     * 需要注意的是，输出和输入顺序需要相同
+     * @param out
+     * @throws IOException
+     */
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+
+        Pair<Integer, IndexRange> pair[] = new Pair[]{};
+        out.writeObject(this.phaseContainer);
+        out.writeObject(this.ahoCorasick);
+        out.writeObject(this.answers.toArray(pair));
+        out.writeObject(this.asks.toArray(pair));
+        out.writeObject(this.audio);
+        out.writeObject(this.catchingWords.toArray(new CatchingWord[]{}));
+        out.writeObject(this.currentColumn.get());
+        out.writeObject(this.currentParagraph.get());
+        out.writeObject(this.currentTabIndex.get());
+        out.writeObject(this.vocabList.toArray(new Vocab[]{}));
+        out.writeObject(this.emotionChartProperty.get());
+        out.writeObject(this.unregisteredWords.toArray(new String[]{}));
+        out.writeObject(this.markVocabs.get());
+        out.writeObject(this.textProperty.get());
+
+
     }
 
-
+    /**
+     * 自定义是实例化读取
+     * 当定义了一个在config定义了一个需要持久化的对象时
+     * 需要在该方法中编写语句
+     * 需要注意的是，输出和输入顺序需要相同
+     * @param in
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        this.phaseContainer = (PhaseContainer<Pair<Integer, IndexRange>>) in.readObject();
+        this.ahoCorasick = (AhoCorasick) in.readObject();
+        this.asks = FXCollections.observableArrayList(Arrays.asList((Pair<Integer, IndexRange>[])in.readObject()));
+        this.answers = FXCollections.observableArrayList(Arrays.asList((Pair<Integer, IndexRange>[])in.readObject()));
+        this.audio = (File) in.readObject();
+        this.catchingWords = FXCollections.observableArrayList(Arrays.asList((CatchingWord[])in.readObject()));
+        this.currentColumn = new SimpleIntegerProperty((Integer) in.readObject());
+        this.currentParagraph = new SimpleIntegerProperty((Integer) in.readObject());
+        this.currentTabIndex = new SimpleIntegerProperty((Integer) in.readObject());
+        this.vocabList = FXCollections.observableArrayList(Arrays.asList((Vocab[])in.readObject()));
+        this.emotionChartProperty = new SimpleObjectProperty<>((ChartType) in.readObject());
+        this.unregisteredWords = FXCollections.observableArrayList(Arrays.asList((String[])in.readObject()));
+        this.markVocabs = new SimpleBooleanProperty((Boolean) in.readObject());
+        this.textProperty = new SimpleStringProperty((String) in.readObject());
+    }
 }

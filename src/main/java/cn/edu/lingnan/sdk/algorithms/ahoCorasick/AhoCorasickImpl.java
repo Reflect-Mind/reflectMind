@@ -1,6 +1,8 @@
 package cn.edu.lingnan.sdk.algorithms.ahoCorasick;
 
 import cn.edu.lingnan.pojo.Vocab;
+
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -11,12 +13,27 @@ import java.util.*;
 public class AhoCorasickImpl implements AhoCorasick{
 
     //结点
-    public class Node implements Cloneable{
-        private char code = 0;//字符
-        private Node fail = null;//失配指针。
-        private Node pre = null;//前驱指针,失配的反向延伸
-        private boolean end = false;//标注是否是单词的结尾
-        private int depth;//单词中某字所处的深度
+    public class Node implements Cloneable, Serializable {
+        /**
+         * 字符
+         */
+        private char code = 0;
+        /**
+         * 失配指针
+         */
+        private Node fail = null;
+        /**
+         * 前驱指针,失配的反向延伸
+         */
+        private Node pre = null;
+        /**
+         * 标注是否是单词的结尾
+         */
+        private boolean end = false;
+        /**
+         * 单词中某字所处的深度
+         */
+        private int depth;
         private List<Node> children = new ArrayList<>();
         private Node(){}
         private Node(char code){this.code = code;}

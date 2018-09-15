@@ -1,13 +1,16 @@
 package cn.edu.lingnan.pojo;
 
-import javafx.scene.control.IndexRange;
+
+import cn.edu.lingnan.sdk.plain.IndexRange;
+
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2018/4/4.
  * @author feng
  * 捕捉到的单词数据结构
  */
-public class CatchingWord {
+public class CatchingWord implements Serializable{
     /**
      * 单词
      */

@@ -47,8 +47,13 @@ public class ViewWorkspaceThemeCommand extends AbstractCommand<Void> {
 
 
     public ViewWorkspaceThemeCommand(){
-        this.model = SerializableUtils.getLastState(BayesModelImpl.class);
-        this.classifier = new ClassifierImpl(model);
+        try {
+            this.model = SerializableUtils.getLastState(BayesModelImpl.class);
+            this.classifier = new ClassifierImpl(model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 

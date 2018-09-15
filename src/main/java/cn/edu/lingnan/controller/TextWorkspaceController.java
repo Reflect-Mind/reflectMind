@@ -62,7 +62,7 @@ public class TextWorkspaceController extends Controller {
     //流媒体播放类
     private StreamPlayer streamPlayer = null;
 
-    //config实体类
+    // config实体类
     private Config config = R.getConfig();
 
     //未登陆词属性
@@ -81,8 +81,19 @@ public class TextWorkspaceController extends Controller {
 
     //高亮命令
     TextWorkspaceCommand highlightCommand = new TextWorkspaceCommand();
+
+    @Override
+    public void recoverLastState() {
+        String content = this.config.getTextProperty();
+        if (content != null) {
+            this.textArea.insertText(0, content);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         //设置段落号
         this.textArea.setParagraphGraphicFactory(new CustomLineNumberFactory(this.textArea));
         this.highlightCommand.setCodeArea(this.textArea);
@@ -94,7 +105,7 @@ public class TextWorkspaceController extends Controller {
         //划词添加到ac自动机和当前维护的词汇列表当中
         this.listeningToSelectionText();
         this.initPlayer();
-
+        super.initialize(location, resources);
     }
 
     /**
@@ -252,8 +263,7 @@ public class TextWorkspaceController extends Controller {
      * 手动回车将自动切换到下一个访问或者受状态
      */
     private void richChanged(){
-        Config config = R.getConfig();
-        int restrictLength = config.getRestrictLength();
+
         //高亮
         this.textArea.plainTextChanges()
                 .filter(ch -> !ch.getInserted().equals(ch.getRemoved()))

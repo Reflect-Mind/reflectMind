@@ -22,7 +22,7 @@ public class ClassifierTest {
     }
 
     @Test
-    public void classifierPredictTest(){
+    public void classifierPredictTest() throws Exception {
         BayesModel model = SerializableUtils.getLastState(BayesModel.class, "D://model");
         Classifier classifier = new ClassifierImpl(model);
         String predict = classifier.predict("房间不错，我给满分");

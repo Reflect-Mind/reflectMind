@@ -1,14 +1,21 @@
 package cn.edu.lingnan.sdk.Container;
 
-import javafx.scene.control.IndexRange;
+import cn.edu.lingnan.sdk.plain.IndexRange;
+import javafx.collections.FXCollections;
 import javafx.util.Pair;
 
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * Created by Administrator on 2018/3/6.
+ *
+ * @author 李田锋
+ * @date 2018/3/6
  * 人生阶段容器
  *
  */
@@ -147,5 +154,25 @@ public class PhaseContainerImpl implements PhaseContainer<Pair<Integer, IndexRan
                 this.withIn(this.middlePhase, range)? PhaseType.MIDDLE:
                         this.withIn(this.collegePhase, range)? PhaseType.COLLEGE:
                                 this.withIn(this.workPhase, range)? PhaseType.WORK:  null;
+    }
+
+
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        Pair<Integer, IndexRange> pair[] = new Pair[]{};
+        out.writeObject(this.childhoodPhase.toArray(pair));
+        out.writeObject(this.collegePhase.toArray(pair));
+        out.writeObject(this.middlePhase.toArray(pair));
+        out.writeObject(this.workPhase.toArray(pair));
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+
+        this.childhoodPhase.addAll(Arrays.asList((Pair<Integer, IndexRange>[]) in.readObject()));
+        this.collegePhase.addAll(Arrays.asList((Pair<Integer, IndexRange>[]) in.readObject()));
+        this.middlePhase.addAll(Arrays.asList((Pair<Integer, IndexRange>[]) in.readObject()));
+        this.workPhase.addAll(Arrays.asList((Pair<Integer, IndexRange>[]) in.readObject()));
+
     }
 }

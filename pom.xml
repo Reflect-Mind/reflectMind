@@ -18,6 +18,14 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>cn.edu.lingnan.Main</mainClass>
+                    <vendor>Reflect-Mind</vendor>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <repositories>
@@ -123,4 +131,5 @@
             <version>1.17</version>
         </dependency>
     </dependencies>
+
 </project>

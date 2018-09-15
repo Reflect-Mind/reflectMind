@@ -1,13 +1,14 @@
 package cn.edu.lingnan.pojo;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
  * Created by Administrator on 2018/1/31.
  */
 @Entity
-public class Category {
+public class Category implements Serializable{
     private Integer id;
     private String content;
     private Theme themeByThemeId;
